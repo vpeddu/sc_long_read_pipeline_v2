@@ -1,0 +1,58 @@
+{
+  "name": "jsonpointer",
+  "version": "3.1.1",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "jsonpointer-3.1.1-py313h06a4308_0.conda",
+  "md5": "05a451fa72cfd0f7c870a4d9cbe59c1a",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/jsonpointer-3.1.1-py313h06a4308_0.conda",
+  "sha256": "4004b09332ddfe32e7d0cf306566885c8a430d59eb092ff3bd5a4796d7da7125",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1774432898000,
+  "size": 18979,
+  "requested_spec": "pkgs/main/linux-64::jsonpointer==3.1.1=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/jsonpointer-3.1.1-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/jsonpointer-3.1.1-py313h06a4308_0",
+  "files": [
+    "bin/jsonpointer",
+    "lib/python3.13/site-packages/__pycache__/jsonpointer.cpython-313.pyc",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/METADATA",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/RECORD",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/WHEEL",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/licenses/AUTHORS",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/licenses/LICENSE.txt",
+    "lib/python3.13/site-packages/jsonpointer-3.1.1.dist-info/top_level.txt",
+    "lib/python3.13/site-packages/jsonpointer.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/jsonpointer",
+        "prefix_placeholder": "/home/task_177443285493046/croot/jsonpointer_1774432880631/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "66c25d94ad2696d5d41fa20338b09a7731258a3df0284a86c160f7bbbc5b383c",
+        "size_in_bytes": 2009,
+        "sha256_in_prefix": "7d6c50e4177661d0a1f5446f8de1a4e527c146d2a8a4c844f2ed7f4dc498d1be"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/jsonpointer-3.1.1-py313h06a4308_0",
+    "type": 1
+  }
+}

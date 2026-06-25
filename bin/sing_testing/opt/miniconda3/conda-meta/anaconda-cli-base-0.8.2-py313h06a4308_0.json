@@ -1,0 +1,85 @@
+{
+  "name": "anaconda-cli-base",
+  "version": "0.8.2",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "anaconda-cli-base-0.8.2-py313h06a4308_0.conda",
+  "md5": "a256fa8ae4cf05d1cfb990cfee0b7976",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/anaconda-cli-base-0.8.2-py313h06a4308_0.conda",
+  "sha256": "6ea3ced350e4d3f744774ba3bc5aa6a5eff3751d0ddd39ac6496868efbd78226",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "click",
+    "packaging >=23.0",
+    "pydantic >=2.12",
+    "pydantic-settings >=2.3",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "readchar",
+    "rich",
+    "tomli",
+    "tomlkit",
+    "typer >=0.17"
+  ],
+  "constrains": [
+    "anaconda-auth >=0.12.0",
+    "anaconda-client >=1.13.0",
+    "anaconda-cloud-cli >=0.3.0"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1775469271000,
+  "size": 62178,
+  "requested_spec": "pkgs/main/linux-64::anaconda-cli-base==0.8.2=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/anaconda-cli-base-0.8.2-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/anaconda-cli-base-0.8.2-py313h06a4308_0",
+  "files": [
+    "bin/anaconda",
+    "lib/python3.13/site-packages/anaconda_cli_base-0.8.2.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/anaconda_cli_base-0.8.2.dist-info/METADATA",
+    "lib/python3.13/site-packages/anaconda_cli_base-0.8.2.dist-info/RECORD",
+    "lib/python3.13/site-packages/anaconda_cli_base-0.8.2.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/anaconda_cli_base-0.8.2.dist-info/WHEEL",
+    "lib/python3.13/site-packages/anaconda_cli_base-0.8.2.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/anaconda_cli_base-0.8.2.dist-info/entry_points.txt",
+    "lib/python3.13/site-packages/anaconda_cli_base-0.8.2.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/anaconda_cli_base/__init__.py",
+    "lib/python3.13/site-packages/anaconda_cli_base/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_cli_base/__pycache__/_version.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_cli_base/__pycache__/cli.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_cli_base/__pycache__/config.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_cli_base/__pycache__/console.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_cli_base/__pycache__/deprecations.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_cli_base/__pycache__/exceptions.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_cli_base/__pycache__/plugins.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_cli_base/_version.py",
+    "lib/python3.13/site-packages/anaconda_cli_base/cli.py",
+    "lib/python3.13/site-packages/anaconda_cli_base/config.py",
+    "lib/python3.13/site-packages/anaconda_cli_base/console.py",
+    "lib/python3.13/site-packages/anaconda_cli_base/deprecations.py",
+    "lib/python3.13/site-packages/anaconda_cli_base/exceptions.py",
+    "lib/python3.13/site-packages/anaconda_cli_base/plugins.py",
+    "lib/python3.13/site-packages/anaconda_cli_base/py.typed"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/anaconda",
+        "prefix_placeholder": "/home/task_177546922169020/croot/anaconda-cli-base_1775469250358/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pla",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "4382d0cf0fd3923c7d1d7f6bf1c5caae0944d0d32dadfc2a9698e3654a11a38c",
+        "size_in_bytes": 472,
+        "sha256_in_prefix": "8548a395f59710b8c80c76267f06f13ad635d668401d0a402db505adf4d31d2e"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/anaconda-cli-base-0.8.2-py313h06a4308_0",
+    "type": 1
+  }
+}

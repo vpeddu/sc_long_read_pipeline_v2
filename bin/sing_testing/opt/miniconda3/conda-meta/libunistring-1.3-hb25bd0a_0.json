@@ -1,0 +1,59 @@
+{
+  "name": "libunistring",
+  "version": "1.3",
+  "build": "hb25bd0a_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "libunistring-1.3-hb25bd0a_0.conda",
+  "md5": "46838e72a11b9934a5e4e40530018ccf",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/libunistring-1.3-hb25bd0a_0.conda",
+  "sha256": "7b30c28b4cf48110e983bcee62816c5ac6089379e5aac6f65b8c563430b01754",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.17,<3.0.a0",
+    "libgcc-ng >=11.2.0"
+  ],
+  "constrains": [],
+  "license": "LGPL-3.0-only",
+  "license_family": "LGPL",
+  "timestamp": 1755085809000,
+  "size": 737806,
+  "requested_spec": "pkgs/main/linux-64::libunistring==1.3=hb25bd0a_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/libunistring-1.3-hb25bd0a_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/libunistring-1.3-hb25bd0a_0",
+  "files": [
+    "include/unicase.h",
+    "include/uniconv.h",
+    "include/unictype.h",
+    "include/unigbrk.h",
+    "include/unilbrk.h",
+    "include/unimetadata.h",
+    "include/uniname.h",
+    "include/uninorm.h",
+    "include/unistdio.h",
+    "include/unistr.h",
+    "include/unistring/cdefs.h",
+    "include/unistring/iconveh.h",
+    "include/unistring/inline.h",
+    "include/unistring/localcharset.h",
+    "include/unistring/stdint.h",
+    "include/unistring/version.h",
+    "include/unistring/woe32dll.h",
+    "include/unitypes.h",
+    "include/uniwbrk.h",
+    "include/uniwidth.h",
+    "lib/libunistring.so",
+    "lib/libunistring.so.5",
+    "lib/libunistring.so.5.2.0"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/libunistring-1.3-hb25bd0a_0",
+    "type": 1
+  }
+}

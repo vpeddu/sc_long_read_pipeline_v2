@@ -1,0 +1,96 @@
+{
+  "name": "anaconda-anon-usage",
+  "version": "0.7.6",
+  "build": "pyhb46e38b_100",
+  "build_number": 100,
+  "channel": "https://repo.anaconda.com/pkgs/main/noarch",
+  "subdir": "noarch",
+  "fn": "anaconda-anon-usage-0.7.6-pyhb46e38b_100.conda",
+  "md5": "c78d47374611a8e86f7a9817f3768160",
+  "url": "https://repo.anaconda.com/pkgs/main/noarch/anaconda-anon-usage-0.7.6-pyhb46e38b_100.conda",
+  "sha256": "403ef7e93dee117ffb1dca2d0f032fc3a4449381ec88c6726e3066d57171e8ce",
+  "depends": [
+    "python >=3.8"
+  ],
+  "constrains": [
+    "conda >=23.7"
+  ],
+  "noarch": "python",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "package_type": "noarch_python",
+  "timestamp": 1774907942000,
+  "size": 19864,
+  "requested_spec": "pkgs/main/noarch::anaconda-anon-usage==0.7.6=pyhb46e38b_100",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/anaconda-anon-usage-0.7.6-pyhb46e38b_100.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/anaconda-anon-usage-0.7.6-pyhb46e38b_100",
+  "files": [
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/LICENSE",
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/METADATA",
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/RECORD",
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/WHEEL",
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/entry_points.txt",
+    "lib/python3.13/site-packages/anaconda_anon_usage-0.7.6.dist-info/top_level.txt",
+    "lib/python3.13/site-packages/anaconda_anon_usage/__init__.py",
+    "lib/python3.13/site-packages/anaconda_anon_usage/_version.py",
+    "lib/python3.13/site-packages/anaconda_anon_usage/heartbeat.py",
+    "lib/python3.13/site-packages/anaconda_anon_usage/patch.py",
+    "lib/python3.13/site-packages/anaconda_anon_usage/plugin.py",
+    "lib/python3.13/site-packages/anaconda_anon_usage/tokens.py",
+    "lib/python3.13/site-packages/anaconda_anon_usage/utils.py",
+    "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/_version.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/heartbeat.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/patch.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/plugin.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/tokens.cpython-313.pyc",
+    "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/utils.cpython-313.pyc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/__init__.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 280
+      },
+      {
+        "_path": "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/_version.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 563
+      },
+      {
+        "_path": "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/heartbeat.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 7812
+      },
+      {
+        "_path": "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/patch.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 7073
+      },
+      {
+        "_path": "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/plugin.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 1398
+      },
+      {
+        "_path": "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/tokens.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 13612
+      },
+      {
+        "_path": "lib/python3.13/site-packages/anaconda_anon_usage/__pycache__/utils.cpython-313.pyc",
+        "path_type": "pyc_file",
+        "size_in_bytes": 10275
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/anaconda-anon-usage-0.7.6-pyhb46e38b_100",
+    "type": 1
+  }
+}

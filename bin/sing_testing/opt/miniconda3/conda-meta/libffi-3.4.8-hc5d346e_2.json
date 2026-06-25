@@ -1,0 +1,62 @@
+{
+  "name": "libffi",
+  "version": "3.4.8",
+  "build": "hc5d346e_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "libffi-3.4.8-hc5d346e_2.conda",
+  "md5": "f87fb1388f53485d805e355356566519",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/libffi-3.4.8-hc5d346e_2.conda",
+  "sha256": "e3fbc1100922e09b9e472ae1e92d0b83438e559f4817a55da34288890e56a087",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libgcc >=14",
+    "libstdcxx >=14"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1777296450000,
+  "size": 139680,
+  "requested_spec": "pkgs/main/linux-64::libffi==3.4.8=hc5d346e_2",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/libffi-3.4.8-hc5d346e_2.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/libffi-3.4.8-hc5d346e_2",
+  "files": [
+    "include/ffi.h",
+    "include/ffitarget.h",
+    "lib/libffi.7.so",
+    "lib/libffi.8.so",
+    "lib/libffi.a",
+    "lib/libffi.so",
+    "lib/libffi.so.7",
+    "lib/libffi.so.8",
+    "lib/libffi.so.8.1.4",
+    "lib/pkgconfig/libffi.pc",
+    "share/info/libffi.info",
+    "share/man/man3/ffi.3",
+    "share/man/man3/ffi_call.3",
+    "share/man/man3/ffi_prep_cif.3",
+    "share/man/man3/ffi_prep_cif_var.3"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/libffi.pc",
+        "prefix_placeholder": "/home/task_177729637315763/croot/libffi_1777296423986/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "0fcc1da3883b8f85d45d98a9233375a654548e828bd54d680ba7c6e8c14a68df",
+        "size_in_bytes": 756,
+        "sha256_in_prefix": "a11f21a4de03b97718299fc224c2fcac620121b82d83b1987e1ec52d7b9b2008"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/libffi-3.4.8-hc5d346e_2",
+    "type": 1
+  }
+}

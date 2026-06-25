@@ -1,0 +1,85 @@
+{
+  "name": "readline",
+  "version": "8.3",
+  "build": "hc2a1206_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "readline-8.3-hc2a1206_0.conda",
+  "md5": "8578e006d4ef5cb98a6cda232b3490f6",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/readline-8.3-hc2a1206_0.conda",
+  "sha256": "0a438fa74f2776bde137017d6c18214b5da65b557f6a59f877fa4e091582f789",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.17,<3.0.a0",
+    "libgcc-ng >=11.2.0",
+    "ncurses >=6.5,<7.0a0"
+  ],
+  "constrains": [],
+  "license": "GPL-3.0-only",
+  "license_family": "GPL",
+  "timestamp": 1754485653000,
+  "size": 481826,
+  "requested_spec": "pkgs/main/linux-64::readline==8.3=hc2a1206_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/readline-8.3-hc2a1206_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/readline-8.3-hc2a1206_0",
+  "files": [
+    "include/readline/chardefs.h",
+    "include/readline/history.h",
+    "include/readline/keymaps.h",
+    "include/readline/readline.h",
+    "include/readline/rlconf.h",
+    "include/readline/rlstdc.h",
+    "include/readline/rltypedefs.h",
+    "include/readline/tilde.h",
+    "lib/libhistory.a",
+    "lib/libhistory.so",
+    "lib/libhistory.so.8",
+    "lib/libhistory.so.8.3",
+    "lib/libreadline.a",
+    "lib/libreadline.so",
+    "lib/libreadline.so.8",
+    "lib/libreadline.so.8.3",
+    "lib/pkgconfig/history.pc",
+    "lib/pkgconfig/readline.pc",
+    "share/doc/readline/CHANGES",
+    "share/doc/readline/INSTALL",
+    "share/doc/readline/README",
+    "share/doc/readline/history.html",
+    "share/doc/readline/readline.html",
+    "share/doc/readline/rluserman.html",
+    "share/info/history.info",
+    "share/info/readline.info",
+    "share/info/rluserman.info",
+    "share/man/man3/history.3",
+    "share/man/man3/readline.3"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/history.pc",
+        "prefix_placeholder": "/croot/readline_1754485605901/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehol",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "96ae678a723fec65a477316b3458775627693596c0548115e7b8594fc3c8a12a",
+        "size_in_bytes": 548,
+        "sha256_in_prefix": "e0f43a89985266b9017453295a1a3c354668adfd5a999177a7286fceebbc22a0"
+      },
+      {
+        "_path": "lib/pkgconfig/readline.pc",
+        "prefix_placeholder": "/croot/readline_1754485605901/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehol",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "27ae4e26e244af80d3e3d63f62c93667921577acaef82d80ddca6289260939da",
+        "size_in_bytes": 562,
+        "sha256_in_prefix": "2f89deec04078ad67a132494c473bf9883b2894fb541cef005f36df6a58e08cf"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/readline-8.3-hc2a1206_0",
+    "type": 1
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "name": "readchar",
+  "version": "4.2.1",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "readchar-4.2.1-py313h06a4308_0.conda",
+  "md5": "33b7455bfa1462c42bbc9a0535070313",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/readchar-4.2.1-py313h06a4308_0.conda",
+  "sha256": "e1c9e9a33eb6d5a47bdc4ada2379e51419633e237674ca69a0a0676c17b15e0c",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1760613452000,
+  "size": 19959,
+  "requested_spec": "pkgs/main/linux-64::readchar==4.2.1=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/readchar-4.2.1-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/readchar-4.2.1-py313h06a4308_0",
+  "files": [
+    "lib/python3.13/site-packages/readchar-4.2.1.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/readchar-4.2.1.dist-info/METADATA",
+    "lib/python3.13/site-packages/readchar-4.2.1.dist-info/RECORD",
+    "lib/python3.13/site-packages/readchar-4.2.1.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/readchar-4.2.1.dist-info/WHEEL",
+    "lib/python3.13/site-packages/readchar-4.2.1.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/readchar-4.2.1.dist-info/licenses/LICENCE",
+    "lib/python3.13/site-packages/readchar-4.2.1.dist-info/top_level.txt",
+    "lib/python3.13/site-packages/readchar/__init__.py",
+    "lib/python3.13/site-packages/readchar/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/readchar/__pycache__/_base_key.cpython-313.pyc",
+    "lib/python3.13/site-packages/readchar/__pycache__/_config.cpython-313.pyc",
+    "lib/python3.13/site-packages/readchar/__pycache__/_posix_key.cpython-313.pyc",
+    "lib/python3.13/site-packages/readchar/__pycache__/_posix_read.cpython-313.pyc",
+    "lib/python3.13/site-packages/readchar/__pycache__/_win_key.cpython-313.pyc",
+    "lib/python3.13/site-packages/readchar/__pycache__/_win_read.cpython-313.pyc",
+    "lib/python3.13/site-packages/readchar/__pycache__/key.cpython-313.pyc",
+    "lib/python3.13/site-packages/readchar/_base_key.py",
+    "lib/python3.13/site-packages/readchar/_config.py",
+    "lib/python3.13/site-packages/readchar/_posix_key.py",
+    "lib/python3.13/site-packages/readchar/_posix_read.py",
+    "lib/python3.13/site-packages/readchar/_win_key.py",
+    "lib/python3.13/site-packages/readchar/_win_read.py",
+    "lib/python3.13/site-packages/readchar/key.py",
+    "lib/python3.13/site-packages/readchar/py.typed"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/readchar-4.2.1-py313h06a4308_0",
+    "type": 1
+  }
+}

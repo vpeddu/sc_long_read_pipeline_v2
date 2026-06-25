@@ -1,0 +1,209 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%labels
+    Author "Vikas Peddu"
+    Version v1.0
+    Description "Container for long-read isoform analysis pipeline"
+    Website https://github.com/broadinstitute/long-reads
+
+%environment
+    export PATH="/opt/miniconda3/bin:$PATH"
+    export CONDA_DIR="/opt/miniconda3"
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%post
+    set -e
+    
+    # Set non-interactive mode for apt and debconf to prevent prompts
+    export DEBIAN_FRONTEND=noninteractive
+    export TZ=UTC
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+    
+    # Update package manager
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        ca-certificates \
+        curl \
+        git \
+        wget \
+        bzip2 \
+        libz-dev \
+        libbz2-dev \
+        liblzma-dev \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libncurses5-dev \
+        samtools \
+        bedtools \
+        openjdk-11-jre-headless \
+        r-base \
+        r-base-dev \
+        perl \
+        perl-modules \
+        libperl-dev \
+        vim \
+        less \
+        gawk \
+        sed \
+        grep \
+        bc \
+        time \
+        python3-pip \
+        pigz \
+        samtools \
+        bedtools 
+
+    # Install Miniconda (try multiple URLs and validate the downloaded file)
+    CONDA_VERSION="23.11.0"
+    MINICONDA_URLS="https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
+    DOWNLOADED=0
+    for url in $MINICONDA_URLS; do
+        echo "Attempting to download Miniconda installer from: $url"
+        # use -f to fail on HTTP errors, -S show errors, -L follow redirects, set UA to avoid basic blocking
+        curl -fSL -A "Mozilla/5.0 (X11; Linux x86_64)" "$url" -o /tmp/miniconda.sh || { echo "curl failed for $url"; rm -f /tmp/miniconda.sh; continue; }
+        # Quick sanity check: file should start with a shell shebang
+        if head -n1 /tmp/miniconda.sh | grep -q '^#!'; then
+            DOWNLOADED=1
+            break
+        else
+            echo "Downloaded file from $url did not look like a shell script; trying next URL"
+            rm -f /tmp/miniconda.sh
+        fi
+    done
+    if [ "$DOWNLOADED" -ne 1 ]; then
+        echo "ERROR: Failed to download a valid Miniconda/Miniforge installer."
+        echo "Check network access or update Singularity.def to point to a local installer."
+        exit 1
+    fi
+    /bin/bash /tmp/miniconda.sh -b -p /opt/miniconda3
+    rm -f /tmp/miniconda.sh
+    
+    # Initialize conda and install mamba
+    /opt/miniconda3/bin/conda init bash
+    /opt/miniconda3/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+    /opt/miniconda3/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+    /opt/miniconda3/bin/conda install -y -n base -c conda-forge mamba
+    /opt/miniconda3/bin/conda config --system --prepend channels conda-forge
+    /opt/miniconda3/bin/conda config --system --prepend channels bioconda
+    /opt/miniconda3/bin/conda config --system --set auto_update_conda false
+    /opt/miniconda3/bin/conda config --system --set show_channel_urls true
+    # Ensure mamba can reuse the same configuration
+    /opt/miniconda3/bin/mamba config --show > /dev/null 2>&1 || true
+    
+    # Create environments with mamba
+    
+    # Environment 1: long_reads (for HTSeq, longshot, basic tools)
+    /opt/miniconda3/bin/mamba create -y -n long_reads python=3.10
+    /opt/miniconda3/bin/mamba run -n long_reads pip install --upgrade pip
+    /opt/miniconda3/bin/mamba run -n long_reads pip install \
+        htseq \
+        pysam \
+        pandas \
+        numpy \
+        scipy \
+        biopython \
+        bcbio-gff \
+        pyyaml \
+        seqtk \
+        polars \
+        gtfparse
+    
+    # Install minimap2 and other alignment tools in long_reads
+    /opt/miniconda3/bin/mamba install -y -n long_reads -c bioconda -c conda-forge \
+        minimap2 \
+        longshot \
+        subread \
+        flexiplex
+   
+    # Environment 2: flair
+    /opt/miniconda3/bin/mamba create -y -n flair python=3.10
+    /opt/miniconda3/bin/mamba run -n flair pip install --upgrade pip
+    /opt/miniconda3/bin/mamba install -y -n flair -c bioconda -c conda-forge \
+        flair     
+    
+    # Environment 4: vep (for variant annotation)
+    /opt/miniconda3/bin/mamba create -y -n vep python=3.9
+    /opt/miniconda3/bin/mamba install -y -n vep -c bioconda -c conda-forge \
+        ensembl-vep=106.1 \
+        vcftools \
+        bcftools \
+        vcf2maf=1.6.22 \
+        perl-pod-usage
+    
+    /opt/miniconda3/bin/mamba create -y -n picardtools python=3.9
+    /opt/miniconda3/bin/mamba install -y -n picardtools -c bioconda -c conda-forge \
+        picard \
+        subread   
+    # # Install Picard tools
+    # PICARD_VERSION="3.0.0"
+    # mkdir -p /opt/picard
+    # cd /opt/picard
+    # curl -sSL -O "https://github.com/broadinstitute/picard/releases/download/${PICARD_VERSION}/picard.jar"
+    # chmod +x picard.jar
+    
+    # Install additional R packages
+/opt/miniconda3/bin/mamba create -y -n bioconductor \
+    -c conda-forge -c bioconda \
+    r-base \
+    bioconductor-biocinstaller \
+    r-tidyverse \
+    r-devtools \
+    r-data.table
+    
+
+
+wget --no-check-certificate https://github.com/ConesaLab/SQANTI3/releases/download/v5.5.4/SQANTI3_v5.5.4.zip
+mkdir sqanti3
+unzip SQANTI3_v5.5.4.zip -d sqanti3
+/opt/miniconda3/bin/mamba env create -y -f sqanti3/SQANTI3.conda_env.yml
+
+    # Create wrapper script for conda activation
+    mkdir -p /opt/bin
+    cat > /opt/bin/run_with_conda.sh << 'EOF'
+#!/bin/bash
+# Helper script to run commands in conda environments
+ENV_NAME=$1
+shift
+source /opt/miniconda3/bin/activate $ENV_NAME
+exec "$@"
+EOF
+    chmod +x /opt/bin/run_with_conda.sh
+    
+    # Clean up
+    /opt/miniconda3/bin/conda clean --all --yes
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+#for FLAIR to work properly minimap2 has to be on the path
+export PATH=/opt/miniconda3/envs/flair/bin/:\$PATH
+
+   /opt/miniconda3/bin/mamba create -y --name isoSeQL \
+        python=3.9.6 \
+        r-base=4.1.1 \
+        r-devtools \
+        plotly \
+        pandas \
+        numpy \
+        python-kaleido \
+        -c conda-forge \
+        -c plotly \
+        -c anaconda
+
+
+%runscript
+    exec "$@"
+
+%help
+    This container provides all necessary tools for long-read isoform analysis pipeline.
+    
+    Available conda environments:
+    - long_reads: HTSeq, longshot, minimap2, samtools, bedtools, seqtk
+    - flair: flair isoform discovery tool
+    - sqanti3: SQANTI3 isoform QC tool
+    - vep: Variant annotation tools
+    
+    To use a specific conda environment:
+    singularity exec container.sif bash -c 'source activate ENV_NAME && YOUR_COMMAND'

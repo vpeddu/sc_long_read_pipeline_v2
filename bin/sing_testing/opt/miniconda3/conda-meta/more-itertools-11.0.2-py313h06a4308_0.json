@@ -1,0 +1,53 @@
+{
+  "name": "more-itertools",
+  "version": "11.0.2",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "more-itertools-11.0.2-py313h06a4308_0.conda",
+  "md5": "1edd221e035f78818555abc20b080edc",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/more-itertools-11.0.2-py313h06a4308_0.conda",
+  "sha256": "772cd3c79506ee5060cb6c75db0a4ccdd0cb2ca2364992d0549f0ffabcabb210",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1775819413000,
+  "size": 173312,
+  "requested_spec": "pkgs/main/linux-64::more-itertools==11.0.2=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/more-itertools-11.0.2-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/more-itertools-11.0.2-py313h06a4308_0",
+  "files": [
+    "lib/python3.13/site-packages/more_itertools-11.0.2.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/more_itertools-11.0.2.dist-info/METADATA",
+    "lib/python3.13/site-packages/more_itertools-11.0.2.dist-info/RECORD",
+    "lib/python3.13/site-packages/more_itertools-11.0.2.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/more_itertools-11.0.2.dist-info/WHEEL",
+    "lib/python3.13/site-packages/more_itertools-11.0.2.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/more_itertools-11.0.2.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/more_itertools/__init__.py",
+    "lib/python3.13/site-packages/more_itertools/__init__.pyi",
+    "lib/python3.13/site-packages/more_itertools/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/more_itertools/__pycache__/more.cpython-313.pyc",
+    "lib/python3.13/site-packages/more_itertools/__pycache__/recipes.cpython-313.pyc",
+    "lib/python3.13/site-packages/more_itertools/more.py",
+    "lib/python3.13/site-packages/more_itertools/more.pyi",
+    "lib/python3.13/site-packages/more_itertools/py.typed",
+    "lib/python3.13/site-packages/more_itertools/recipes.py",
+    "lib/python3.13/site-packages/more_itertools/recipes.pyi"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/more-itertools-11.0.2-py313h06a4308_0",
+    "type": 1
+  }
+}

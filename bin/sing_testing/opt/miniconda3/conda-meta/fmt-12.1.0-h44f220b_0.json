@@ -1,0 +1,69 @@
+{
+  "name": "fmt",
+  "version": "12.1.0",
+  "build": "h44f220b_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "fmt-12.1.0-h44f220b_0.conda",
+  "md5": "dd4be9ab91074ac1e2bc78719cf51496",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/fmt-12.1.0-h44f220b_0.conda",
+  "sha256": "75206a86cdcdb0752db803e8ab8b27589d376413f16f8b280f8864b27702636d",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libgcc >=14",
+    "libstdcxx >=14"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1772639967000,
+  "size": 196493,
+  "requested_spec": "pkgs/main/linux-64::fmt==12.1.0=h44f220b_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/fmt-12.1.0-h44f220b_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/fmt-12.1.0-h44f220b_0",
+  "files": [
+    "include/fmt/args.h",
+    "include/fmt/base.h",
+    "include/fmt/chrono.h",
+    "include/fmt/color.h",
+    "include/fmt/compile.h",
+    "include/fmt/core.h",
+    "include/fmt/format-inl.h",
+    "include/fmt/format.h",
+    "include/fmt/os.h",
+    "include/fmt/ostream.h",
+    "include/fmt/printf.h",
+    "include/fmt/ranges.h",
+    "include/fmt/std.h",
+    "include/fmt/xchar.h",
+    "lib/cmake/fmt/fmt-config-version.cmake",
+    "lib/cmake/fmt/fmt-config.cmake",
+    "lib/cmake/fmt/fmt-targets-release.cmake",
+    "lib/cmake/fmt/fmt-targets.cmake",
+    "lib/libfmt.so",
+    "lib/libfmt.so.12",
+    "lib/libfmt.so.12.1.0",
+    "lib/pkgconfig/fmt.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/fmt.pc",
+        "prefix_placeholder": "/home/task_177263987360664/croot/fmt_1772639901443/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "e0326d9c1def34a0da6de98b828b84dd949837ce6117963ad13839bbb4d9daaa",
+        "size_in_bytes": 703,
+        "sha256_in_prefix": "61c2548f9fb2de8deea6721bd34dbfaead5676509f4d5831b6b24b7789e0e213"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/fmt-12.1.0-h44f220b_0",
+    "type": 1
+  }
+}

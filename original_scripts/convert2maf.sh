@@ -1,0 +1,23 @@
+#!/bin/bash
+#Need to use actual path instead of symlink to get perl modules?
+source activate /venvs/anaconda/envs/groupenvs/vep
+
+REF_DIR=/mnt/ix1/Projects/M102_241107_Multiome/00_resources
+VEP_GRCH38=/mnt/ix1/Resources/VariantAnnotation/VEP/GRCh38_v104
+VCF2MAF=/mnt/ix1/Resources/tools/vcf2maf/210423-754d68a/vcf2maf.pl
+
+#Assume running from directory nomenclature:  /some/path/<sample>/Xnn_analysis, can derive sample as follows:
+sample=$(basename $(dirname $PWD))
+
+input_vcf=$(ls ${sample}.pass.vcf)
+output_maf=${input_vcf%vcf*}maf
+
+perl $VCF2MAF --input-vcf $input_vcf --output-maf $output_maf --vep-overwrite --tumor-id SAMPLE \
+   --ref-fasta ${REF_DIR}/genome.fa --ncbi-build GRCh38 --vep-path /venvs/anaconda/envs/groupenvs/vep/bin \
+   --vep-data $VEP_GRCH38
+
+sed '1d' $output_maf | cut -d$'\t' -f 9 | sort | uniq -c >maf_pass.cts.txt
+
+#Cleanup
+rm ${sample}.pass*.vcf
+

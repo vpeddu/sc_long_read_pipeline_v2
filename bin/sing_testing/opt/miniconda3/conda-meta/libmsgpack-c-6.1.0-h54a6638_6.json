@@ -1,0 +1,253 @@
+{
+  "name": "libmsgpack-c",
+  "version": "6.1.0",
+  "build": "h54a6638_6",
+  "build_number": 6,
+  "channel": "https://conda.anaconda.org/conda-forge/linux-64",
+  "subdir": "linux-64",
+  "fn": "libmsgpack-c-6.1.0-h54a6638_6.conda",
+  "md5": "fde05e07c2a9c96ad09216f0d5fda9a1",
+  "url": "https://conda.anaconda.org/conda-forge/linux-64/libmsgpack-c-6.1.0-h54a6638_6.conda",
+  "sha256": "79a75422873cb4107fb731d3794402eda063fcc9a809f4bb0b5738a6b3d46dee",
+  "depends": [
+    "libstdcxx >=14",
+    "libgcc >=14",
+    "__glibc >=2.17,<3.0.a0"
+  ],
+  "constrains": [
+    "msgpack-c ==6.1.0 *_6"
+  ],
+  "license": "BSL-1.0",
+  "timestamp": 1770807484162,
+  "size": 40340,
+  "_requested_specs": [],
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/libmsgpack-c-6.1.0-h54a6638_6.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/libmsgpack-c-6.1.0-h54a6638_6",
+  "files": [
+    "include/msgpack/fbuffer.h",
+    "include/msgpack/gcc_atomic.h",
+    "include/msgpack/object.h",
+    "include/msgpack/pack.h",
+    "include/msgpack/pack_define.h",
+    "include/msgpack/pack_template.h",
+    "include/msgpack/sbuffer.h",
+    "include/msgpack/sysdep.h",
+    "include/msgpack/timestamp.h",
+    "include/msgpack/unpack.h",
+    "include/msgpack/unpack_define.h",
+    "include/msgpack/unpack_template.h",
+    "include/msgpack/util.h",
+    "include/msgpack/version.h",
+    "include/msgpack/version_master.h",
+    "include/msgpack/vrefbuffer.h",
+    "include/msgpack/zbuffer.h",
+    "include/msgpack/zone.h",
+    "include/msgpack.h",
+    "lib/cmake/msgpack-c/msgpack-c-config-version.cmake",
+    "lib/cmake/msgpack-c/msgpack-c-config.cmake",
+    "lib/cmake/msgpack-c/msgpack-c-targets-release.cmake",
+    "lib/cmake/msgpack-c/msgpack-c-targets.cmake",
+    "lib/libmsgpack-c.so",
+    "lib/libmsgpack-c.so.2",
+    "lib/libmsgpack-c.so.2.0.0",
+    "lib/pkgconfig/msgpack-c.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "include/msgpack/fbuffer.h",
+        "path_type": "hardlink",
+        "sha256": "67a7fe1fada8613c0738b00496e66d95bb0599fea60b96c96265d0a132131363",
+        "size_in_bytes": 750,
+        "sha256_in_prefix": "67a7fe1fada8613c0738b00496e66d95bb0599fea60b96c96265d0a132131363"
+      },
+      {
+        "_path": "include/msgpack/gcc_atomic.h",
+        "path_type": "hardlink",
+        "sha256": "c3c7f3c5c0506d33f8f506a130d16da2d6f7176a0d0ba5337f7004cdda192410",
+        "size_in_bytes": 537,
+        "sha256_in_prefix": "c3c7f3c5c0506d33f8f506a130d16da2d6f7176a0d0ba5337f7004cdda192410"
+      },
+      {
+        "_path": "include/msgpack/object.h",
+        "path_type": "hardlink",
+        "sha256": "6f6f3f30feae6f188bb1a1365c25a69f991e02aad703e9d2331303752e02659d",
+        "size_in_bytes": 3766,
+        "sha256_in_prefix": "6f6f3f30feae6f188bb1a1365c25a69f991e02aad703e9d2331303752e02659d"
+      },
+      {
+        "_path": "include/msgpack/pack.h",
+        "path_type": "hardlink",
+        "sha256": "8fab4fa2c0643e9ca779d9a4b6b2f79213bbb3b95f3a05138b46fb866d5c95c7",
+        "size_in_bytes": 5845,
+        "sha256_in_prefix": "8fab4fa2c0643e9ca779d9a4b6b2f79213bbb3b95f3a05138b46fb866d5c95c7"
+      },
+      {
+        "_path": "include/msgpack/pack_define.h",
+        "path_type": "hardlink",
+        "sha256": "4d0cc20cac5e4e7beda8ec15a721318fbb9c719f640950275352165c7b53cd84",
+        "size_in_bytes": 432,
+        "sha256_in_prefix": "4d0cc20cac5e4e7beda8ec15a721318fbb9c719f640950275352165c7b53cd84"
+      },
+      {
+        "_path": "include/msgpack/pack_template.h",
+        "path_type": "hardlink",
+        "sha256": "6805eea86c91e0a7a59b39ef0595e0f2ed4332945fd2e7e3a12792cb752fd152",
+        "size_in_bytes": 24963,
+        "sha256_in_prefix": "6805eea86c91e0a7a59b39ef0595e0f2ed4332945fd2e7e3a12792cb752fd152"
+      },
+      {
+        "_path": "include/msgpack/sbuffer.h",
+        "path_type": "hardlink",
+        "sha256": "9e2fd3e6a952b8a2785a5c1822aaae5acc75725a55894a037230af3c0554ddec",
+        "size_in_bytes": 2351,
+        "sha256_in_prefix": "9e2fd3e6a952b8a2785a5c1822aaae5acc75725a55894a037230af3c0554ddec"
+      },
+      {
+        "_path": "include/msgpack/sysdep.h",
+        "path_type": "hardlink",
+        "sha256": "45d7a795519045bfc8250bf7c6ba0b05d13f19a45e36cd0fe57e65394768c121",
+        "size_in_bytes": 7357,
+        "sha256_in_prefix": "45d7a795519045bfc8250bf7c6ba0b05d13f19a45e36cd0fe57e65394768c121"
+      },
+      {
+        "_path": "include/msgpack/timestamp.h",
+        "path_type": "hardlink",
+        "sha256": "20ddd5508b345423efb9a1eca0020d031467cd6ed9938bada575ea45d7d763ce",
+        "size_in_bytes": 1399,
+        "sha256_in_prefix": "20ddd5508b345423efb9a1eca0020d031467cd6ed9938bada575ea45d7d763ce"
+      },
+      {
+        "_path": "include/msgpack/unpack.h",
+        "path_type": "hardlink",
+        "sha256": "3209d6f6556bd0752f8fa249a2a507964c0b67a683b862f6b824dba5d7a2c827",
+        "size_in_bytes": 7846,
+        "sha256_in_prefix": "3209d6f6556bd0752f8fa249a2a507964c0b67a683b862f6b824dba5d7a2c827"
+      },
+      {
+        "_path": "include/msgpack/unpack_define.h",
+        "path_type": "hardlink",
+        "sha256": "8700cee61d220dd840f765b4b3dfa07519fdac12b5190674f0532cd9159b3f8f",
+        "size_in_bytes": 2305,
+        "sha256_in_prefix": "8700cee61d220dd840f765b4b3dfa07519fdac12b5190674f0532cd9159b3f8f"
+      },
+      {
+        "_path": "include/msgpack/unpack_template.h",
+        "path_type": "hardlink",
+        "sha256": "249a5c70be3da68e485db8cc5fee071565c09521352302988600907f0b01b787",
+        "size_in_bytes": 16648,
+        "sha256_in_prefix": "249a5c70be3da68e485db8cc5fee071565c09521352302988600907f0b01b787"
+      },
+      {
+        "_path": "include/msgpack/util.h",
+        "path_type": "hardlink",
+        "sha256": "1c2c93bd9be9cbbbc06b5bd638c14bdb4120d889ba894d575a8b9836ba14e871",
+        "size_in_bytes": 362,
+        "sha256_in_prefix": "1c2c93bd9be9cbbbc06b5bd638c14bdb4120d889ba894d575a8b9836ba14e871"
+      },
+      {
+        "_path": "include/msgpack/version.h",
+        "path_type": "hardlink",
+        "sha256": "e400e9e08cdf93f76584c9c5eec78e1ee8e0ec04974bc6dcd5193b47a3c43459",
+        "size_in_bytes": 900,
+        "sha256_in_prefix": "e400e9e08cdf93f76584c9c5eec78e1ee8e0ec04974bc6dcd5193b47a3c43459"
+      },
+      {
+        "_path": "include/msgpack/version_master.h",
+        "path_type": "hardlink",
+        "sha256": "3f7a36189aa0f35a2b9a59ffb9916699e94726e7f2dc83723a06bbc49bf4e0cb",
+        "size_in_bytes": 105,
+        "sha256_in_prefix": "3f7a36189aa0f35a2b9a59ffb9916699e94726e7f2dc83723a06bbc49bf4e0cb"
+      },
+      {
+        "_path": "include/msgpack/vrefbuffer.h",
+        "path_type": "hardlink",
+        "sha256": "6635d65c5cd6b4d1ac7bacd755e5e7f253dedaa6183081a9d192056577bfb395",
+        "size_in_bytes": 3811,
+        "sha256_in_prefix": "6635d65c5cd6b4d1ac7bacd755e5e7f253dedaa6183081a9d192056577bfb395"
+      },
+      {
+        "_path": "include/msgpack/zbuffer.h",
+        "path_type": "hardlink",
+        "sha256": "03d177d26346284238fc1c984781237654c89433a1bad2871d906a607ed9fbb2",
+        "size_in_bytes": 5066,
+        "sha256_in_prefix": "03d177d26346284238fc1c984781237654c89433a1bad2871d906a607ed9fbb2"
+      },
+      {
+        "_path": "include/msgpack/zone.h",
+        "path_type": "hardlink",
+        "sha256": "aeef52c64f38e9914658282581833012b43e8835772fea35749d51cd917a8f92",
+        "size_in_bytes": 3923,
+        "sha256_in_prefix": "aeef52c64f38e9914658282581833012b43e8835772fea35749d51cd917a8f92"
+      },
+      {
+        "_path": "include/msgpack.h",
+        "path_type": "hardlink",
+        "sha256": "58316d8acd57cb66bd9919e9eca1e360e2a4e80b55fe9d5f22b624822e4a4bef",
+        "size_in_bytes": 526,
+        "sha256_in_prefix": "58316d8acd57cb66bd9919e9eca1e360e2a4e80b55fe9d5f22b624822e4a4bef"
+      },
+      {
+        "_path": "lib/cmake/msgpack-c/msgpack-c-config-version.cmake",
+        "path_type": "hardlink",
+        "sha256": "28a72a6830ac7534655ffdcaf4aa831dfb682a6ca2177d350b06c4a58808a3a2",
+        "size_in_bytes": 2762,
+        "sha256_in_prefix": "28a72a6830ac7534655ffdcaf4aa831dfb682a6ca2177d350b06c4a58808a3a2"
+      },
+      {
+        "_path": "lib/cmake/msgpack-c/msgpack-c-config.cmake",
+        "path_type": "hardlink",
+        "sha256": "9537e4786a4f0888571a6217686fe958ee8b30b097665b9e441b3d5ff65f3eea",
+        "size_in_bytes": 1177,
+        "sha256_in_prefix": "9537e4786a4f0888571a6217686fe958ee8b30b097665b9e441b3d5ff65f3eea"
+      },
+      {
+        "_path": "lib/cmake/msgpack-c/msgpack-c-targets-release.cmake",
+        "path_type": "hardlink",
+        "sha256": "429c92118765f2800284c29fb12456eb32a0dd61bdf80ace2838f249217b5657",
+        "size_in_bytes": 834,
+        "sha256_in_prefix": "429c92118765f2800284c29fb12456eb32a0dd61bdf80ace2838f249217b5657"
+      },
+      {
+        "_path": "lib/cmake/msgpack-c/msgpack-c-targets.cmake",
+        "path_type": "hardlink",
+        "sha256": "04047c38fa65dc63591533d0d76db2cdc8bf938e5ee4269c88f234b19c4e3444",
+        "size_in_bytes": 4099,
+        "sha256_in_prefix": "04047c38fa65dc63591533d0d76db2cdc8bf938e5ee4269c88f234b19c4e3444"
+      },
+      {
+        "_path": "lib/libmsgpack-c.so",
+        "path_type": "softlink",
+        "sha256": "b4add104d520d457fb826ca1e1449096c2c5b19f4b4d4d03d45aaa6da6d8ba77",
+        "size_in_bytes": 17
+      },
+      {
+        "_path": "lib/libmsgpack-c.so.2",
+        "path_type": "softlink",
+        "sha256": "b4add104d520d457fb826ca1e1449096c2c5b19f4b4d4d03d45aaa6da6d8ba77",
+        "size_in_bytes": 21
+      },
+      {
+        "_path": "lib/libmsgpack-c.so.2.0.0",
+        "path_type": "hardlink",
+        "sha256": "b4add104d520d457fb826ca1e1449096c2c5b19f4b4d4d03d45aaa6da6d8ba77",
+        "size_in_bytes": 39112,
+        "sha256_in_prefix": "b4add104d520d457fb826ca1e1449096c2c5b19f4b4d4d03d45aaa6da6d8ba77"
+      },
+      {
+        "_path": "lib/pkgconfig/msgpack-c.pc",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/bld/rattler-build_libmsgpack-c_1770807484/host_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_p",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "61653c1f65cf071027a82b15e226166008748df6dbf9f28178315beb089304f7",
+        "size_in_bytes": 734,
+        "sha256_in_prefix": "a56880e15dc9290597daf4ae66b9f5e37f3819d283dd582be355173eef3004d2"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/libmsgpack-c-6.1.0-h54a6638_6",
+    "type": 1
+  }
+}

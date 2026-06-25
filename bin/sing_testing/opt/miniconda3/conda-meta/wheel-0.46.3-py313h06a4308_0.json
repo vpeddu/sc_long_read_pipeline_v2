@@ -1,0 +1,81 @@
+{
+  "name": "wheel",
+  "version": "0.46.3",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "wheel-0.46.3-py313h06a4308_0.conda",
+  "md5": "6730c94b00e7d802f421acd3a435af84",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/wheel-0.46.3-py313h06a4308_0.conda",
+  "sha256": "9899eb565f7010fe91efefc9e2b4dc2bc08065430e9e14e3414e7f297948a232",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "packaging >=24.0",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1769450261000,
+  "size": 70377,
+  "requested_spec": "pkgs/main/linux-64::wheel==0.46.3=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/wheel-0.46.3-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/wheel-0.46.3-py313h06a4308_0",
+  "files": [
+    "bin/wheel",
+    "lib/python3.13/site-packages/wheel-0.46.3.dist-info/METADATA",
+    "lib/python3.13/site-packages/wheel-0.46.3.dist-info/RECORD",
+    "lib/python3.13/site-packages/wheel-0.46.3.dist-info/WHEEL",
+    "lib/python3.13/site-packages/wheel-0.46.3.dist-info/entry_points.txt",
+    "lib/python3.13/site-packages/wheel-0.46.3.dist-info/licenses/LICENSE.txt",
+    "lib/python3.13/site-packages/wheel/__init__.py",
+    "lib/python3.13/site-packages/wheel/__main__.py",
+    "lib/python3.13/site-packages/wheel/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/__pycache__/__main__.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/__pycache__/_bdist_wheel.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/__pycache__/_metadata.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/__pycache__/_setuptools_logging.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/__pycache__/bdist_wheel.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/__pycache__/macosx_libfile.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/__pycache__/metadata.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/__pycache__/wheelfile.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/_bdist_wheel.py",
+    "lib/python3.13/site-packages/wheel/_commands/__init__.py",
+    "lib/python3.13/site-packages/wheel/_commands/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/_commands/__pycache__/convert.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/_commands/__pycache__/pack.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/_commands/__pycache__/tags.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/_commands/__pycache__/unpack.cpython-313.pyc",
+    "lib/python3.13/site-packages/wheel/_commands/convert.py",
+    "lib/python3.13/site-packages/wheel/_commands/pack.py",
+    "lib/python3.13/site-packages/wheel/_commands/tags.py",
+    "lib/python3.13/site-packages/wheel/_commands/unpack.py",
+    "lib/python3.13/site-packages/wheel/_metadata.py",
+    "lib/python3.13/site-packages/wheel/_setuptools_logging.py",
+    "lib/python3.13/site-packages/wheel/bdist_wheel.py",
+    "lib/python3.13/site-packages/wheel/macosx_libfile.py",
+    "lib/python3.13/site-packages/wheel/metadata.py",
+    "lib/python3.13/site-packages/wheel/wheelfile.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/wheel",
+        "prefix_placeholder": "/home/task_176944960902409/croot/wheel_1769450245580/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_place",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "c649efc1926f4624728e5a2e12e5353c98dc8696fff7d1c4dbe138931b6d1dad",
+        "size_in_bytes": 468,
+        "sha256_in_prefix": "697deae70badb14e031413b335632798233e848463ac1c7633584ac526f4dcec"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/wheel-0.46.3-py313h06a4308_0",
+    "type": 1
+  }
+}

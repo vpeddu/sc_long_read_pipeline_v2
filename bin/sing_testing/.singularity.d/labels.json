@@ -1,0 +1,15 @@
+{
+	"Author": "\"Vikas Peddu\"",
+	"Description": "\"Container for long-read isoform analysis pipeline\"",
+	"Version": "v1.0",
+	"Website": "https://github.com/broadinstitute/long-reads",
+	"org.label-schema.build-arch": "amd64",
+	"org.label-schema.build-date": "Thursday_11_June_2026_10:15:44_PDT",
+	"org.label-schema.schema-version": "1.0",
+	"org.label-schema.usage": "/.singularity.d/runscript.help",
+	"org.label-schema.usage.singularity.deffile.bootstrap": "docker",
+	"org.label-schema.usage.singularity.deffile.from": "ubuntu:22.04",
+	"org.label-schema.usage.singularity.runscript.help": "/.singularity.d/runscript.help",
+	"org.label-schema.usage.singularity.version": "4.3.1-noble",
+	"org.opencontainers.image.version": "22.04"
+}

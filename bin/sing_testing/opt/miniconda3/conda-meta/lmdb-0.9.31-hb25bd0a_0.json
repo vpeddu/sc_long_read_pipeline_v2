@@ -1,0 +1,47 @@
+{
+  "name": "lmdb",
+  "version": "0.9.31",
+  "build": "hb25bd0a_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "lmdb-0.9.31-hb25bd0a_0.conda",
+  "md5": "1468bc20414b0fa8eb1b18d3a916039f",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/lmdb-0.9.31-hb25bd0a_0.conda",
+  "sha256": "839f0cd7e4a13088dcd9b8ac3213e8992725dd67f8e1a747c54132013b87d4b9",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.17,<3.0.a0",
+    "libgcc-ng >=11.2.0"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1754999718000,
+  "size": 480121,
+  "requested_spec": "pkgs/main/linux-64::lmdb==0.9.31=hb25bd0a_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/lmdb-0.9.31-hb25bd0a_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/lmdb-0.9.31-hb25bd0a_0",
+  "files": [
+    "bin/mdb_copy",
+    "bin/mdb_dump",
+    "bin/mdb_load",
+    "bin/mdb_stat",
+    "include/lmdb.h",
+    "lib/liblmdb.a",
+    "lib/liblmdb.so",
+    "share/man/man1/mdb_copy.1",
+    "share/man/man1/mdb_dump.1",
+    "share/man/man1/mdb_load.1",
+    "share/man/man1/mdb_stat.1"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/lmdb-0.9.31-hb25bd0a_0",
+    "type": 1
+  }
+}

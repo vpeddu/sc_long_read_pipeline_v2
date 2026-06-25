@@ -1,0 +1,47 @@
+{
+  "name": "ruamel.yaml.clib",
+  "version": "0.2.14",
+  "build": "py313h4aee224_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "ruamel.yaml.clib-0.2.14-py313h4aee224_0.conda",
+  "md5": "dad8d758af9c2b4369776c601407d9bd",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/ruamel.yaml.clib-0.2.14-py313h4aee224_0.conda",
+  "sha256": "df7d182c5909cf1ae37d0ac9878f22ad91e76fdb87f045c0240d4486a7451789",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libgcc-ng >=11.2.0",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1762530306000,
+  "size": 136835,
+  "requested_spec": "pkgs/main/linux-64::ruamel.yaml.clib==0.2.14=py313h4aee224_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/ruamel.yaml.clib-0.2.14-py313h4aee224_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/ruamel.yaml.clib-0.2.14-py313h4aee224_0",
+  "files": [
+    "lib/python3.13/site-packages/_ruamel_yaml.cpython-313-x86_64-linux-gnu.so",
+    "lib/python3.13/site-packages/ruamel_yaml_clib-0.2.14.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/ruamel_yaml_clib-0.2.14.dist-info/METADATA",
+    "lib/python3.13/site-packages/ruamel_yaml_clib-0.2.14.dist-info/RECORD",
+    "lib/python3.13/site-packages/ruamel_yaml_clib-0.2.14.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/ruamel_yaml_clib-0.2.14.dist-info/WHEEL",
+    "lib/python3.13/site-packages/ruamel_yaml_clib-0.2.14.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/ruamel_yaml_clib-0.2.14.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/ruamel_yaml_clib-0.2.14.dist-info/top_level.txt"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/ruamel.yaml.clib-0.2.14-py313h4aee224_0",
+    "type": 1
+  }
+}

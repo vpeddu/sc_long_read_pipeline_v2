@@ -1,0 +1,55 @@
+{
+  "name": "libbrotlicommon",
+  "version": "1.2.0",
+  "build": "h32cd6e7_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "libbrotlicommon-1.2.0-h32cd6e7_0.conda",
+  "md5": "cdc0bbfec0c99b30d435b22341a716b0",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/libbrotlicommon-1.2.0-h32cd6e7_0.conda",
+  "sha256": "a389948434028846cd8a844a0fda48e2dbff9d639563c8cee643f754d30a90cd",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libgcc-ng >=11.2.0"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1762363571000,
+  "size": 78282,
+  "requested_spec": "pkgs/main/linux-64::libbrotlicommon==1.2.0=h32cd6e7_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/libbrotlicommon-1.2.0-h32cd6e7_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/libbrotlicommon-1.2.0-h32cd6e7_0",
+  "files": [
+    "lib/libbrotlicommon.so",
+    "lib/libbrotlicommon.so.1",
+    "lib/libbrotlicommon.so.1.2.0",
+    "lib/pkgconfig/libbrotlicommon.pc",
+    "share/man/man1/brotli.1",
+    "share/man/man3/constants.h.3",
+    "share/man/man3/decode.h.3",
+    "share/man/man3/encode.h.3",
+    "share/man/man3/types.h.3"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/libbrotlicommon.pc",
+        "prefix_placeholder": "/home/task_176236350079666/conda-bld/brotli-split_1762363540655/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "e9fc16d081f6e4bee50d5f44681224a7751fa58233a7bfd5f72c23f96036dc7b",
+        "size_in_bytes": 761,
+        "sha256_in_prefix": "4dab1e9a321ff7e098064a3afae0d4ec0044952663a4b5a7ebebde281222b87a"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/libbrotlicommon-1.2.0-h32cd6e7_0",
+    "type": 1
+  }
+}

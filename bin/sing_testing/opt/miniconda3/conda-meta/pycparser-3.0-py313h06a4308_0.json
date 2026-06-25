@@ -1,0 +1,59 @@
+{
+  "name": "pycparser",
+  "version": "3.0",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "pycparser-3.0-py313h06a4308_0.conda",
+  "md5": "3b8ea90c558c424f123c1fc6069c9fa6",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/pycparser-3.0-py313h06a4308_0.conda",
+  "sha256": "51454fb76630c6858e090293b2be0936851a1fb1877e1480c7f3b5c090b8b69f",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1774959763000,
+  "size": 155521,
+  "requested_spec": "pkgs/main/linux-64::pycparser==3.0=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/pycparser-3.0-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/pycparser-3.0-py313h06a4308_0",
+  "files": [
+    "lib/python3.13/site-packages/pycparser-3.0.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/pycparser-3.0.dist-info/METADATA",
+    "lib/python3.13/site-packages/pycparser-3.0.dist-info/RECORD",
+    "lib/python3.13/site-packages/pycparser-3.0.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/pycparser-3.0.dist-info/WHEEL",
+    "lib/python3.13/site-packages/pycparser-3.0.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/pycparser-3.0.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/pycparser-3.0.dist-info/top_level.txt",
+    "lib/python3.13/site-packages/pycparser/__init__.py",
+    "lib/python3.13/site-packages/pycparser/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/pycparser/__pycache__/_ast_gen.cpython-313.pyc",
+    "lib/python3.13/site-packages/pycparser/__pycache__/ast_transforms.cpython-313.pyc",
+    "lib/python3.13/site-packages/pycparser/__pycache__/c_ast.cpython-313.pyc",
+    "lib/python3.13/site-packages/pycparser/__pycache__/c_generator.cpython-313.pyc",
+    "lib/python3.13/site-packages/pycparser/__pycache__/c_lexer.cpython-313.pyc",
+    "lib/python3.13/site-packages/pycparser/__pycache__/c_parser.cpython-313.pyc",
+    "lib/python3.13/site-packages/pycparser/_ast_gen.py",
+    "lib/python3.13/site-packages/pycparser/_c_ast.cfg",
+    "lib/python3.13/site-packages/pycparser/ast_transforms.py",
+    "lib/python3.13/site-packages/pycparser/c_ast.py",
+    "lib/python3.13/site-packages/pycparser/c_generator.py",
+    "lib/python3.13/site-packages/pycparser/c_lexer.py",
+    "lib/python3.13/site-packages/pycparser/c_parser.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/pycparser-3.0-py313h06a4308_0",
+    "type": 1
+  }
+}

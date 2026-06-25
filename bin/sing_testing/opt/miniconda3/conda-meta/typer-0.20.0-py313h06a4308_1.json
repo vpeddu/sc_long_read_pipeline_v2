@@ -1,0 +1,91 @@
+{
+  "name": "typer",
+  "version": "0.20.0",
+  "build": "py313h06a4308_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "typer-0.20.0-py313h06a4308_1.conda",
+  "md5": "d9b03aa4048c711087209d7c35e3fb32",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/typer-0.20.0-py313h06a4308_1.conda",
+  "sha256": "abf3e9b5820c78d1ca3d41b91f9b7b67d13d3e6c3f2892cc10f6f2361b3f0c3f",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "typer-slim-standard 0.20.0 py313h06a4308_1"
+  ],
+  "constrains": [
+    "typer-cli 0.20.0.*",
+    "typer-slim 0.20.0.*"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1771513026000,
+  "size": 157493,
+  "requested_spec": "pkgs/main/linux-64::typer==0.20.0=py313h06a4308_1",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/typer-0.20.0-py313h06a4308_1.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/typer-0.20.0-py313h06a4308_1",
+  "files": [
+    "bin/typer",
+    "lib/python3.13/site-packages/typer-0.20.0.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/typer-0.20.0.dist-info/METADATA",
+    "lib/python3.13/site-packages/typer-0.20.0.dist-info/RECORD",
+    "lib/python3.13/site-packages/typer-0.20.0.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/typer-0.20.0.dist-info/WHEEL",
+    "lib/python3.13/site-packages/typer-0.20.0.dist-info/entry_points.txt",
+    "lib/python3.13/site-packages/typer-0.20.0.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/typer/__init__.py",
+    "lib/python3.13/site-packages/typer/__main__.py",
+    "lib/python3.13/site-packages/typer/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/__main__.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/_completion_classes.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/_completion_shared.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/_types.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/_typing.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/cli.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/colors.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/completion.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/core.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/main.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/models.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/params.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/rich_utils.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/testing.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/__pycache__/utils.cpython-313.pyc",
+    "lib/python3.13/site-packages/typer/_completion_classes.py",
+    "lib/python3.13/site-packages/typer/_completion_shared.py",
+    "lib/python3.13/site-packages/typer/_types.py",
+    "lib/python3.13/site-packages/typer/_typing.py",
+    "lib/python3.13/site-packages/typer/cli.py",
+    "lib/python3.13/site-packages/typer/colors.py",
+    "lib/python3.13/site-packages/typer/completion.py",
+    "lib/python3.13/site-packages/typer/core.py",
+    "lib/python3.13/site-packages/typer/main.py",
+    "lib/python3.13/site-packages/typer/models.py",
+    "lib/python3.13/site-packages/typer/params.py",
+    "lib/python3.13/site-packages/typer/py.typed",
+    "lib/python3.13/site-packages/typer/rich_utils.py",
+    "lib/python3.13/site-packages/typer/testing.py",
+    "lib/python3.13/site-packages/typer/utils.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/typer",
+        "prefix_placeholder": "/home/task_177151289635449/croot/typer-split_1771512981838/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "59cd2c95ae75c9cc482d528f72742e0820cda8a229c9bd17d90ae52e57be45ee",
+        "size_in_bytes": 462,
+        "sha256_in_prefix": "76f8bf07356f8dde26215a6e9cd0f8906194fe86be7a57d7f862bf3cb7b8d36c"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/typer-0.20.0-py313h06a4308_1",
+    "type": 1
+  }
+}

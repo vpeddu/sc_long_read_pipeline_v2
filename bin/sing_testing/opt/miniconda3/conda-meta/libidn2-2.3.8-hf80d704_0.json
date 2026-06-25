@@ -1,0 +1,55 @@
+{
+  "name": "libidn2",
+  "version": "2.3.8",
+  "build": "hf80d704_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "libidn2-2.3.8-hf80d704_0.conda",
+  "md5": "7ab70b332bb2df9ce90a1567126b5d2a",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/libidn2-2.3.8-hf80d704_0.conda",
+  "sha256": "675beb2f9d9c876b87601b043d7e9e3b87cbec6b2172453932602db74e0099d7",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "gettext >=0.21.0,<1.0a0",
+    "libgcc-ng >=11.2.0",
+    "libiconv >=1.16,<2.0a0",
+    "libunistring >=1,<2.0a0"
+  ],
+  "constrains": [],
+  "license": "LGPL-2.0 AND LGPL-3.0-or-later AND GPL-3.0-or-later",
+  "license_family": "OTHER",
+  "timestamp": 1760364378000,
+  "size": 82352,
+  "requested_spec": "pkgs/main/linux-64::libidn2==2.3.8=hf80d704_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/libidn2-2.3.8-hf80d704_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/libidn2-2.3.8-hf80d704_0",
+  "files": [
+    "bin/idn2",
+    "include/idn2.h",
+    "lib/libidn2.so",
+    "lib/libidn2.so.0",
+    "lib/libidn2.so.0.4.0",
+    "lib/pkgconfig/libidn2.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/libidn2.pc",
+        "prefix_placeholder": "/home/task_176036377076491/conda-bld/libidn2_1760364297213/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "55ebabecb04b26ebde8963555c8b1bf97499f0a49504e38c8c7d1762927b2722",
+        "size_in_bytes": 1553,
+        "sha256_in_prefix": "f4dc17e8e69a03078505e871ce49383db1b8db829cc24c5f8db3b06fc4e0b2e6"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/libidn2-2.3.8-hf80d704_0",
+    "type": 1
+  }
+}

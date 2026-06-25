@@ -1,0 +1,64 @@
+{
+  "name": "reproc-cpp",
+  "version": "14.2.4",
+  "build": "h6a678d5_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "reproc-cpp-14.2.4-h6a678d5_2.conda",
+  "md5": "b03aa4903158279f003e7032ab9f5601",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/reproc-cpp-14.2.4-h6a678d5_2.conda",
+  "sha256": "7211f85590295c8dc29622fe02514f081a3a25dcc2dafcc741365ddb5aedee95",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "libgcc-ng >=11.2.0",
+    "libstdcxx-ng >=11.2.0",
+    "reproc 14.2.4 h6a678d5_2"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1714680919000,
+  "size": 21248,
+  "requested_spec": "pkgs/main/linux-64::reproc-cpp==14.2.4=h6a678d5_2",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/reproc-cpp-14.2.4-h6a678d5_2.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/reproc-cpp-14.2.4-h6a678d5_2",
+  "files": [
+    "include/reproc++/arguments.hpp",
+    "include/reproc++/detail/array.hpp",
+    "include/reproc++/detail/type_traits.hpp",
+    "include/reproc++/drain.hpp",
+    "include/reproc++/env.hpp",
+    "include/reproc++/export.hpp",
+    "include/reproc++/input.hpp",
+    "include/reproc++/reproc.hpp",
+    "include/reproc++/run.hpp",
+    "lib/cmake/reproc++/reproc++-config-version.cmake",
+    "lib/cmake/reproc++/reproc++-config.cmake",
+    "lib/cmake/reproc++/reproc++-targets-release.cmake",
+    "lib/cmake/reproc++/reproc++-targets.cmake",
+    "lib/libreproc++.so",
+    "lib/libreproc++.so.14",
+    "lib/libreproc++.so.14.2.4",
+    "lib/pkgconfig/reproc++.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/reproc++.pc",
+        "prefix_placeholder": "/croot/reproc_1714680872521/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "fc6da3aa7959395fd9ef40addb7f20becabd1b3cbb62d63c7f6dfd796ece270e",
+        "size_in_bytes": 579,
+        "sha256_in_prefix": "105fe98822f458c08a71e5f79a0ff9b5642eb6ce77c7e50275ffa276505467bc"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/reproc-cpp-14.2.4-h6a678d5_2",
+    "type": 1
+  }
+}

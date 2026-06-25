@@ -1,0 +1,69 @@
+{
+  "name": "jsonpatch",
+  "version": "1.33",
+  "build": "py313h06a4308_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "jsonpatch-1.33-py313h06a4308_1.conda",
+  "md5": "8cb4b1755a4a8fd6a57883863236ef2b",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/jsonpatch-1.33-py313h06a4308_1.conda",
+  "sha256": "a84eba19b44745aa7892ed30a461b4da6b315e93b50d468de72486d0a8a9f892",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "jsonpointer >=1.9",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1728399618000,
+  "size": 36479,
+  "requested_spec": "pkgs/main/linux-64::jsonpatch==1.33=py313h06a4308_1",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/jsonpatch-1.33-py313h06a4308_1.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/jsonpatch-1.33-py313h06a4308_1",
+  "files": [
+    "bin/jsondiff",
+    "bin/jsonpatch",
+    "lib/python3.13/site-packages/__pycache__/jsonpatch.cpython-313.pyc",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/AUTHORS",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/LICENSE",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/METADATA",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/RECORD",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/WHEEL",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/jsonpatch-1.33.dist-info/top_level.txt",
+    "lib/python3.13/site-packages/jsonpatch.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/jsondiff",
+        "prefix_placeholder": "/work/perseverance-python-buildout/croot/jsonpatch_1728399595941/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pla",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "ed8bce148ce1dce99221f5af22be85a9aafc399bbe0633bd16454072cb35050f",
+        "size_in_bytes": 1447,
+        "sha256_in_prefix": "9b448f95f79869d21ed89e94b124d1a68a80ca6ac84344b780ea3b295265665a"
+      },
+      {
+        "_path": "bin/jsonpatch",
+        "prefix_placeholder": "/work/perseverance-python-buildout/croot/jsonpatch_1728399595941/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pla",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "675317969cdc21d6da9336da0dd661ed40e2d725f50ee27a29071a428a8a19e5",
+        "size_in_bytes": 4108,
+        "sha256_in_prefix": "102b70227171ae574140cff201375d733cb5724df2111f3695fc0edf6c0ae124"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/jsonpatch-1.33-py313h06a4308_1",
+    "type": 1
+  }
+}

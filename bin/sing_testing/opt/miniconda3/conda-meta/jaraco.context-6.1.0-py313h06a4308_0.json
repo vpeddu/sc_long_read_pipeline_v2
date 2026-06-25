@@ -1,0 +1,47 @@
+{
+  "name": "jaraco.context",
+  "version": "6.1.0",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "jaraco.context-6.1.0-py313h06a4308_0.conda",
+  "md5": "54a430923247a921a5c57e330e04549f",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/jaraco.context-6.1.0-py313h06a4308_0.conda",
+  "sha256": "ef4eebc2a04a062e54a6d4c318f70b88a737cb48706b2e9b1ec1f12cd0e24214",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1769477866000,
+  "size": 17104,
+  "requested_spec": "pkgs/main/linux-64::jaraco.context==6.1.0=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/jaraco.context-6.1.0-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/jaraco.context-6.1.0-py313h06a4308_0",
+  "files": [
+    "lib/python3.13/site-packages/jaraco/context/__init__.py",
+    "lib/python3.13/site-packages/jaraco/context/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/jaraco/context/py.typed",
+    "lib/python3.13/site-packages/jaraco_context-6.1.0.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/jaraco_context-6.1.0.dist-info/METADATA",
+    "lib/python3.13/site-packages/jaraco_context-6.1.0.dist-info/RECORD",
+    "lib/python3.13/site-packages/jaraco_context-6.1.0.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/jaraco_context-6.1.0.dist-info/WHEEL",
+    "lib/python3.13/site-packages/jaraco_context-6.1.0.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/jaraco_context-6.1.0.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/jaraco_context-6.1.0.dist-info/top_level.txt"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/jaraco.context-6.1.0-py313h06a4308_0",
+    "type": 1
+  }
+}

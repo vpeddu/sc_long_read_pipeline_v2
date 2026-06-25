@@ -1,0 +1,53 @@
+{
+  "name": "pydantic-core",
+  "version": "2.46.2",
+  "build": "py313h6e1b9ff_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "pydantic-core-2.46.2-py313h6e1b9ff_0.conda",
+  "md5": "d78b188b225decd09500330a2b68d7aa",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/pydantic-core-2.46.2-py313h6e1b9ff_0.conda",
+  "sha256": "de2fcaa0b046289d32e92022d2a185f299c5b647aceae163c0f37b7d3953e7ec",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libgcc >=14",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "typing-extensions >=4.14.1"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1776695231000,
+  "size": 1885489,
+  "requested_spec": "pkgs/main/linux-64::pydantic-core==2.46.2=py313h6e1b9ff_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/pydantic-core-2.46.2-py313h6e1b9ff_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/pydantic-core-2.46.2-py313h6e1b9ff_0",
+  "files": [
+    "lib/python3.13/site-packages/pydantic_core-2.46.2.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/pydantic_core-2.46.2.dist-info/METADATA",
+    "lib/python3.13/site-packages/pydantic_core-2.46.2.dist-info/RECORD",
+    "lib/python3.13/site-packages/pydantic_core-2.46.2.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/pydantic_core-2.46.2.dist-info/WHEEL",
+    "lib/python3.13/site-packages/pydantic_core-2.46.2.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/pydantic_core-2.46.2.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/pydantic_core/__init__.py",
+    "lib/python3.13/site-packages/pydantic_core/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/pydantic_core/__pycache__/core_schema.cpython-313.pyc",
+    "lib/python3.13/site-packages/pydantic_core/_pydantic_core.cpython-313-x86_64-linux-gnu.so",
+    "lib/python3.13/site-packages/pydantic_core/_pydantic_core.pyi",
+    "lib/python3.13/site-packages/pydantic_core/core_schema.py",
+    "lib/python3.13/site-packages/pydantic_core/py.typed"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/pydantic-core-2.46.2-py313h6e1b9ff_0",
+    "type": 1
+  }
+}

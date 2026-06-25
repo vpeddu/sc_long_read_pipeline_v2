@@ -1,0 +1,81 @@
+{
+  "name": "conda-package-handling",
+  "version": "2.4.0",
+  "build": "py313h06a4308_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "conda-package-handling-2.4.0-py313h06a4308_1.conda",
+  "md5": "8df01d8631f16021fe6e7f0093de07db",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/conda-package-handling-2.4.0-py313h06a4308_1.conda",
+  "sha256": "d1e652dbd4390b12bcf938ece3e85636c12ab54d91a25de7dd1ac8ca84b1b8b1",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "conda-package-streaming >=0.9.0",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "zstandard >=0.15"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1762366426000,
+  "size": 284840,
+  "requested_spec": "pkgs/main/linux-64::conda-package-handling==2.4.0=py313h06a4308_1",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/conda-package-handling-2.4.0-py313h06a4308_1.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/conda-package-handling-2.4.0-py313h06a4308_1",
+  "files": [
+    "bin/cph",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/METADATA",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/RECORD",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/WHEEL",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/entry_points.txt",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/licenses/AUTHORS.md",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/conda_package_handling-2.4.0.dist-info/top_level.txt",
+    "lib/python3.13/site-packages/conda_package_handling/__init__.py",
+    "lib/python3.13/site-packages/conda_package_handling/__main__.py",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/__main__.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/api.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/cli.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/conda_fmt.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/exceptions.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/interface.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/streaming.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/tarball.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/utils.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/__pycache__/validate.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_package_handling/api.py",
+    "lib/python3.13/site-packages/conda_package_handling/cli.py",
+    "lib/python3.13/site-packages/conda_package_handling/conda_fmt.py",
+    "lib/python3.13/site-packages/conda_package_handling/exceptions.py",
+    "lib/python3.13/site-packages/conda_package_handling/interface.py",
+    "lib/python3.13/site-packages/conda_package_handling/streaming.py",
+    "lib/python3.13/site-packages/conda_package_handling/tarball.py",
+    "lib/python3.13/site-packages/conda_package_handling/utils.py",
+    "lib/python3.13/site-packages/conda_package_handling/validate.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/cph",
+        "prefix_placeholder": "/home/task_176236637997838/conda-bld/conda-package-handling_1762366405159/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "c96ad68d415ee975152c83a9a089da0d99c3316932c279bb80f9569122233496",
+        "size_in_bytes": 479,
+        "sha256_in_prefix": "eb6606ac1e65965e6b8975a8a5ea7573bb86478b7461e0025996ad9f6936901f"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/conda-package-handling-2.4.0-py313h06a4308_1",
+    "type": 1
+  }
+}

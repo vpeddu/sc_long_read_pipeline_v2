@@ -1,0 +1,54 @@
+{
+  "name": "jaraco.classes",
+  "version": "3.4.0",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "jaraco.classes-3.4.0-py313h06a4308_0.conda",
+  "md5": "c4ea3f7208a811b569bbeae8c42c5b2d",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/jaraco.classes-3.4.0-py313h06a4308_0.conda",
+  "sha256": "74c2d4abcff4a9dcce44b7a2180bf08b834cfc72ac9745ff318fb44b27c93516",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "more-itertools",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1755516354000,
+  "size": 19952,
+  "requested_spec": "pkgs/main/linux-64::jaraco.classes==3.4.0=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/jaraco.classes-3.4.0-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/jaraco.classes-3.4.0-py313h06a4308_0",
+  "files": [
+    "lib/python3.13/site-packages/jaraco/classes/__init__.py",
+    "lib/python3.13/site-packages/jaraco/classes/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/jaraco/classes/__pycache__/ancestry.cpython-313.pyc",
+    "lib/python3.13/site-packages/jaraco/classes/__pycache__/meta.cpython-313.pyc",
+    "lib/python3.13/site-packages/jaraco/classes/__pycache__/properties.cpython-313.pyc",
+    "lib/python3.13/site-packages/jaraco/classes/ancestry.py",
+    "lib/python3.13/site-packages/jaraco/classes/meta.py",
+    "lib/python3.13/site-packages/jaraco/classes/properties.py",
+    "lib/python3.13/site-packages/jaraco/classes/py.typed",
+    "lib/python3.13/site-packages/jaraco_classes-3.4.0.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/jaraco_classes-3.4.0.dist-info/METADATA",
+    "lib/python3.13/site-packages/jaraco_classes-3.4.0.dist-info/RECORD",
+    "lib/python3.13/site-packages/jaraco_classes-3.4.0.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/jaraco_classes-3.4.0.dist-info/WHEEL",
+    "lib/python3.13/site-packages/jaraco_classes-3.4.0.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/jaraco_classes-3.4.0.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/jaraco_classes-3.4.0.dist-info/top_level.txt"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/jaraco.classes-3.4.0-py313h06a4308_0",
+    "type": 1
+  }
+}

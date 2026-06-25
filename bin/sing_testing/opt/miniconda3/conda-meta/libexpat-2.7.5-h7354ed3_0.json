@@ -1,0 +1,62 @@
+{
+  "name": "libexpat",
+  "version": "2.7.5",
+  "build": "h7354ed3_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "libexpat-2.7.5-h7354ed3_0.conda",
+  "md5": "67c73f16b2eb58c1c73d5a3dc1645d14",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/libexpat-2.7.5-h7354ed3_0.conda",
+  "sha256": "cda922c9f09bfa17933d55849b9232416872b068018ab89580e379d5487a2c14",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libgcc >=14",
+    "libstdcxx >=14"
+  ],
+  "constrains": [
+    "expat 2.7.5.*"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1774555957000,
+  "size": 125091,
+  "requested_spec": "pkgs/main/linux-64::libexpat==2.7.5=h7354ed3_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/libexpat-2.7.5-h7354ed3_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/libexpat-2.7.5-h7354ed3_0",
+  "files": [
+    "include/expat.h",
+    "include/expat_config.h",
+    "include/expat_external.h",
+    "lib/cmake/expat-2.7.5/expat-config-version.cmake",
+    "lib/cmake/expat-2.7.5/expat-config.cmake",
+    "lib/cmake/expat-2.7.5/expat-release.cmake",
+    "lib/cmake/expat-2.7.5/expat.cmake",
+    "lib/libexpat.so",
+    "lib/libexpat.so.1",
+    "lib/libexpat.so.1.11.3",
+    "lib/pkgconfig/expat.pc",
+    "share/doc/expat/AUTHORS",
+    "share/doc/expat/changelog"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/expat.pc",
+        "prefix_placeholder": "/home/task_177455587464029/croot/expat-split_1774555907887/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "3496d876493584b96dbac62308fc6257640c6b32fbeea901ebf611eda3ea0837",
+        "size_in_bytes": 528,
+        "sha256_in_prefix": "a1c2a4748956529aeb291b47331671dc663e7facfd03697bd0a3bcb846ac249a"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/libexpat-2.7.5-h7354ed3_0",
+    "type": 1
+  }
+}

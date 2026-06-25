@@ -1,0 +1,13 @@
+# Most of the modules and packages are installed in "conda activate lrseq". Please refer to the exact version of packages in the environment.
+# Some packages and modeuls are installed in other conda environment specified in the individual script
+
+# run_pipeline.sh is main wrapper script to run the all process
+
+# Directory structure for running the pipeline now:
+### [sample_name]/
+### [sample_name]/[sample_name].fastq.gz
+### [sample_name]/[sample_name].barcodes.tsv
+
+# Sue will be migrating below two codes to centralized locations. If, not please talk to her
+/home/sgrimes/shared/installs/isoSeQL//isoSeQL_run.py
+/home/sgrimes/shared/installs/sqanti3_iSQL

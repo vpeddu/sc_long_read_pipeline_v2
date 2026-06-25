@@ -1,0 +1,150 @@
+# Base image for SQANTI3/v5.5.3 with Ubuntu 22.04
+
+# Using ubuntu 22.04
+# Right now edlib doesn't work with python 3.12 which is the default version
+# of python in Ubuntu 24.04. edlib has had no updates since April 19, 2023
+# so no compatibility is expected for the time being.
+# Dockerfile originally developed by @skchronicles, updated and optimized
+# for version v5.3.0 by @Fabian-RY
+
+FROM ubuntu:22.04
+SHELL ["/bin/bash", "--login" ,"-c"]
+
+# Set the SQANTI3 version to install 
+# Taken from src/config.py
+ARG SQANTI3_VERSION
+ENV SQANTI3_VERSION=${SQANTI3_VERSION}
+
+LABEL maintainer="pabloati" \
+   base_image="ubuntu:22.04" \
+   version="v0.9.0"   \
+   software="sqanti3/v${SQANTI3_VERSION}" \
+   about.summary="SQANTI3: Tool for the Quality Control of Long-Read Defined Transcriptomes" \
+   about.home="https://github.com/ConesaLab/SQANTI3" \
+   about.documentation="https://github.com/ConesaLab/SQANTI3/wiki/" \
+   about.tags="Transcriptomics"
+
+# Default Timeset inside the container: UTC
+
+############### INIT ################
+# Create Container filesystem specific 
+# working directory and opt directories
+# to avoid collisions with the host's
+# filesystem, i.e. /opt and /data
+RUN mkdir -p /opt2 && mkdir -p /data2
+WORKDIR /opt2
+
+
+############### SETUP ################
+# This section installs system packages 
+# required for your project. If you need 
+# extra system packages add them here.
+RUN apt-get update \
+   && apt-get -y upgrade \
+   && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+       # bedtools/2.30.0
+       bedtools \
+       build-essential \
+       cmake \
+       cpanminus \
+       curl \
+       gawk \
+       # gffread/0.12.7
+       gffread \
+       # gmap/2021-12-17
+       gmap \
+       gzip \
+       unzip \
+       # kallisto/0.46.2
+       kallisto \
+       libcurl4-openssl-dev \
+       libssl-dev \
+       libxml2-dev \
+       locales \
+       # minimap2/2.24
+       minimap2 \
+       # perl/5.34.0-3
+       perl \
+       pkg-config \
+       # STAR/2.7.10a
+       rna-star \
+       # samtools/1.13-4
+       samtools \
+       # seqtk/1.3-2
+       seqtk \
+       wget \
+       zlib1g-dev \
+   && apt-get clean && apt-get purge \
+   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Set the locale
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8
+# Perl fix issue
+RUN cpanm FindBin Term::ReadLine
+
+
+########### SQANTI3 (currently v${SQANTI3_VERSION}) ############
+# Installs SQANTI3 with the version defined in the ENV variable 0)
+# dependenciesand requirements have already been
+# satisfied, for more info see:
+# https://github.com/ConesaLab/SQANTI3
+RUN mkdir -p /opt2/sqanti3/${SQANTI3_VERSION}/ \
+   && wget https://github.com/ConesaLab/SQANTI3/releases/download/v${SQANTI3_VERSION}/SQANTI3_v${SQANTI3_VERSION}.zip -O /opt2/sqanti3/${SQANTI3_VERSION}/v${SQANTI3_VERSION}.zip \
+   && unzip /opt2/sqanti3/${SQANTI3_VERSION}/v${SQANTI3_VERSION}.zip -d /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION} \
+   && rm -f /opt2/sqanti3/${SQANTI3_VERSION}/v${SQANTI3_VERSION}.zip \
+   # Removing exec bit for non-exec files
+   && chmod -x \
+       /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/LICENSE \
+       /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/*.md \
+       /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/*.yml \
+   # Patch: adding absolute PATH to howToUse.png
+   # that gets embedded in the report. When running
+   # sqanti_qc.py within docker/singularity container,
+   # it fails at the report generation step because 
+   # pandoc cannot find the png file (due to relative
+   # path). Converting relative path in Rmd files to
+   # an absolute path to avoid this issue altogether.
+   && sed -i \
+       's@src="howToUse.png"@src="/opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/src/utilities/report_qc/howToUse.png"@g' \
+       /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/src/utilities/report_qc/SQANTI3_report.Rmd \
+       /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/src/utilities/report_pigeon/pigeon_report.Rmd
+
+ENV PATH="${PATH}:/opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}:/opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/src/utilities"
+WORKDIR /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}
+
+RUN mkdir -p /conda/miniconda3 && \
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /conda/miniconda3/miniconda.sh && \
+    bash /conda/miniconda3/miniconda.sh -b -u -p /conda/miniconda3 && \
+    rm /conda/miniconda3/miniconda.sh && \
+    CI=true CONDA_PLUGINS_AUTO_ACCEPT_TOS=true /conda/miniconda3/bin/conda env create -f SQANTI3.conda_env.yml && \
+    /conda/miniconda3/bin/conda clean -a
+
+
+################ POST #################
+# Add Dockerfile and export environment 
+# variables and update permissions
+ADD Dockerfile /opt2/sqanti3_${SQANTI3_VERSION}.dockerfile
+ENV PATH="/opt2:$PATH"
+# Hide deprecation warnings from sqanit
+ENV PYTHONWARNINGS="ignore::DeprecationWarning"
+WORKDIR /data2
+
+ENV PATH="${PATH}:/conda/miniconda3/bin/"
+
+RUN chmod -R a+rX /opt2 && \
+    ln -s /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/sqanti3_qc.py sqanti3_qc.py && \
+    ln -s /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/sqanti3_filter.py sqanti3_filter.py && \
+    ln -s /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/sqanti3_rescue.py sqanti3_rescue.py && \
+    ln -s /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/sqanti3_reads.py sqanti3_reads.py && \
+    ln -s /opt2/sqanti3/${SQANTI3_VERSION}/SQANTI3-${SQANTI3_VERSION}/sqanti3 sqanti3 && \
+    apt-get remove -y build-essential cmake && apt-get autoremove -y && apt-get clean -y && \
+    apt-get clean autoclean -y
+
+# Creating an user for non root executions inside the container...
+RUN groupadd user && useradd -r -g user user && chown user:user .
+
+# ... and efectively using that user
+USER user
+
+ENTRYPOINT ["conda", "run", "--no-capture-output" ,"-n","sqanti3"]
+CMD ["/bin/bash"]

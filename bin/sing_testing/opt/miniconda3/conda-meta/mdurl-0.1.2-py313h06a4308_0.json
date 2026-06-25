@@ -1,0 +1,56 @@
+{
+  "name": "mdurl",
+  "version": "0.1.2",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "mdurl-0.1.2-py313h06a4308_0.conda",
+  "md5": "39da6986b50a3eb3cbf60c9883f4b92e",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/mdurl-0.1.2-py313h06a4308_0.conda",
+  "sha256": "b4af3847be42fd97001227f10b8e6347aefb45199bcf5f358e870f4c43cbdd9a",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1758552191000,
+  "size": 26871,
+  "requested_spec": "pkgs/main/linux-64::mdurl==0.1.2=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/mdurl-0.1.2-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/mdurl-0.1.2-py313h06a4308_0",
+  "files": [
+    "lib/python3.13/site-packages/mdurl-0.1.2.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/mdurl-0.1.2.dist-info/METADATA",
+    "lib/python3.13/site-packages/mdurl-0.1.2.dist-info/RECORD",
+    "lib/python3.13/site-packages/mdurl-0.1.2.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/mdurl-0.1.2.dist-info/WHEEL",
+    "lib/python3.13/site-packages/mdurl-0.1.2.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/mdurl-0.1.2.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/mdurl/__init__.py",
+    "lib/python3.13/site-packages/mdurl/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/mdurl/__pycache__/_decode.cpython-313.pyc",
+    "lib/python3.13/site-packages/mdurl/__pycache__/_encode.cpython-313.pyc",
+    "lib/python3.13/site-packages/mdurl/__pycache__/_format.cpython-313.pyc",
+    "lib/python3.13/site-packages/mdurl/__pycache__/_parse.cpython-313.pyc",
+    "lib/python3.13/site-packages/mdurl/__pycache__/_url.cpython-313.pyc",
+    "lib/python3.13/site-packages/mdurl/_decode.py",
+    "lib/python3.13/site-packages/mdurl/_encode.py",
+    "lib/python3.13/site-packages/mdurl/_format.py",
+    "lib/python3.13/site-packages/mdurl/_parse.py",
+    "lib/python3.13/site-packages/mdurl/_url.py",
+    "lib/python3.13/site-packages/mdurl/py.typed"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/mdurl-0.1.2-py313h06a4308_0",
+    "type": 1
+  }
+}

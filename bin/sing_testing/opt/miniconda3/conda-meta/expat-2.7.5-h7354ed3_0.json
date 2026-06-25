@@ -1,0 +1,40 @@
+{
+  "name": "expat",
+  "version": "2.7.5",
+  "build": "h7354ed3_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "expat-2.7.5-h7354ed3_0.conda",
+  "md5": "26ee2ccb746d7d06dfc5f83f906bd650",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/expat-2.7.5-h7354ed3_0.conda",
+  "sha256": "ca2c5e649f35a9bdf6af0db5c596ebe060f5f6136417285348ab8e1eaa2f1dfa",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libexpat 2.7.5 h7354ed3_0",
+    "libgcc >=14",
+    "libstdcxx >=14"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1774555959000,
+  "size": 24686,
+  "requested_spec": "pkgs/main/linux-64::expat==2.7.5=h7354ed3_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/expat-2.7.5-h7354ed3_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/expat-2.7.5-h7354ed3_0",
+  "files": [
+    "bin/xmlwf",
+    "share/man/man1/xmlwf.1"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/expat-2.7.5-h7354ed3_0",
+    "type": 1
+  }
+}

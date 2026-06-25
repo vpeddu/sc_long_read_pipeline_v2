@@ -1,0 +1,60 @@
+{
+  "name": "frozendict",
+  "version": "2.4.6",
+  "build": "py313hee96239_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "frozendict-2.4.6-py313hee96239_0.conda",
+  "md5": "26dfe875df9973e0e98ec5add063e00e",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/frozendict-2.4.6-py313hee96239_0.conda",
+  "sha256": "bbd8544cebc4a43a7c92898ffed3d4e668c236dbd3e7c6307758c31b75f0e3d3",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libgcc-ng >=11.2.0",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "LGPL-3.0-only",
+  "license_family": "LGPL",
+  "timestamp": 1761750688000,
+  "size": 39148,
+  "requested_spec": "pkgs/main/linux-64::frozendict==2.4.6=py313hee96239_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/frozendict-2.4.6-py313hee96239_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/frozendict-2.4.6-py313hee96239_0",
+  "files": [
+    "lib/python3.13/site-packages/frozendict-2.4.6.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/frozendict-2.4.6.dist-info/METADATA",
+    "lib/python3.13/site-packages/frozendict-2.4.6.dist-info/RECORD",
+    "lib/python3.13/site-packages/frozendict-2.4.6.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/frozendict-2.4.6.dist-info/WHEEL",
+    "lib/python3.13/site-packages/frozendict-2.4.6.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/frozendict-2.4.6.dist-info/licenses/LICENSE.txt",
+    "lib/python3.13/site-packages/frozendict-2.4.6.dist-info/top_level.txt",
+    "lib/python3.13/site-packages/frozendict/__init__.py",
+    "lib/python3.13/site-packages/frozendict/__init__.pyi",
+    "lib/python3.13/site-packages/frozendict/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/frozendict/__pycache__/_frozendict_py.cpython-313.pyc",
+    "lib/python3.13/site-packages/frozendict/__pycache__/cool.cpython-313.pyc",
+    "lib/python3.13/site-packages/frozendict/__pycache__/core.cpython-313.pyc",
+    "lib/python3.13/site-packages/frozendict/__pycache__/monkeypatch.cpython-313.pyc",
+    "lib/python3.13/site-packages/frozendict/__pycache__/version.cpython-313.pyc",
+    "lib/python3.13/site-packages/frozendict/_frozendict_py.py",
+    "lib/python3.13/site-packages/frozendict/cool.py",
+    "lib/python3.13/site-packages/frozendict/core.py",
+    "lib/python3.13/site-packages/frozendict/monkeypatch.py",
+    "lib/python3.13/site-packages/frozendict/py.typed",
+    "lib/python3.13/site-packages/frozendict/version.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/frozendict-2.4.6-py313hee96239_0",
+    "type": 1
+  }
+}

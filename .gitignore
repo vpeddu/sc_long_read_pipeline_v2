@@ -1,0 +1,14 @@
+.nextflow.* 
+work
+test_data
+CHANGES_SUMMARY.md
+CONTAINER_README.md
+.vscode
+.nextflow
+SETUP_GUIDE.md
+SETUP_CHECKLIST.md
+bin/sing_testing/*
+testing/
+*.zip
+bin/sing_isoseql_testing/*
+container/

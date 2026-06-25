@@ -1,0 +1,59 @@
+{
+  "name": "bzip2",
+  "version": "1.0.8",
+  "build": "h5eee18b_6",
+  "build_number": 6,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "bzip2-1.0.8-h5eee18b_6.conda",
+  "md5": "f21a3ff51c1b271977f53ce956a69297",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/bzip2-1.0.8-h5eee18b_6.conda",
+  "sha256": "235f266d5f9c3c61748bb1af0eff21bc7ed2a2a356b97ff28d9c1135039b08b0",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "libgcc-ng >=11.2.0"
+  ],
+  "constrains": [],
+  "license": "bzip2-1.0.8",
+  "license_family": "BSD",
+  "timestamp": 1714510571000,
+  "size": 268384,
+  "requested_spec": "pkgs/main/linux-64::bzip2==1.0.8=h5eee18b_6",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/bzip2-1.0.8-h5eee18b_6.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/bzip2-1.0.8-h5eee18b_6",
+  "files": [
+    "bin/bunzip2",
+    "bin/bzcat",
+    "bin/bzcmp",
+    "bin/bzdiff",
+    "bin/bzegrep",
+    "bin/bzfgrep",
+    "bin/bzgrep",
+    "bin/bzip2",
+    "bin/bzip2recover",
+    "bin/bzless",
+    "bin/bzmore",
+    "include/bzlib.h",
+    "lib/libbz2.a",
+    "lib/libbz2.so",
+    "lib/libbz2.so.1.0",
+    "lib/libbz2.so.1.0.8",
+    "man/man1/bzcmp.1",
+    "man/man1/bzdiff.1",
+    "man/man1/bzegrep.1",
+    "man/man1/bzfgrep.1",
+    "man/man1/bzgrep.1",
+    "man/man1/bzip2.1",
+    "man/man1/bzless.1",
+    "man/man1/bzmore.1"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/bzip2-1.0.8-h5eee18b_6",
+    "type": 1
+  }
+}

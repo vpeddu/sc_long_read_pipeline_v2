@@ -1,0 +1,41 @@
+{
+  "name": "typer-slim-standard",
+  "version": "0.20.0",
+  "build": "py313h06a4308_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "typer-slim-standard-0.20.0-py313h06a4308_1.conda",
+  "md5": "9dd2ed87dd542c2ccde13c6e2e29a311",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/typer-slim-standard-0.20.0-py313h06a4308_1.conda",
+  "sha256": "b8a7d942b5032ecb3fd4faa83c7f51aa290d38773eb74195d7df136998aef8b6",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "rich",
+    "shellingham",
+    "typer-slim 0.20.0 py313h06a4308_1"
+  ],
+  "constrains": [
+    "typer 0.20.0.*",
+    "typer-cli 0.20.0.*"
+  ],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1771513016000,
+  "size": 7309,
+  "requested_spec": "pkgs/main/linux-64::typer-slim-standard==0.20.0=py313h06a4308_1",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/typer-slim-standard-0.20.0-py313h06a4308_1.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/typer-slim-standard-0.20.0-py313h06a4308_1",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/typer-slim-standard-0.20.0-py313h06a4308_1",
+    "type": 1
+  }
+}

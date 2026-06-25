@@ -1,0 +1,51 @@
+{
+  "name": "jansson",
+  "version": "2.14",
+  "build": "h5eee18b_1",
+  "build_number": 1,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "jansson-2.14-h5eee18b_1.conda",
+  "md5": "852537d568f5ed410a100d65424039dc",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/jansson-2.14-h5eee18b_1.conda",
+  "sha256": "e76928987010e8d60fe7e2edbbf733643ed16f17eb9cbcd96bc4dcb2d823dec2",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "libgcc-ng >=11.2.0"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1705704612000,
+  "size": 38170,
+  "requested_spec": "pkgs/main/linux-64::jansson==2.14=h5eee18b_1",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/jansson-2.14-h5eee18b_1.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/jansson-2.14-h5eee18b_1",
+  "files": [
+    "include/jansson.h",
+    "include/jansson_config.h",
+    "lib/libjansson.so",
+    "lib/libjansson.so.4",
+    "lib/libjansson.so.4.14.0",
+    "lib/pkgconfig/jansson.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/jansson.pc",
+        "prefix_placeholder": "/croot/jansson_1705704561840/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "4eadc4f6807429995daf474d03b861517077471809629af86b087071b70d2a61",
+        "size_in_bytes": 492,
+        "sha256_in_prefix": "88403f35a506fddfbd86fb1935f19663e1e48f9a4eb7c679eca06cb2214d8e94"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/jansson-2.14-h5eee18b_1",
+    "type": 1
+  }
+}

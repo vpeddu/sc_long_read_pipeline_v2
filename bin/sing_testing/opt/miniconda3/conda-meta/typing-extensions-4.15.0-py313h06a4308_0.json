@@ -1,0 +1,36 @@
+{
+  "name": "typing-extensions",
+  "version": "4.15.0",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "typing-extensions-4.15.0-py313h06a4308_0.conda",
+  "md5": "1c8a1efd0b3a33cee5c2dceae66bbc69",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/typing-extensions-4.15.0-py313h06a4308_0.conda",
+  "sha256": "8aed1c54e0b3b89551f84dd7815d05e5369632f134661e15fa325f08892e46a7",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313",
+    "typing_extensions 4.15.0 py313h06a4308_0"
+  ],
+  "constrains": [],
+  "license": "PSF-2.0",
+  "license_family": "PSF",
+  "timestamp": 1756280930000,
+  "size": 11238,
+  "requested_spec": "pkgs/main/linux-64::typing-extensions==4.15.0=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/typing-extensions-4.15.0-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/typing-extensions-4.15.0-py313h06a4308_0",
+  "files": [],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/typing-extensions-4.15.0-py313h06a4308_0",
+    "type": 1
+  }
+}

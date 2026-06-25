@@ -1,0 +1,57 @@
+{
+  "name": "reproc",
+  "version": "14.2.4",
+  "build": "h6a678d5_2",
+  "build_number": 2,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "reproc-14.2.4-h6a678d5_2.conda",
+  "md5": "3c6dbc6c60b3897222d79359343e90fa",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/reproc-14.2.4-h6a678d5_2.conda",
+  "sha256": "3c9233dc26c1e4264966c5b95ab7cb80748153ae1c3de688a503d9f84c888210",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "libgcc-ng >=11.2.0"
+  ],
+  "constrains": [],
+  "license": "MIT",
+  "license_family": "MIT",
+  "timestamp": 1714680903000,
+  "size": 29681,
+  "requested_spec": "pkgs/main/linux-64::reproc==14.2.4=h6a678d5_2",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/reproc-14.2.4-h6a678d5_2.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/reproc-14.2.4-h6a678d5_2",
+  "files": [
+    "include/reproc/drain.h",
+    "include/reproc/export.h",
+    "include/reproc/reproc.h",
+    "include/reproc/run.h",
+    "lib/cmake/reproc/reproc-config-version.cmake",
+    "lib/cmake/reproc/reproc-config.cmake",
+    "lib/cmake/reproc/reproc-targets-release.cmake",
+    "lib/cmake/reproc/reproc-targets.cmake",
+    "lib/libreproc.so",
+    "lib/libreproc.so.14",
+    "lib/libreproc.so.14.2.4",
+    "lib/pkgconfig/reproc.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "lib/pkgconfig/reproc.pc",
+        "prefix_placeholder": "/croot/reproc_1714680872521/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "f9d9c337f7ab5b33adb32052e8565634c47818fe7878262696085ee25c5e2259",
+        "size_in_bytes": 545,
+        "sha256_in_prefix": "6ba8475b35ffd7f852223aa73dfefe25ed06e3f0914a4a88c0703d00cd3c2f9e"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/reproc-14.2.4-h6a678d5_2",
+    "type": 1
+  }
+}

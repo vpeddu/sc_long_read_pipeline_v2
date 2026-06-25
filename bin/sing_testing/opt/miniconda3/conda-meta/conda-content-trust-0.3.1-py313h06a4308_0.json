@@ -1,0 +1,82 @@
+{
+  "name": "conda-content-trust",
+  "version": "0.3.1",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "conda-content-trust-0.3.1-py313h06a4308_0.conda",
+  "md5": "5e8fc3c21d579a689335e5c987f1f1f6",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/conda-content-trust-0.3.1-py313h06a4308_0.conda",
+  "sha256": "46c65d8d7b1c166b12128c04d6a86f568eeea907d1394e69e88b57c544c3e678",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "conda >=26.3.0",
+    "cryptography >=41",
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1775266814000,
+  "size": 70759,
+  "requested_spec": "pkgs/main/linux-64::conda-content-trust==0.3.1=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/conda-content-trust-0.3.1-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/conda-content-trust-0.3.1-py313h06a4308_0",
+  "files": [
+    "bin/conda-content-trust",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/METADATA",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/RECORD",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/WHEEL",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/entry_points.txt",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/licenses/AUTHORS.md",
+    "lib/python3.13/site-packages/conda_content_trust-0.3.1.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/conda_content_trust/__init__.py",
+    "lib/python3.13/site-packages/conda_content_trust/__main__.py",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/__main__.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/__version__.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/authentication.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/cli.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/common.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/constants.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/metadata_construction.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/plugin.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/root_signing.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/signing.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__pycache__/verification.cpython-313.pyc",
+    "lib/python3.13/site-packages/conda_content_trust/__version__.py",
+    "lib/python3.13/site-packages/conda_content_trust/authentication.py",
+    "lib/python3.13/site-packages/conda_content_trust/cli.py",
+    "lib/python3.13/site-packages/conda_content_trust/common.py",
+    "lib/python3.13/site-packages/conda_content_trust/constants.py",
+    "lib/python3.13/site-packages/conda_content_trust/metadata_construction.py",
+    "lib/python3.13/site-packages/conda_content_trust/plugin.py",
+    "lib/python3.13/site-packages/conda_content_trust/root_signing.py",
+    "lib/python3.13/site-packages/conda_content_trust/signing.py",
+    "lib/python3.13/site-packages/conda_content_trust/verification.py"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/conda-content-trust",
+        "prefix_placeholder": "/home/task_177526675282743/croot/conda-content-trust_1775266795331/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_p",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "835dc013fa581e8a08d391fca7e9b134ce9d651e1bc3aa92016ee94fb184c5c4",
+        "size_in_bytes": 474,
+        "sha256_in_prefix": "1986ff9d7eeef16709a319829b1bf3ad4c6d91c061f5726dcc6915151d1e7783"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/conda-content-trust-0.3.1-py313h06a4308_0",
+    "type": 1
+  }
+}

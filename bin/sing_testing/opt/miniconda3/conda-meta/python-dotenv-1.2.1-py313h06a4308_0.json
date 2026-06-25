@@ -1,0 +1,75 @@
+{
+  "name": "python-dotenv",
+  "version": "1.2.1",
+  "build": "py313h06a4308_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "python-dotenv-1.2.1-py313h06a4308_0.conda",
+  "md5": "6aa550906f91d13d1371c07e9cb5c5c3",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/python-dotenv-1.2.1-py313h06a4308_0.conda",
+  "sha256": "0b9592d613f10c12d18ef188e3eec0f7ff94ebbdab8ee77f73ddc02d3c77051a",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "python >=3.13,<3.14.0a0",
+    "python_abi 3.13.* *_cp313"
+  ],
+  "constrains": [
+    "click >=5.0"
+  ],
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "timestamp": 1768559707000,
+  "size": 51623,
+  "requested_spec": "pkgs/main/linux-64::python-dotenv==1.2.1=py313h06a4308_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/python-dotenv-1.2.1-py313h06a4308_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/python-dotenv-1.2.1-py313h06a4308_0",
+  "files": [
+    "bin/dotenv",
+    "lib/python3.13/site-packages/dotenv/__init__.py",
+    "lib/python3.13/site-packages/dotenv/__main__.py",
+    "lib/python3.13/site-packages/dotenv/__pycache__/__init__.cpython-313.pyc",
+    "lib/python3.13/site-packages/dotenv/__pycache__/__main__.cpython-313.pyc",
+    "lib/python3.13/site-packages/dotenv/__pycache__/cli.cpython-313.pyc",
+    "lib/python3.13/site-packages/dotenv/__pycache__/ipython.cpython-313.pyc",
+    "lib/python3.13/site-packages/dotenv/__pycache__/main.cpython-313.pyc",
+    "lib/python3.13/site-packages/dotenv/__pycache__/parser.cpython-313.pyc",
+    "lib/python3.13/site-packages/dotenv/__pycache__/variables.cpython-313.pyc",
+    "lib/python3.13/site-packages/dotenv/__pycache__/version.cpython-313.pyc",
+    "lib/python3.13/site-packages/dotenv/cli.py",
+    "lib/python3.13/site-packages/dotenv/ipython.py",
+    "lib/python3.13/site-packages/dotenv/main.py",
+    "lib/python3.13/site-packages/dotenv/parser.py",
+    "lib/python3.13/site-packages/dotenv/py.typed",
+    "lib/python3.13/site-packages/dotenv/variables.py",
+    "lib/python3.13/site-packages/dotenv/version.py",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/INSTALLER",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/METADATA",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/RECORD",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/REQUESTED",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/WHEEL",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/direct_url.json",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/entry_points.txt",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/licenses/LICENSE",
+    "lib/python3.13/site-packages/python_dotenv-1.2.1.dist-info/top_level.txt"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/dotenv",
+        "prefix_placeholder": "/home/task_176855885656798/croot/python-dotenv_1768559688221/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeho",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "142c90a0ce1b16fbed1443352a5865efc5c59de32af6a9e16e97f7c923cf24bd",
+        "size_in_bytes": 466,
+        "sha256_in_prefix": "a90fcf5e4692cc1f4679f51fc5dfed3781ddf250af437207bcea44e23d0729bc"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/python-dotenv-1.2.1-py313h06a4308_0",
+    "type": 1
+  }
+}

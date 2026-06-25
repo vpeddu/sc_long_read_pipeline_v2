@@ -1,0 +1,49 @@
+{
+  "name": "pybind11-abi",
+  "version": "11",
+  "build": "hc364b38_1",
+  "build_number": 1,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "subdir": "noarch",
+  "fn": "pybind11-abi-11-hc364b38_1.conda",
+  "md5": "f0599959a2447c1e544e216bddf393fa",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/pybind11-abi-11-hc364b38_1.conda",
+  "sha256": "9e7fe12f727acd2787fb5816b2049cef4604b7a00ad3e408c5e709c298ce8bf1",
+  "depends": [],
+  "constrains": [],
+  "noarch": "generic",
+  "license": "BSD-3-Clause",
+  "package_type": "noarch_generic",
+  "timestamp": 1752769938071,
+  "size": 14671,
+  "_requested_specs": [],
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/pybind11-abi-11-hc364b38_1.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/pybind11-abi-11-hc364b38_1",
+  "files": [
+    "etc/conda/test-files/pybind11-abi/0/check_abi.py",
+    "etc/conda/test-files/pybind11-abi/0/include/pybind11/detail/internals.h"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "etc/conda/test-files/pybind11-abi/0/check_abi.py",
+        "path_type": "hardlink",
+        "sha256": "22a26b69d0bd92e5a3f758bacc75546b2ed783e1fcab990dbf6c89f08684ede4",
+        "size_in_bytes": 876,
+        "sha256_in_prefix": "22a26b69d0bd92e5a3f758bacc75546b2ed783e1fcab990dbf6c89f08684ede4"
+      },
+      {
+        "_path": "etc/conda/test-files/pybind11-abi/0/include/pybind11/detail/internals.h",
+        "path_type": "hardlink",
+        "sha256": "875fb3fe37220b3d8a12e79b1b8aee1b6f2693395afda24ffbf016cf47ce65f1",
+        "size_in_bytes": 31629,
+        "sha256_in_prefix": "875fb3fe37220b3d8a12e79b1b8aee1b6f2693395afda24ffbf016cf47ce65f1"
+      }
+    ]
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/pybind11-abi-11-hc364b38_1",
+    "type": 1
+  }
+}

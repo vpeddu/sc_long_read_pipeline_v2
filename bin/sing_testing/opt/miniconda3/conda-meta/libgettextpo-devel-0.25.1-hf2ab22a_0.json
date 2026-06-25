@@ -1,0 +1,39 @@
+{
+  "name": "libgettextpo-devel",
+  "version": "0.25.1",
+  "build": "hf2ab22a_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/linux-64",
+  "subdir": "linux-64",
+  "fn": "libgettextpo-devel-0.25.1-hf2ab22a_0.conda",
+  "md5": "5766eead346251db288d5b13c3dffd6f",
+  "url": "https://repo.anaconda.com/pkgs/main/linux-64/libgettextpo-devel-0.25.1-hf2ab22a_0.conda",
+  "sha256": "dcf5a9cf369a65a01367967177721b943a2927fa4305c4b4d04d80764d943f8c",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.28,<3.0.a0",
+    "libgcc >=14",
+    "libgettextpo 0.25.1 hf2ab22a_0",
+    "libiconv >=1.18,<2.0a0"
+  ],
+  "constrains": [],
+  "license": "GPL-3.0-or-later",
+  "timestamp": 1772045253000,
+  "size": 36248,
+  "requested_spec": "pkgs/main/linux-64::libgettextpo-devel==0.25.1=hf2ab22a_0",
+  "package_tarball_full_path": "/opt/miniconda3/pkgs/libgettextpo-devel-0.25.1-hf2ab22a_0.conda",
+  "extracted_package_dir": "/opt/miniconda3/pkgs/libgettextpo-devel-0.25.1-hf2ab22a_0",
+  "files": [
+    "include/gettext-po.h",
+    "lib/libgettextpo.so"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": []
+  },
+  "link": {
+    "source": "/opt/miniconda3/pkgs/libgettextpo-devel-0.25.1-hf2ab22a_0",
+    "type": 1
+  }
+}
