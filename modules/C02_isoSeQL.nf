@@ -4,19 +4,19 @@ process runIsoSeQL {
     cpus 8
     memory '64 GB'
 
+    publishDir path: { "${sample}/${params.output_dir}/C02_isoSeQL" }, mode: 'symlink'
+
     input:
-    tuple val(sample), 
-          path(sqanti_gtf), 
-          path(sqanti_fasta), 
-          path(sqanti_classification), 
-          path(tx_xref), 
+    tuple val(sample),
+          path(sqanti_gtf),
+          path(sqanti_fasta),
+          path(sqanti_classification),
+          path(tx_xref),
           path(sqanti_genePred),
           path(tx_dups_xref)
 
     output:
     tuple val(sample), path("sqanti_corrected.gtf"), path("sqanti_corrected.fasta"), path("sqanti_RulesFilter_classification.txt"), path("tx_dups_xref.tsv"), path("sqanti_corrected.genePred")
-
-    publishDir "${sample}/${params.output_dir}/C02_isoSeQL", mode: 'symlink'
 
     script:
     """

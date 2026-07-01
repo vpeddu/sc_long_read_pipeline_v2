@@ -6,20 +6,20 @@ process runFlair {
     cpus 20
     memory '128 GB'
 
+    publishDir path: { "${sample}/${params.output_dir}/A04_flair" }, mode: 'symlink'
+
     input:
     tuple val(sample), path(bam), path(bai), path(fastq)
     path genome
     path gtf
 
     output:
-    tuple val(sample), 
-        path ("${sample}.flair.filtered_all_corrected.bed"), 
-        path("${sample}.flair.collapse.isoforms.bed"), 
-        path("${sample}.flair.collapse.isoforms.fa"), 
+    tuple val(sample),
+        path ("${sample}.flair.filtered_all_corrected.bed"),
+        path("${sample}.flair.collapse.isoforms.bed"),
+        path("${sample}.flair.collapse.isoforms.fa"),
         path("${sample}.flair.collapse.isoforms.gtf"),
         path("${sample}.flair.collapse.isoform.read.map.txt")
-
-    publishDir "${sample}/${params.output_dir}/A04_flair", mode: 'symlink'
 
     script:
     """
@@ -56,22 +56,21 @@ process runTxRename {
     cpus 1
     memory '24 GB'
 
+    publishDir "${params.output_dir}/A04_txRename", mode: 'symlink'
+
     input:
     tuple val(sample),
     path (flair_corrected_bed),
     path(flair_collapse_isoforms_bed),
-    path(flair_collapsed_isoforms_fa), 
+    path(flair_collapsed_isoforms_fa),
     path(flair_collapse_gtf),
     path(flair_collapse_map)
-    
+
     output:
-    tuple val(sample), path("${sample}.flair.collapse.isoforms.txmod.gtf"), 
-    path("${sample}.flair.collapse.isoform.read.map.txt"), 
+    tuple val(sample), path("${sample}.flair.collapse.isoforms.txmod.gtf"),
+    path("${sample}.flair.collapse.isoform.read.map.txt"),
     path("isoform_cells.csv"),
     path("transcript_xref.tsv")
-    
-    publishDir "${params.output_dir}/A04_txRename", mode: 'symlink'
-
 
     script:
     """

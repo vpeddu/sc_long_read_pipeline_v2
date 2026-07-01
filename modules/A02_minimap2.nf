@@ -4,34 +4,55 @@ process runMinimap2 {
     cpus 20
     memory '64 GB'
 
+    publishDir path: { "${sample}/${params.output_dir}/A02_minimap2/chunks" }, mode: 'symlink'
+
     input:
     tuple val(sample), file(flex_fastq)
     file junc_bed
     file ref_genome
-    file bam_tag_bc_umi_py
-
-    publishDir "${sample}/${params.output_dir}/A02_minimap2", mode: 'symlink'
 
     output:
-    tuple val(sample), path("${sample}.bc_tag.st.bam"), path("${sample}.bc_tag.st.bam.bai")
+    tuple val(sample), path("*.bc_tag.st.bam"), path("*.bc_tag.st.bam.bai")
 
     script:
     """
 
   #TODO: will be faster if we pre-build the minimap2 index
 
-    echo "Running minimap2 for ${sample} with ${task.cpus} threads"
+    prefix=\$(basename ${flex_fastq} .bc.fastq.gz)
 
-    /opt/miniconda3/envs/long_reads/bin/minimap2 -ax splice -k14 -t ${task.cpus > 4 ? task.cpus - 4 : 1} --secondary=no --junc-bed ${junc_bed} \
+    echo "Running minimap2 for \${prefix} with ${task.cpus} threads"
+
+    # -y carries flexiplex's CB:Z/UB:Z tags from the fastq header into the output BAM
+    /opt/miniconda3/envs/long_reads/bin/minimap2 -ax splice -y -k14 -t ${task.cpus > 4 ? task.cpus - 4 : 1} --secondary=no --junc-bed ${junc_bed} \
         ${ref_genome} ${flex_fastq} | \
-        /usr/bin/samtools view -@ 4 -Sbh -F 2048 - > ${sample}.primary.bam
+        /usr/bin/samtools view -@ 4 -Sbh -F 2048 - > \${prefix}.primary.bam
 
-    /opt/miniconda3/envs/long_reads/bin/python3 ${bam_tag_bc_umi_py} ${sample}.primary.bam
+    /usr/bin/samtools sort -@ ${task.cpus} \${prefix}.primary.bam > \${prefix}.bc_tag.st.bam
+    /usr/bin/samtools index \${prefix}.bc_tag.st.bam
+    """
+}
 
-    /usr/bin/samtools sort -@ ${task.cpus} ${sample}.primary.bc_tag.bam > ${sample}.bc_tag.st.bam
+process mergeBam {
+    tag "A02_mergeBam"
+
+    cpus 8
+    memory '32 GB'
+
+    publishDir path: { "${sample}/${params.output_dir}/A02_minimap2" }, mode: 'symlink'
+
+    input:
+    tuple val(sample), path(chunk_bams), path(chunk_bais)
+
+    output:
+    tuple val(sample), path("${sample}.bc_tag.st.bam"), path("${sample}.bc_tag.st.bam.bai")
+
+    script:
+    """
+    echo "Merging minimap2 chunk BAMs for ${sample}"
+
+    /usr/bin/samtools merge -@ ${task.cpus} -f ${sample}.bc_tag.st.bam ${chunk_bams}
     /usr/bin/samtools index ${sample}.bc_tag.st.bam
     /usr/bin/samtools flagstat ${sample}.bc_tag.st.bam > ${sample}.flagstat.txt
-
-  
     """
 }

@@ -3,15 +3,15 @@ process runSQANTI3 {
     cpus 8
     memory '64 GB'
 
+    publishDir path: { "${sample}/${params.output_dir}/C01_SQANTI3" }, mode: 'symlink'
+
     input:
     path reference_gtf
     path reference_genome
     tuple val(sample), path(txmod_gtf), path(flair_isoform_read_map), path(isoform_cells_csv), path(transcript_xref)
 
-   output:
-   tuple val(sample), path("sqanti_corrected.gtf"), path("sqanti_corrected.fasta"), path("sqanti_RulesFilter_classification.txt"), path("transcript_xref.tsv"), path("sqanti_corrected.genePred"), path("tx_dups_xref.tsv")
-
-    publishDir "${sample}/${params.output_dir}/C01_SQANTI3", mode: 'symlink'
+    output:
+    tuple val(sample), path("sqanti_corrected.gtf"), path("sqanti_corrected.fasta"), path("sqanti_RulesFilter_classification.txt"), path("transcript_xref.tsv"), path("sqanti_corrected.genePred"), path("tx_dups_xref.tsv")
 
     script:
     """

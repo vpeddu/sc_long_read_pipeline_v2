@@ -4,17 +4,17 @@ process runLongshot {
     cpus 16
     memory '64 GB'
 
+    publishDir path: { "${sample}/${params.output_dir}/B01_longshot" }, mode: 'symlink'
+
     input:
     tuple val(sample), path(bam), path(bai), path(fastq)
     path vep_data
     path genome_fasta
     path genome_fai
 
-    
+
     output:
     path "*"
-        publishDir "${sample}/${params.output_dir}/B01_longshot", mode: 'symlink'
-
 
     script:
     """

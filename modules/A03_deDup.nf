@@ -4,6 +4,8 @@ process runDeDup {
     cpus 8
     memory '64 GB'
 
+    publishDir path: { "${sample}/${params.output_dir}/A03_deDup" }, mode: 'symlink'
+
     input:
     tuple val(sample), file(minimap_bam), file(minimap_bai)
     path collapse_barcodes_py
@@ -11,8 +13,6 @@ process runDeDup {
 
     output:
     tuple val(sample), path("${sample}.umi_dd.bam"), path("${sample}.umi_dd.bam.bai"), path("${sample}.umi_dd.fastq.gz")
-
-    publishDir "${sample}/${params.output_dir}/A03_deDup", mode: 'symlink'
 
     script:
     """

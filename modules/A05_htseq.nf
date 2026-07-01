@@ -3,14 +3,14 @@ process runHtseq {
     cpus 20
     memory '64 GB'
 
+    publishDir path: { "${sample}/${params.output_dir}/A05_htSeq" }, mode: 'symlink'
+
     input:
     tuple val(sample), path(bam), path(bai), path(fastq)
     path genes_gtf
-    
+
     output:
     path "*"
-
-    publishDir "${sample}/${params.output_dir}/A05_htSeq", mode: 'symlink'
 
     script:
     """
