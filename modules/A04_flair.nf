@@ -3,9 +3,6 @@ process runFlair {
 
     tag "A04_flair"
 
-    cpus 20
-    memory '128 GB'
-
     publishDir path: { "${sample}/${params.output_dir}/A04_flair" }, mode: 'symlink'
 
     input:
@@ -52,9 +49,6 @@ process runFlair {
 
 process runTxRename {
     tag "A04_txRename"
-
-    cpus 1
-    memory '24 GB'
 
     publishDir "${params.output_dir}/A04_txRename", mode: 'symlink'
 

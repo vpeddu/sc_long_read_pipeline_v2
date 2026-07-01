@@ -1,9 +1,6 @@
 process runDeDup {
     tag "A03_deDup"
 
-    cpus 8
-    memory '64 GB'
-
     publishDir path: { "${sample}/${params.output_dir}/A03_deDup" }, mode: 'symlink'
 
     input:

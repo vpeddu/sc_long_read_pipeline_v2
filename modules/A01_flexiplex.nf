@@ -1,9 +1,6 @@
 process splitFastq {
     tag "A01_splitFastq"
 
-    cpus 4
-    memory '16 GB'
-
     publishDir path: { "${sample}/${params.output_dir}/A01_flexiplex/chunks" }, mode: 'symlink'
 
     input:
@@ -32,9 +29,6 @@ process splitFastq {
 
 process runFlexiplex {
     tag "A01_flexiplex"
-
-    cpus 20
-    memory '32 GB'
 
     publishDir path: { "${sample}/${params.output_dir}/A01_flexiplex/chunks" }, mode: 'symlink'
 

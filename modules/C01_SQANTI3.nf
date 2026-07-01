@@ -1,7 +1,5 @@
 process runSQANTI3 {
     tag "C01_SQANTI3"
-    cpus 8
-    memory '64 GB'
 
     publishDir path: { "${sample}/${params.output_dir}/C01_SQANTI3" }, mode: 'symlink'
 

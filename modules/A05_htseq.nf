@@ -1,7 +1,5 @@
 process runHtseq {
     tag "A05_htSeq"
-    cpus 20
-    memory '64 GB'
 
     publishDir path: { "${sample}/${params.output_dir}/A05_htSeq" }, mode: 'symlink'
 

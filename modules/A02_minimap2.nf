@@ -1,9 +1,6 @@
 process runMinimap2 {
     tag "A02_minimap2"
 
-    cpus 20
-    memory '64 GB'
-
     publishDir path: { "${sample}/${params.output_dir}/A02_minimap2/chunks" }, mode: 'symlink'
 
     input:
@@ -35,9 +32,6 @@ process runMinimap2 {
 
 process mergeBam {
     tag "A02_mergeBam"
-
-    cpus 8
-    memory '32 GB'
 
     publishDir path: { "${sample}/${params.output_dir}/A02_minimap2" }, mode: 'symlink'
 

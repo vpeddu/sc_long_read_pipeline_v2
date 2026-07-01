@@ -1,9 +1,6 @@
 process runIsoSeQL {
     tag "C02_isoSeQL"
 
-    cpus 8
-    memory '64 GB'
-
     publishDir path: { "${sample}/${params.output_dir}/C02_isoSeQL" }, mode: 'symlink'
 
     input:

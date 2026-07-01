@@ -1,8 +1,6 @@
 
 process runLongshot {
     tag "B01_longshot"
-    cpus 16
-    memory '64 GB'
 
     publishDir path: { "${sample}/${params.output_dir}/B01_longshot" }, mode: 'symlink'
 
