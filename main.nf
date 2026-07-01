@@ -18,7 +18,10 @@ workflow {
         error("--seqtype must be either 3_prime or 5_prime")
     }
     params.avx2 = params.avx2 ?: ['fugu','iwashi','suzuki'].contains(System.getenv('HOSTNAME'))
-    if (params.minimap2_split < 1) {
+    // Cast at each point of use (not via reassignment) -- a plain params {} default
+    // does not auto-coerce a --minimap2_split CLI string into an int, and reassigning
+    // params.minimap2_split here is unreliable under the strict-syntax parser.
+    if ((params.minimap2_split as int) < 1) {
         error("--minimap2_split must be a positive integer")
     }
 
@@ -66,7 +69,7 @@ workflow {
     def names_input = sample_data
 
     // Split each sample's raw fastq into params.minimap2_split chunks before flexiplex
-    split_input = splitFastq(sample_data, params.minimap2_split)
+    split_input = splitFastq(sample_data, params.minimap2_split as int)
 
     // One (sample, chunk_fastq, bc_tsv) tuple per chunk -> run flexiplex in parallel
     flex_output = runFlexiplex(split_input.transpose(),
