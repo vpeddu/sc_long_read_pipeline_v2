@@ -14,16 +14,21 @@ process splitFastq {
     """
     echo "Splitting ${fastq} into ${n_splits} chunk(s) for ${sample}"
 
-    # Distribute reads round-robin across N chunks (each read = 4 lines)
+    # Distribute reads round-robin across N chunks (each read = 4 lines), streaming
+    # each chunk straight into its own pigz process -- never writes an uncompressed
+    # intermediate fastq to disk (was filling node scratch on Sherlock)
     /usr/bin/pigz -dc -p ${task.cpus} ${fastq} | \
         awk -v n=${n_splits} -v s="${sample}" '
             { chunk = int((NR - 1) / 4) % n
-              fname = s ".chunk" chunk ".fastq"
-              print > fname }'
-
-    for f in ${sample}.chunk*.fastq; do
-        /usr/bin/pigz -p ${task.cpus} -f "\$f"
-    done
+              cmd = "/usr/bin/pigz -p 2 > " s ".chunk" chunk ".fastq.gz"
+              print | cmd
+            }
+            END {
+              for (c = 0; c < n; c++) {
+                cmd = "/usr/bin/pigz -p 2 > " s ".chunk" c ".fastq.gz"
+                close(cmd)
+              }
+            }'
     """
 }
 
