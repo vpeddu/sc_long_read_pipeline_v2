@@ -18,7 +18,6 @@ workflow {
         error("--seqtype must be either 3_prime or 5_prime")
     }
     params.avx2 = params.avx2 ?: ['fugu','iwashi','suzuki'].contains(System.getenv('HOSTNAME'))
-    params.minimap2_split = (params.minimap2_split ?: 4) as int
     if (params.minimap2_split < 1) {
         error("--minimap2_split must be a positive integer")
     }
