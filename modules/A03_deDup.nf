@@ -21,7 +21,13 @@ process runDeDup {
 
     sed '1d' ${sample}.bc_umi.collapsed.txt | awk '{print \$1"#"\$2}' > bc_read_list.txt
 
-    /opt/miniconda3/envs/picardtools/bin/picard FilterSamReads \
+    # Picard defaults to -Xmx2g regardless of the task's actual memory
+    # allocation, which OOMs on a real (multi-million-read) bc_read_list.txt
+    # inside ReadNameFilter's constructor -- give it real headroom instead.
+    # Sized off task.memory (75%) rather than hardcoded, so it stays correct
+    # if runDeDup's memory allocation changes; leaves the rest for samtools/
+    # pigz/featureCounts, which run in the same task afterward.
+    /opt/miniconda3/envs/picardtools/bin/picard -Xmx${(task.memory.toGiga() * 0.75).intValue()}g FilterSamReads \
         I=${minimap_bam} \
         O=${sample}.umi_dd.bam \
         READ_LIST_FILE=bc_read_list.txt \
