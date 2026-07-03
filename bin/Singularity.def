@@ -7,6 +7,9 @@ From: ubuntu:22.04
     Description "Container for long-read isoform analysis pipeline"
     Website https://github.com/broadinstitute/long-reads
 
+%files
+    bin/env_specs /opt/env_specs
+
 %environment
     export PATH="/opt/miniconda3/bin:$PATH"
     export CONDA_DIR="/opt/miniconda3"
@@ -15,12 +18,24 @@ From: ubuntu:22.04
     export PYTHONPATH="/opt/cDNA_Cupcake/sequence:$PYTHONPATH"
 %post
     set -e
-    
+
+    # `singularity build` has no --cleanenv flag, so %post inherits whatever
+    # conda/PATH state exists on the HOST running the build. If the host has
+    # its own conda install ahead on PATH, package post-link scripts here can
+    # silently pick up the host's conda instead of this container's, breaking
+    # in confusing ways deep into the build (confirmed root cause of a
+    # "No compatible shell found!" failure during a later environment's
+    # install). Reset PATH and clear conda's env vars before anything else.
+    unset CONDA_EXE CONDA_PREFIX CONDA_PYTHON_EXE CONDA_DEFAULT_ENV CONDA_SHLVL CONDA_PROMPT_MODIFIER _CE_CONDA
+    export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
     # Set non-interactive mode for apt and debconf to prevent prompts
     export DEBIAN_FRONTEND=noninteractive
     export TZ=UTC
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-    
+
+    export SHELL=/bin/bash
+
     # Update package manager
     apt-get update
     apt-get install -y --no-install-recommends \
@@ -96,7 +111,14 @@ From: ubuntu:22.04
     # Create environments with mamba
     
     # Environment 1: long_reads (for HTSeq, longshot, basic tools)
-    /opt/miniconda3/bin/mamba create -y -n long_reads python=3.10
+    # All conda-native environments below are created via `conda create --file`
+    # from an @EXPLICIT spec (exact package+build+channel URLs, see bin/env_specs/),
+    # captured from the already-validated v1.0.0 image. This installs the full,
+    # already-known-compatible package set with no solving at all -- version-only
+    # or even version+build pins on just the top-level requested packages were not
+    # enough, since their unpinned transitive dependencies (e.g. htslib, perl-*)
+    # could still resolve to a different, mutually-incompatible combination.
+    /opt/miniconda3/bin/conda create -y -n long_reads --file /opt/env_specs/long_reads.explicit.txt
     /opt/miniconda3/bin/mamba run -n long_reads pip install --upgrade pip
     /opt/miniconda3/bin/mamba run -n long_reads pip install \
         htseq \
@@ -110,48 +132,30 @@ From: ubuntu:22.04
         seqtk \
         polars \
         gtfparse
-    
-    # Install minimap2 and other alignment tools in long_reads
-    /opt/miniconda3/bin/mamba install -y -n long_reads -c bioconda -c conda-forge \
-        minimap2 \
-        longshot \
-        subread \
-        flexiplex
-   
+
     # Environment 2: flair
-    /opt/miniconda3/bin/mamba create -y -n flair python=3.10
+    # Pinned to 3.0.0 (latest as of this writing) for the `flair transcriptome`
+    # module, which replaces the old correct+collapse pipeline with a single
+    # faster, lower-memory step run directly off the aligned/indexed genome bam.
+    # Spec captured from an isolated test build, since v1.0.0 predates this upgrade.
+    /opt/miniconda3/bin/conda create -y -n flair --file /opt/env_specs/flair.explicit.txt
     /opt/miniconda3/bin/mamba run -n flair pip install --upgrade pip
-    /opt/miniconda3/bin/mamba install -y -n flair -c bioconda -c conda-forge \
-        flair     
-    
+
     # Environment 4: vep (for variant annotation)
-    /opt/miniconda3/bin/mamba create -y -n vep python=3.9
-    /opt/miniconda3/bin/mamba install -y -n vep -c bioconda -c conda-forge \
-        ensembl-vep=106.1 \
-        vcftools \
-        bcftools \
-        vcf2maf=1.6.22 \
-        perl-pod-usage
-    
-    /opt/miniconda3/bin/mamba create -y -n picardtools python=3.9
-    /opt/miniconda3/bin/mamba install -y -n picardtools -c bioconda -c conda-forge \
-        picard \
-        subread   
+    /opt/miniconda3/bin/conda create -y -n vep --file /opt/env_specs/vep.explicit.txt
+
+    /opt/miniconda3/bin/conda create -y -n picardtools --file /opt/env_specs/picardtools.explicit.txt
     # # Install Picard tools
     # PICARD_VERSION="3.0.0"
     # mkdir -p /opt/picard
     # cd /opt/picard
     # curl -sSL -O "https://github.com/broadinstitute/picard/releases/download/${PICARD_VERSION}/picard.jar"
     # chmod +x picard.jar
-    
+
+   /opt/miniconda3/bin/conda create -y --name isoSeQL --file /opt/env_specs/isoSeQL.explicit.txt
+
     # Install additional R packages
-/opt/miniconda3/bin/mamba create -y -n bioconductor \
-    -c conda-forge -c bioconda \
-    r-base \
-    bioconductor-biocinstaller \
-    r-tidyverse \
-    r-devtools \
-    r-data.table
+/opt/miniconda3/bin/conda create -y -n bioconductor --file /opt/env_specs/bioconductor.explicit.txt
     
 
 
@@ -184,64 +188,11 @@ mkdir sqanti3
 unzip v1.00CL.zip -d sqanti3
 mv sqanti3/SQANTI3-1.00CL/* sqanti3/
 
-# Create unified environment with Python 3.10 (required for cDNA_Cupcake)
-/opt/miniconda3/bin/mamba create -y -n sqanti3 python=3.10
-
-# Install all SQANTI3 dependencies (from their YAML, manually listed)
-/opt/miniconda3/bin/mamba install -y -n sqanti3 -c bioconda -c conda-forge -c anaconda -c plotly \
-    bcbiogff \
-    bedtools \
-    biopython \
-    bioconductor-noiseq \
-    bx-python \
-    gffread \
-    kallisto \
-    minimap2 \
-    numpy \
-    pandas \
-    openssl \
-    pandoc \
-    perl \
-    psutil \
-    pybedtools \
-    pysam \
-    r-remotes \
-  "r>=4.3.3" \
-  "r-biocmanager>=1.30" \
-  "r-caret>=6.0" \
-  "r-dplyr>=1.1" \
-  "r-dt>=0.33" \
-  "r-devtools>=2.4" \
-  "r-e1071>=1.7" \
-  "r-forcats>=1.0" \
-  "r-ggplot2>=3.4.0a" \
-  "r-ggplotify>=0.1" \
-  "r-gridbase>=0.4" \
-  "r-gridextra>=2.3" \
-  "r-htmltools>=0.5" \
-  "r-jsonlite>=1.8" \
-  "r-optparse>=1.7" \
-  "r-plotly>=4.10" \
-  "r-plyr>=1.8" \
-  "r-purrr>=1.0" \
-  "r-randomforest>=4.7" \
-  "r-rmarkdown>=2.29" \
-  "r-reshape>=0.8" \
-  "r-readr>=2.1" \
-  "r-scales>=1.3" \
-  "r-stringi>=1.8" \
-  "r-stringr>=1.5" \
-  "r-tibble>=3.2" \
-  "r-tidyr>=1.3" \
-  "bioconductor-noiseq>=2.46" \
-  bioconductor-gviz \
-    samtools \
-    "scipy>=1.11,<1.12" \
-    star \
-    cdna_cupcake \
-    setuptools \
-    plotly \
-    python-kaleido
+# Create unified environment with Python 3.10 (required for cDNA_Cupcake) and
+# install all SQANTI3 dependencies from the pinned explicit spec in one shot --
+# this environment's R+Bioconductor+Python dependency graph is by far the
+# slowest thing for mamba to solve when unpinned or only partially pinned.
+/opt/miniconda3/bin/conda create -y -n sqanti3 --file /opt/env_specs/sqanti3.explicit.txt
 
     /opt/miniconda3/bin/mamba run -n sqanti3 Rscript -e 'devtools::install_github("ConesaLab/RColorConesa")'
 
@@ -269,22 +220,6 @@ EOF
     /opt/miniconda3/bin/conda clean --all --yes
     apt-get clean
     rm -rf /var/lib/apt/lists/*
-
-#for FLAIR to work properly minimap2 has to be on the path
-export PATH=/opt/miniconda3/envs/flair/bin/:\$PATH
-
-   /opt/miniconda3/bin/mamba create -y --name isoSeQL \
-        python=3.9.6 \
-        r-base=4.1.1 \
-        r-devtools \
-        plotly \
-        pandas \
-        numpy \
-        python-kaleido \
-        -c conda-forge \
-        -c plotly \
-        -c anaconda
-
 
 %runscript
     exec "$@"

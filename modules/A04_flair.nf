@@ -12,7 +12,6 @@ process runFlair {
 
     output:
     tuple val(sample),
-        path ("${sample}.flair.filtered_all_corrected.bed"),
         path("${sample}.flair.collapse.isoforms.bed"),
         path("${sample}.flair.collapse.isoforms.fa"),
         path("${sample}.flair.collapse.isoforms.gtf"),
@@ -22,27 +21,16 @@ process runFlair {
     """
     export PATH=/opt/miniconda3/envs/flair/bin/:\$PATH
 
-    /opt/miniconda3/envs/flair/bin/bam2Bed12 \
-        -i ${bam} > ${sample}.umi_dd.bed
-
-    /opt/miniconda3/envs/flair/bin/flair correct --threads ${task.cpus} \
-        -q ${sample}.umi_dd.bed \
-        --gtf ${gtf} \
-        --genome ${genome} \
-        --nvrna \
-        --output ${sample}.flair.filtered
-
-    /opt/miniconda3/envs/flair/bin/flair collapse --threads ${task.cpus} \
-        -q ${sample}.flair.filtered_all_corrected.bed \
-        --reads ${fastq} \
+    # flair transcriptome replaces correct+collapse: runs directly off the
+    # sorted/indexed genome bam, and internally parallelizes isoform calling
+    # by chromosome/region (see --parallelmode) instead of the single-threaded
+    # collapse step that was previously the bottleneck.
+    /opt/miniconda3/envs/flair/bin/flair transcriptome \
+        --genomealignedbam ${bam} \
         --genome ${genome} \
         --gtf ${gtf} \
-        --annotation_reliant generate \
-        --generate_map \
-        --trust_ends \
-        --no_gtf_end_adjustment \
+        --threads ${task.cpus} \
         --check_splice \
-        --quality 10 \
         --output ${sample}.flair.collapse
     """
 }
@@ -54,7 +42,6 @@ process runTxRename {
 
     input:
     tuple val(sample),
-    path (flair_corrected_bed),
     path(flair_collapse_isoforms_bed),
     path(flair_collapsed_isoforms_fa),
     path(flair_collapse_gtf),
