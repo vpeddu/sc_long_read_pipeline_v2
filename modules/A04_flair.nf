@@ -43,6 +43,76 @@ process runFlair {
     """
 }
 
+process runFlairByChrom {
+    tag "A04_flair_${chrom_label}"
+
+    publishDir path: { "${sample}/${params.output_dir}/A04_flair/chunks" }, mode: 'symlink'
+
+    input:
+    tuple val(sample), path(bam), path(bai), path(fastq), val(chrom_label), val(chroms)
+    path genome
+    path gtf
+
+    output:
+    tuple val(sample),
+        path("${sample}.${chrom_label}.flair.collapse.isoforms.bed"),
+        path("${sample}.${chrom_label}.flair.collapse.isoforms.fa"),
+        path("${sample}.${chrom_label}.flair.collapse.isoforms.gtf"),
+        path("${sample}.${chrom_label}.flair.collapse.isoform.read.map.txt")
+
+    script:
+    """
+    export PATH=/opt/miniconda3/envs/flair/bin/:\$PATH
+
+    /usr/bin/samtools view -@ ${task.cpus} -b ${bam} ${chroms.join(' ')} > ${chrom_label}.bam
+    /usr/bin/samtools index ${chrom_label}.bam
+
+    flair_threads=\$(awk -v c=${task.cpus} 'BEGIN { printf "%d", sqrt(c) }')
+    /opt/miniconda3/envs/flair/bin/flair transcriptome \
+        --genomealignedbam ${chrom_label}.bam \
+        --genome ${genome} \
+        --gtf ${gtf} \
+        --threads \$flair_threads \
+        --check_splice \
+        --output ${sample}.${chrom_label}.flair.collapse || true
+
+    # Chromosomes/contigs with no aligned reads (common for e.g. chrY in a
+    # female sample, or unplaced scaffolds) make flair exit without writing
+    # output; touch empty placeholders so the merge step has something to cat.
+    touch ${sample}.${chrom_label}.flair.collapse.isoforms.bed
+    touch ${sample}.${chrom_label}.flair.collapse.isoforms.fa
+    touch ${sample}.${chrom_label}.flair.collapse.isoforms.gtf
+    touch ${sample}.${chrom_label}.flair.collapse.isoform.read.map.txt
+    """
+}
+
+process mergeFlairChroms {
+    tag "A04_flair_merge"
+
+    publishDir path: { "${sample}/${params.output_dir}/A04_flair" }, mode: 'symlink'
+
+    input:
+    tuple val(sample), path(isoform_beds), path(isoform_fas), path(isoform_gtfs), path(read_maps)
+
+    output:
+    tuple val(sample),
+        path("${sample}.flair.collapse.isoforms.bed"),
+        path("${sample}.flair.collapse.isoforms.fa"),
+        path("${sample}.flair.collapse.isoforms.gtf"),
+        path("${sample}.flair.collapse.isoform.read.map.txt")
+
+    script:
+    """
+    # Safe to concatenate directly: chromosomes/contigs are non-overlapping,
+    # reference-matched isoform IDs are locus-specific (can't repeat across
+    # chromosomes), and novel isoform IDs embed a globally-unique read name.
+    cat ${isoform_beds} > ${sample}.flair.collapse.isoforms.bed
+    cat ${isoform_fas} > ${sample}.flair.collapse.isoforms.fa
+    cat ${isoform_gtfs} > ${sample}.flair.collapse.isoforms.gtf
+    cat ${read_maps} > ${sample}.flair.collapse.isoform.read.map.txt
+    """
+}
+
 process runTxRename {
     tag "A04_txRename"
 

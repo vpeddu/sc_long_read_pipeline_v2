@@ -48,7 +48,11 @@ process runFlexiplex {
     """
     prefix=\$(basename ${fastq} .fastq.gz)
 
-    flank_len=${params.multiseq ? 17 : 24}
+    # params.multiseq may be a raw CLI string ("true"/"false") rather than a
+    # real boolean -- any non-empty Groovy string (including "false") is
+    # truthy, so ${params.multiseq ? 17 : 24} always picked 17 regardless of
+    # what was actually passed. Compare the string value explicitly instead.
+    flank_len=${params.multiseq.toString().equalsIgnoreCase('true') ? 17 : 24}
     if [[ "${seq_type}" == '5_prime' ]]; then
         seq_type='5prm'
     else

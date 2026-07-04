@@ -3,7 +3,7 @@ nextflow.enable.dsl=2
 include { splitFastq; runFlexiplex } from './modules/A01_flexiplex.nf'
 include { runMinimap2; mergeBam } from './modules/A02_minimap2.nf'
 include { runDeDup } from './modules/A03_deDup.nf'
-include { runFlair; runTxRename } from './modules/A04_flair.nf'
+include { runFlair; runFlairByChrom; mergeFlairChroms; runTxRename } from './modules/A04_flair.nf'
 include { runHtseq } from './modules/A05_htseq.nf'
 include { runLongshot } from './modules/B01_longshot.nf'
 include { runSQANTI3 } from './modules/C01_SQANTI3.nf'
@@ -12,15 +12,17 @@ include { runIsoSeQL } from './modules/C02_isoSeQL.nf'
 workflow {
     params.input_dir = params.input_dir ?: '.'
     params.ref_dir = params.ref_dir 
-    params.multiseq = params.get('multiseq', false) ? true : false
+    // Booleans/ints are read and validated/cast at each point of use below
+    // rather than normalized here via reassignment: reassigning params.X inside
+    // the workflow body is unreliable under the strict-syntax parser (silently
+    // dropped once a conflicting config-level default exists, e.g. multiseq's
+    // `false` in nextflow.config), and CLI values arrive as raw strings, where
+    // Groovy's truthiness treats even the string "false" as true.
     params.seqtype = params.get('seqtype', '3_prime')
     if (!['3_prime','5_prime'].contains(params.seqtype)) {
         error("--seqtype must be either 3_prime or 5_prime")
     }
     params.avx2 = params.avx2 ?: ['fugu','iwashi','suzuki'].contains(System.getenv('HOSTNAME'))
-    // Cast at each point of use (not via reassignment) -- a plain params {} default
-    // does not auto-coerce a --minimap2_split CLI string into an int, and reassigning
-    // params.minimap2_split here is unreliable under the strict-syntax parser.
     if ((params.minimap2_split as int) < 1) {
         error("--minimap2_split must be a positive integer")
     }
@@ -90,11 +92,43 @@ workflow {
         ref_genes_gtf
         )
     
-    A04_flair = runFlair(A03_dedup,
-        ref_genome_fa,
-        ref_genes_gtf
-        )
-        
+    // params.flair_split_by_chrom may be a raw CLI string ("true"/"false") --
+    // any non-empty Groovy string (including "false") is truthy, so compare
+    // the string value explicitly rather than relying on plain truthiness.
+    if (!params.flair_split_by_chrom.toString().equalsIgnoreCase('false')) {
+        // Group contigs for parallel per-chromosome flair runs: each "primary"
+        // chromosome (no '.' in its name, e.g. chr1..chrY/chrM for GRCh38) gets
+        // its own task; everything else (alt/decoy/unplaced scaffolds, which
+        // typically carry very few or no aligned reads) is bundled into one
+        // "other_contigs" task so it doesn't spawn hundreds of near-empty jobs.
+        chrom_groups = ref_genome_fai
+            .splitCsv(sep: '\t')
+            .map { row -> row[0] }
+            .collect()
+            .flatMap { contigs ->
+                def primary = contigs.findAll { !it.contains('.') }
+                def other = contigs.findAll { it.contains('.') }
+                def groups = primary.collect { [it, [it]] }
+                if (other) {
+                    groups << ['other_contigs', other]
+                }
+                groups
+            }
+
+        flair_chrom_input = A03_dedup.combine(chrom_groups)
+        A04_flair_chunks = runFlairByChrom(flair_chrom_input,
+            ref_genome_fa.first(),
+            ref_genes_gtf.first()
+            )
+        A04_flair = mergeFlairChroms(A04_flair_chunks.groupTuple())
+    } else {
+        A04_flair = runFlair(A03_dedup,
+            ref_genome_fa,
+            ref_genes_gtf
+            )
+    }
+
+
     A04_txRename = runTxRename(A04_flair)
     
     A05_htseq = runHtseq(A03_dedup,
