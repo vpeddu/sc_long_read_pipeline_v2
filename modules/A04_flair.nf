@@ -25,11 +25,19 @@ process runFlair {
     # sorted/indexed genome bam, and internally parallelizes isoform calling
     # by chromosome/region (see --parallelmode) instead of the single-threaded
     # collapse step that was previously the bottleneck.
+    #
+    # --threads controls BOTH the number of concurrent region workers AND the
+    # -t passed to each worker's own internal minimap2 call (not divided
+    # between them) -- passing task.cpus directly oversubscribes the SLURM
+    # allocation by up to task.cpus^2 threads (confirmed via Sherlock's
+    # resource-usage-mismatch warning: many simultaneous `minimap2 -t <cpus>`
+    # processes). Bound it so worst-case (threads * threads) stays in budget.
+    flair_threads=\$(awk -v c=${task.cpus} 'BEGIN { printf "%d", sqrt(c) }')
     /opt/miniconda3/envs/flair/bin/flair transcriptome \
         --genomealignedbam ${bam} \
         --genome ${genome} \
         --gtf ${gtf} \
-        --threads ${task.cpus} \
+        --threads \$flair_threads \
         --check_splice \
         --output ${sample}.flair.collapse
     """
