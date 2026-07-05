@@ -35,6 +35,7 @@ def parse_commandline():
   parser=argparse.ArgumentParser()
   parser.add_argument('--gtf', '-g', help='flair gtf file', type=str, default=default_gtf, required=False)
   parser.add_argument('--tx_prefix', '-x', help='prefix for novel transcript ids', type=str, required=True)
+  parser.add_argument('--features', '-f', help='features.tsv file (ensembl_id, gene_name, assay columns)', type=str, required=True)
   args=parser.parse_args()
   print(args, file=sys.stderr)
   return args
@@ -74,7 +75,7 @@ def write_gtf(df, out_fn):
 args = parse_commandline()
 noveltx_prefix = args.tx_prefix + "_"
 
-features_fn = '/mnt/ix1/Projects/M102_241107_Multiome/00_resources/features_gex.tsv'
+features_fn = args.features
 features_pd = pd.read_csv(features_fn, sep='\t', header=None)
 features_pd.columns = ['ensembl_id', 'gene_name', 'assay']
 

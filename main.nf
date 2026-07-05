@@ -57,6 +57,7 @@ workflow {
     ref_genome_fa = Channel.fromPath("${params.ref_dir}/genome.fa", checkIfExists: true)
     ref_genome_fai = Channel.fromPath("${params.ref_dir}/genome.fa.fai", checkIfExists: true)
     ref_genes_gtf = Channel.fromPath("${params.ref_dir}/genes.gtf", checkIfExists: true)
+    ref_features_tsv = Channel.fromPath("${params.ref_dir}/features_gex.tsv", checkIfExists: true)
     // vep_data = Channel.fromPath("/mnt/ix1/Resources/VariantAnnotation/VEP/GRCh38_v104").map { file(it, type: 'dir') }    
     // Remove the hardcoded line and use params instead
     vep_data = Channel.fromPath(params.vep_cache).map { file(it, type: 'dir') }
@@ -129,7 +130,7 @@ workflow {
     }
 
 
-    A04_txRename = runTxRename(A04_flair)
+    A04_txRename = runTxRename(A04_flair, ref_features_tsv.first())
     
     A05_htseq = runHtseq(A03_dedup,
         ref_genes_gtf

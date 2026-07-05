@@ -124,6 +124,7 @@ process runTxRename {
     path(flair_collapsed_isoforms_fa),
     path(flair_collapse_gtf),
     path(flair_collapse_map)
+    path features_tsv
 
     output:
     tuple val(sample), path("${sample}.flair.collapse.isoforms.txmod.gtf"),
@@ -143,7 +144,8 @@ process runTxRename {
 
     /opt/miniconda3/envs/long_reads/bin/python3 ${projectDir}/bin/rename_gtf_txid.py \
         --gtf ${flair_collapse_gtf} \
-        --tx_prefix \$tprefix
+        --tx_prefix \$tprefix \
+        --features ${features_tsv}
 
     /opt/miniconda3/envs/long_reads/bin/python3 ${projectDir}/bin/rdmap2counts.py \
         --read_map ${flair_collapse_map} \

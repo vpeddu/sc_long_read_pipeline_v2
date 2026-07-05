@@ -57,7 +57,7 @@ nextflow run main.nf \
 --seqtype '3_prime' \
 --multiseq false \
 --ref_dir /scratch/groups/hanleeji/vikas/reference/ \
---vep_cache /scratch/groups/hanleeji/vikas/vep_dir/ \
+--vep_cache /scratch/groups/hanleeji/vikas/vep_dir/GRCh38_v104/ \
 --profile sherlock \
 -with-tower
 ```
