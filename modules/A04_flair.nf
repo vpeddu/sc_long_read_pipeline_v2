@@ -142,16 +142,23 @@ process runTxRename {
     disease="GIM"
     tprefix="\${disease_code[\$disease]}\${sample_bc}"
 
+    # params.keep_intergenic may be a raw CLI string ("true"/"false") -- any
+    # non-empty Groovy string (including "false") is truthy, so compare the
+    # string value explicitly rather than relying on plain truthiness.
+    keep_intergenic_flag="${params.keep_intergenic.toString().equalsIgnoreCase('true') ? '--keep_intergenic' : ''}"
+
     /opt/miniconda3/envs/long_reads/bin/python3 ${projectDir}/bin/rename_gtf_txid.py \
         --gtf ${flair_collapse_gtf} \
         --tx_prefix \$tprefix \
-        --features ${features_tsv}
+        --features ${features_tsv} \
+        \$keep_intergenic_flag
 
     /opt/miniconda3/envs/long_reads/bin/python3 ${projectDir}/bin/rdmap2counts.py \
         --read_map ${flair_collapse_map} \
         --sample ${sample} \
         --matrix \
-        --read_map ${flair_collapse_map} 
+        --read_map ${flair_collapse_map} \
+        \$keep_intergenic_flag
 
     /usr/bin/pigz -p ${task.cpus} ${sample}.*.tsv ${sample}.matrix.mtx
     """

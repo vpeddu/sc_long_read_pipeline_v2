@@ -36,6 +36,7 @@ def parse_commandline():
   parser.add_argument('--gtf', '-g', help='flair gtf file', type=str, default=default_gtf, required=False)
   parser.add_argument('--tx_prefix', '-x', help='prefix for novel transcript ids', type=str, required=True)
   parser.add_argument('--features', '-f', help='features.tsv file (ensembl_id, gene_name, assay columns)', type=str, required=True)
+  parser.add_argument('--keep_intergenic', help='keep flair loci not assigned an ENSG gene id (novel/intergenic loci) instead of dropping them', action='store_true')
   args=parser.parse_args()
   print(args, file=sys.stderr)
   return args
@@ -94,7 +95,10 @@ features_df = pl.from_pandas(features_pd).drop('assay')
 gtf_fn = args.gtf
 out_gtf = gtf_fn[0:-4] + '.txmod.gtf'
 gtf_df = read_gtf(gtf_fn)
-gtf_df = gtf_df.filter(pl.col("gene_id").str.starts_with('ENSG'))
+if not args.keep_intergenic:
+  #Flair assigns non-ENSG gene ids (eg chr19:32629000) to novel/intergenic loci
+  #  not overlapping any annotated gene; drop them unless explicitly kept.
+  gtf_df = gtf_df.filter(pl.col("gene_id").str.starts_with('ENSG'))
 
 #Additionally filter for canonical chromosomes (assume len(seqname) < 6 will do this)
 gtf_df = gtf_df.with_columns(pl.col("seqname").cast(pl.String))
@@ -104,7 +108,26 @@ gtf_df = gtf_df.filter(pl.col("seqname").str.len_bytes() < 6)
 #  nomenclature schemes:  1/ <prefix>_xxxxx, 2/ <gene>_novelxxx
 #Plotting and SQANTI cannot handle the long novel flair transcript ids and/or the special characters
 transcript_df = gtf_df.filter(pl.col("feature") == "transcript").drop('exon_number')
-transcript_df = transcript_df.join(features_df, left_on='gene_id', right_on='ensembl_id', how='inner')
+#Intergenic/novel-locus gene ids won't be present in features_df (a 10x-style
+#  reference feature list) -- left-join and fall back to the raw gene id as
+#  the "gene_name" so they survive instead of being dropped by an inner join.
+join_how = 'left' if args.keep_intergenic else 'inner'
+transcript_df = transcript_df.join(features_df, left_on='gene_id', right_on='ensembl_id', how=join_how)
+if args.keep_intergenic:
+  #Assign each distinct intergenic locus (flair's own gene id, eg "19:32629000",
+  #  which has no features_df match) a stable, unique novel_intergenic_NNN label
+  #  instead of the raw coordinate, so htseq can quantify per-locus rather than
+  #  lumping all intergenic loci into one bucket.
+  intergenic_loci = transcript_df.filter(pl.col('gene_name').is_null()) \
+                       .select('gene_id').unique(maintain_order=True) \
+                       .with_row_index('locus_idx', offset=1).with_columns(
+                       (pl.lit('novel_intergenic_') + pl.col('locus_idx').cast(pl.String).str.zfill(6))
+                       .alias('intergenic_label')
+                       ).select(['gene_id', 'intergenic_label'])
+  transcript_df = transcript_df.join(intergenic_loci, on='gene_id', how='left')
+  transcript_df = transcript_df.with_columns(
+                    pl.col('gene_name').fill_null(pl.col('intergenic_label'))
+                    ).drop('intergenic_label')
 
 #Split dataframe into reference transcripts and novel transcripts
 ref_transcript_df = transcript_df.filter(pl.col('transcript_id').str.starts_with("ENST"))

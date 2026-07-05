@@ -28,6 +28,7 @@ def parse_commandline():
   parser.add_argument('--xref', '-x', help='gtf tx cross-reference', type=str, default=default_xref, required=False)
   parser.add_argument('--prepend_gene', '-p', help='prepend gene name to transcript id', action='store_true')
   parser.add_argument('--matrix', '-m', help='create sparse matrix output', action='store_true')
+  parser.add_argument('--keep_intergenic', help='keep novel isoforms whose gene tag is not an ENSG id (novel/intergenic loci) instead of dropping them', action='store_true')
   args=parser.parse_args()
   print(args, file=sys.stderr)
   return args
@@ -53,7 +54,9 @@ def parse_flair_isoform(isoform):
     transcript_id = iso_parts[0] 
  
   elif len(iso_parts) > 2:
-    if iso_parts[-1][0:4] == 'ENSG': #Novel transcript associated with Ensembl gene
+    #Novel transcript associated with an Ensembl gene, or (if --keep_intergenic)
+    #  a non-ENSG locus tag (eg chr19:32629000) for a novel/intergenic gene
+    if iso_parts[-1][0:4] == 'ENSG' or args.keep_intergenic:
       iso_type = 'novel'
       ensembl_gene = iso_parts[-1]
       transcript_id = "_".join(iso_parts[0:-1]) #Flair novel transcript id (~= ONT read name)

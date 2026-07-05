@@ -131,10 +131,23 @@ workflow {
 
 
     A04_txRename = runTxRename(A04_flair, ref_features_tsv.first())
-    
-    A05_htseq = runHtseq(A03_dedup,
-        ref_genes_gtf
-        )
+
+    // params.keep_intergenic may be a raw CLI string ("true"/"false") -- compare
+    // the string value explicitly rather than relying on Groovy truthiness.
+    if (params.keep_intergenic.toString().equalsIgnoreCase('true')) {
+        // Quantify against the novel (flair-derived) transcriptome instead of the
+        // static reference annotation, so novel_intergenic_NNN loci (assigned in
+        // runTxRename) get their own htseq counts. Each sample's dedup bam is
+        // paired with ITS OWN per-sample txmod gtf (not the shared reference gtf)
+        // via a sample-keyed join. The txmod gtf only carries a "gene_id"
+        // attribute (no separate "gene_name"), so --idattr switches accordingly.
+        htseq_gtf_by_sample = A04_txRename.map { sample, txmod_gtf, read_map, isoform_cells, transcript_xref -> tuple(sample, txmod_gtf) }
+        htseq_input = A03_dedup.join(htseq_gtf_by_sample)
+        A05_htseq = runHtseq(htseq_input, 'gene_id')
+    } else {
+        htseq_input = A03_dedup.combine(ref_genes_gtf)
+        A05_htseq = runHtseq(htseq_input, 'gene_name')
+    }
 
     B01_longshot = runLongshot(A03_dedup,
     vep_data,

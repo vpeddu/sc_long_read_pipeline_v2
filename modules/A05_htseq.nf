@@ -4,8 +4,8 @@ process runHtseq {
     publishDir path: { "${sample}/${params.output_dir}/A05_htSeq" }, mode: 'symlink'
 
     input:
-    tuple val(sample), path(bam), path(bai), path(fastq)
-    path genes_gtf
+    tuple val(sample), path(bam), path(bai), path(fastq), path(genes_gtf)
+    val id_attr
 
     output:
     path "*"
@@ -17,7 +17,7 @@ process runHtseq {
         --order=pos \
         --stranded=no \
         --type=gene \
-        --idattr=gene_name \
+        --idattr=${id_attr} \
         --mode=intersection-nonempty \
         --nonunique=all \
         --cell-barcode=CB \
