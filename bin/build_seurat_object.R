@@ -6,9 +6,19 @@ gene_barcodes_fn <- args[4]
 iso_matrix_fn <- args[5]
 iso_features_fn <- args[6]
 iso_barcodes_fn <- args[7]
+iso_ranges_fn <- args[8]
+gene_ranges_fn <- args[9]
+sqanti_classification_fn <- args[10]
+sample_metrics_fn <- args[11]
 
 library(Matrix)
 library(Seurat)
+
+# Seurat replaces underscores with dashes in feature names on assay creation
+# (eg "GIM3802_000001" -> "GIM3802-000001", "novel_intergenic_000001" ->
+# "novel-intergenic-000001"); apply the same substitution to any join key
+# sourced from files that still have the original underscore-based ids.
+to_seurat_name <- function(x) gsub("_", "-", x)
 
 read_sparse_matrix <- function(matrix_fn, features_fn, barcodes_fn) {
   mtx <- readMM(matrix_fn)
@@ -22,6 +32,22 @@ read_sparse_matrix <- function(matrix_fn, features_fn, barcodes_fn) {
   rownames(mtx) <- make.unique(features)
   colnames(mtx) <- barcodes
   return(mtx)
+}
+
+# chrom/start/end/strand/id TSV (no header), as produced by the awk extraction
+# in modules/A06_seurat.nf from the transcript/gene rows of a GTF. A handful of
+# gene symbols in the reference GTF map to more than one Ensembl gene id (the
+# same collision rename_gtf_txid.py already documents/works around for gene
+# names) -- keep only the first occurrence of each id so rownames stay unique;
+# genomic ranges are an enrichment, not core data, so under-covering the rare
+# duplicate is preferable to crashing or guessing which entry is "right".
+read_ranges <- function(ranges_fn, id_col_name) {
+  df <- read.table(ranges_fn, sep = "\t", header = FALSE, stringsAsFactors = FALSE,
+                    col.names = c("chrom", "start", "end", "strand", id_col_name))
+  df <- df[!duplicated(df[[id_col_name]]), ]
+  rownames(df) <- to_seurat_name(df[[id_col_name]])
+  df[[id_col_name]] <- NULL
+  return(df)
 }
 
 gene_mtx <- read_sparse_matrix(gene_matrix_fn, gene_features_fn, gene_barcodes_fn)
@@ -39,11 +65,44 @@ cat(sprintf("Gene-level cells: %d, isoform-level cells: %d, shared: %d\n",
             ncol(gene_mtx), ncol(iso_mtx), length(common_barcodes)))
 
 so <- CreateSeuratObject(counts = gene_mtx[, common_barcodes], project = sample, assay = "RNA")
-so[["ISO"]] <- CreateAssayObject(counts = iso_mtx[, common_barcodes])
+so[["ISO"]] <- CreateAssay5Object(counts = iso_mtx[, common_barcodes])
 
 # Tag every cell with its sample of origin (orig.ident) and make barcodes
 # globally unique across samples for when per-sample objects are later merged.
 so$orig.ident <- sample
 so <- RenameCells(so, add.cell.id = sample)
+
+# --- Sample-level metrics (raw/pre-dedup/post-dedup read counts) -----------
+# Broadcast as per-cell columns (standard Seurat convention, eg orig.ident)
+# so they're usable directly in VlnPlot/FetchData, and also stashed as a
+# compact list in @misc for programmatic access.
+metrics <- read.table(sample_metrics_fn, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+metrics_list <- setNames(as.list(metrics$value), metrics$metric)
+for (name in names(metrics_list)) {
+  so[[name]] <- as.numeric(metrics_list[[name]])
+}
+so$dedup_rate <- so$postdup_reads / so$predup_reads
+so@misc$sample_metrics <- c(metrics_list, list(dedup_rate = unique(so$dedup_rate)))
+
+# --- Isoform-level metadata: genomic ranges + SQANTI3 classification -------
+# Both are keyed by isoform/transcript id and joined onto the ISO assay's
+# feature metadata; Seurat aligns by rowname and NA-fills anything that
+# doesn't match (eg isoforms SQANTI3's rules filter dropped), so no manual
+# reindexing to the assay's feature order is needed.
+iso_ranges <- read_ranges(iso_ranges_fn, "transcript_id")
+so[["ISO"]][[colnames(iso_ranges)]] <- iso_ranges
+
+sqanti <- read.table(sqanti_classification_fn, sep = "\t", header = TRUE,
+                      stringsAsFactors = FALSE, quote = "", comment.char = "")
+sqanti_cols <- c("structural_category", "associated_gene", "associated_transcript",
+                  "length", "exons", "all_canonical", "min_cov", "FL", "coding",
+                  "predicted_NMD", "filter_result")
+sqanti_meta <- sqanti[, sqanti_cols]
+rownames(sqanti_meta) <- to_seurat_name(sqanti$isoform)
+so[["ISO"]][[colnames(sqanti_meta)]] <- sqanti_meta
+
+# --- Gene-level metadata: genomic ranges ------------------------------------
+gene_ranges <- read_ranges(gene_ranges_fn, "gene_name")
+so[["RNA"]][[colnames(gene_ranges)]] <- gene_ranges
 
 saveRDS(so, file = paste0(sample, ".seurat.rds"))

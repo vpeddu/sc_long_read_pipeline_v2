@@ -6,6 +6,7 @@ include { runDeDup } from './modules/A03_deDup.nf'
 include { runFlair; runFlairByChrom; mergeFlairChroms; runTxRename } from './modules/A04_flair.nf'
 include { runHtseq } from './modules/A05_htseq.nf'
 include { runBuildSeurat } from './modules/A06_seurat.nf'
+include { runSampleMetrics } from './modules/A07_metrics.nf'
 include { runLongshot } from './modules/B01_longshot.nf'
 include { runSQANTI3 } from './modules/C01_SQANTI3.nf'
 include { runIsoSeQL } from './modules/C02_isoSeQL.nf'
@@ -152,15 +153,6 @@ workflow {
         A05_htseq = runHtseq(htseq_input, 'gene_name')
     }
 
-    // Combine per-sample gene-level (htseq) and isoform-level (rdmap2counts, via
-    // runTxRename) count matrices into one Seurat object per sample, joined on
-    // sample name; drop A05_htseq's annot.bam (not needed here) after the join.
-    seurat_input = A05_htseq.join(A04_iso_counts)
-        .map { sample, gene_matrix, gene_features, gene_barcodes, annot_bam, iso_matrix, iso_features, iso_barcodes ->
-            tuple(sample, gene_matrix, gene_features, gene_barcodes, iso_matrix, iso_features, iso_barcodes)
-        }
-    A06_seurat = runBuildSeurat(seurat_input)
-
     B01_longshot = runLongshot(A03_dedup,
     vep_data,
     ref_genome_fa,
@@ -170,6 +162,31 @@ workflow {
     ref_genome_fa,
     A04_txRename)
     C02_isoSeQL = runIsoSeQL(C01_sqanti3)
+
+    // Per-sample raw/pre-dedup/post-dedup read counts, joined on sample name
+    // from the raw input fastq, the pre-dedup merged bam, and the post-dedup bam.
+    metrics_input = sample_data.join(A02_minimap).join(A03_dedup)
+        .map { sample, fastq, barcode, bam, bai, dedup_bam, dedup_bai, dedup_fastq ->
+            tuple(sample, fastq, bam, dedup_bam)
+        }
+    A07_metrics = runSampleMetrics(metrics_input)
+
+    // Combine per-sample gene-level (htseq) and isoform-level (rdmap2counts, via
+    // runTxRename) count matrices, SQANTI3 classification/genomic ranges, and
+    // read-count metrics into one Seurat object per sample, all joined on sample
+    // name. Depending on C01_sqanti3 here means Seurat object construction can't
+    // start until the whole SQANTI3 branch finishes for that sample (previously
+    // it only needed A04/A05, running in parallel with SQANTI3/longshot).
+    seurat_input = A05_htseq.join(A04_iso_counts).join(C01_sqanti3).join(A07_metrics)
+        .map { sample, gene_matrix, gene_features, gene_barcodes, annot_bam,
+               iso_matrix, iso_features, iso_barcodes,
+               sqanti_gtf, sqanti_fasta, sqanti_classif, sqanti_xref, sqanti_genepred, tx_dups_xref,
+               sample_metrics ->
+            tuple(sample, gene_matrix, gene_features, gene_barcodes,
+                  iso_matrix, iso_features, iso_barcodes,
+                  sqanti_gtf, sqanti_classif, sample_metrics)
+        }
+    A06_seurat = runBuildSeurat(seurat_input, ref_genes_gtf.first())
 
     //C02_isoSeQL.subscribe { dir -> println "*** Pipeline complete: ${dir}" }
 }
