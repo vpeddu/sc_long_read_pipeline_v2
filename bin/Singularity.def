@@ -3,7 +3,7 @@ From: ubuntu:22.04
 
 %labels
     Author "Vikas Peddu"
-    Version v1.0
+    Version v1.2.0
     Description "Container for long-read isoform analysis pipeline"
     Website https://github.com/broadinstitute/long-reads
 
@@ -156,7 +156,13 @@ From: ubuntu:22.04
 
     # Install additional R packages
 /opt/miniconda3/bin/conda create -y -n bioconductor --file /opt/env_specs/bioconductor.explicit.txt
-    
+
+    # Environment: seurat (Seurat + tximport, for the per-sample gene+isoform
+    # Seurat object build in runBuildSeurat). Kept separate from the much older
+    # R 3.5.1 bioconductor env above -- Seurat requires R>=4.0, and giving it
+    # its own env avoids re-solving/risking that already-pinned environment.
+    /opt/miniconda3/bin/conda create -y -n seurat --file /opt/env_specs/seurat.explicit.txt
+
 
 
 # wget --no-check-certificate https://github.com/christine-liu/SQANTI3/archive/refs/tags/v1.00CL.zip
@@ -232,6 +238,7 @@ EOF
     - flair: flair isoform discovery tool
     - sqanti3: SQANTI3 isoform QC tool
     - vep: Variant annotation tools
+    - seurat: Seurat + tximport, for per-sample Seurat object construction
     
     To use a specific conda environment:
     singularity exec container.sif bash -c 'source activate ENV_NAME && YOUR_COMMAND'

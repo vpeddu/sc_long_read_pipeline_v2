@@ -130,7 +130,10 @@ process runTxRename {
     tuple val(sample), path("${sample}.flair.collapse.isoforms.txmod.gtf"),
     path("${sample}.flair.collapse.isoform.read.map.txt"),
     path("isoform_cells.csv"),
-    path("transcript_xref.tsv")
+    path("transcript_xref.tsv"), emit: renamed_gtf
+    tuple val(sample), path("${sample}.matrix.mtx.gz"),
+    path("${sample}.features.tsv.gz"),
+    path("${sample}.barcodes.tsv.gz"), emit: iso_counts
 
     script:
     """

@@ -8,7 +8,10 @@ process runHtseq {
     val id_attr
 
     output:
-    path "*"
+    tuple val(sample), path("${sample}.matrix.mtx.gz"),
+    path("${sample}.features.tsv.gz"),
+    path("${sample}.barcodes.tsv.gz"),
+    path("${sample}.annot.bam")
 
     script:
     """

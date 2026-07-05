@@ -5,6 +5,7 @@ include { runMinimap2; mergeBam } from './modules/A02_minimap2.nf'
 include { runDeDup } from './modules/A03_deDup.nf'
 include { runFlair; runFlairByChrom; mergeFlairChroms; runTxRename } from './modules/A04_flair.nf'
 include { runHtseq } from './modules/A05_htseq.nf'
+include { runBuildSeurat } from './modules/A06_seurat.nf'
 include { runLongshot } from './modules/B01_longshot.nf'
 include { runSQANTI3 } from './modules/C01_SQANTI3.nf'
 include { runIsoSeQL } from './modules/C02_isoSeQL.nf'
@@ -130,7 +131,9 @@ workflow {
     }
 
 
-    A04_txRename = runTxRename(A04_flair, ref_features_tsv.first())
+    A04_txRename_out = runTxRename(A04_flair, ref_features_tsv.first())
+    A04_txRename = A04_txRename_out.renamed_gtf
+    A04_iso_counts = A04_txRename_out.iso_counts
 
     // params.keep_intergenic may be a raw CLI string ("true"/"false") -- compare
     // the string value explicitly rather than relying on Groovy truthiness.
@@ -148,6 +151,15 @@ workflow {
         htseq_input = A03_dedup.combine(ref_genes_gtf)
         A05_htseq = runHtseq(htseq_input, 'gene_name')
     }
+
+    // Combine per-sample gene-level (htseq) and isoform-level (rdmap2counts, via
+    // runTxRename) count matrices into one Seurat object per sample, joined on
+    // sample name; drop A05_htseq's annot.bam (not needed here) after the join.
+    seurat_input = A05_htseq.join(A04_iso_counts)
+        .map { sample, gene_matrix, gene_features, gene_barcodes, annot_bam, iso_matrix, iso_features, iso_barcodes ->
+            tuple(sample, gene_matrix, gene_features, gene_barcodes, iso_matrix, iso_features, iso_barcodes)
+        }
+    A06_seurat = runBuildSeurat(seurat_input)
 
     B01_longshot = runLongshot(A03_dedup,
     vep_data,
