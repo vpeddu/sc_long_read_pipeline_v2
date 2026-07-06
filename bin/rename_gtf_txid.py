@@ -34,6 +34,7 @@ def parse_commandline():
   default_gtf = 'flair.collapse.isoforms.gtf'
   parser=argparse.ArgumentParser()
   parser.add_argument('--gtf', '-g', help='flair gtf file', type=str, default=default_gtf, required=False)
+  parser.add_argument('--fasta', help='flair isoforms.fa file (raw, pre-rename)', type=str, required=True)
   parser.add_argument('--tx_prefix', '-x', help='prefix for novel transcript ids', type=str, required=True)
   parser.add_argument('--features', '-f', help='features.tsv file (ensembl_id, gene_name, assay columns)', type=str, required=True)
   parser.add_argument('--keep_intergenic', help='keep flair loci not assigned an ENSG gene id (novel/intergenic loci) instead of dropping them', action='store_true')
@@ -71,7 +72,23 @@ def write_gtf(df, out_fn):
         for attr, value in attr_dict.items():
           if value:
             gtf_attr = gtf_attr + f"{attr} \"{value}\"; "
-      f.write(gtf_cols + gtf_attr.rstrip() + '\n')  
+      f.write(gtf_cols + gtf_attr.rstrip() + '\n')
+
+#Flair isoforms.fa headers are "{transcript_id}_{gene_id}" with no whitespace
+#  (eg ">ENST00000531188_ENSG00000149273"); rewrite to the same renamed ids
+#  used in the .txmod.gtf, dropping any record not kept by that renaming/
+#  filtering pass (id_map only contains kept transcripts).
+def rewrite_fasta(fasta_fn, id_map, out_fn):
+  write_seq = False
+  with open(fasta_fn) as fin, open(out_fn, 'w') as fout:
+    for line in fin:
+      if line.startswith('>'):
+        new_id = id_map.get(line[1:].strip())
+        write_seq = bool(new_id)
+        if new_id:
+          fout.write(f'>{new_id}\n')
+      elif write_seq:
+        fout.write(line)
 
 args = parse_commandline()
 noveltx_prefix = args.tx_prefix + "_"
@@ -164,7 +181,17 @@ transcripts_final.write_csv('transcript_xref.tsv', separator='\t')
 transcript_xref = transcripts_final.rename({"novel_tx": "tx_name"})
 transcript_xref = transcript_xref.with_columns(
                     pl.col('tx_name').fill_null(pl.col('transcript_id'))
-                    ).select(['transcript_id', 'tx_name', 'gene_name', 'novel_tx_gene'])
+                    )
+
+#Flair isoforms.fa headers are "{transcript_id}_{gene_id}" (the ORIGINAL,
+#  pre-rename gene_id) -- build the header->new-id map before 'gene_id' is
+#  dropped by the select() below.
+fasta_id_map = dict(zip(
+    (transcript_xref['transcript_id'] + '_' + transcript_xref['gene_id']).to_list(),
+    transcript_xref['tx_name'].to_list()
+    ))
+
+transcript_xref = transcript_xref.select(['transcript_id', 'tx_name', 'gene_name', 'novel_tx_gene'])
 
 #Modify transcript/gene nomenclature for gtf transcript and exon rows for each transcript
 gtf_final = gtf_df.join(transcript_xref, on='transcript_id', how='inner')
@@ -173,3 +200,4 @@ gtf_final = gtf_final.with_columns(
                        ).drop(['tx_name', 'gene_name', 'novel_tx_gene'])
 #gtf_final.head()
 write_gtf(gtf_final, out_gtf)
+rewrite_fasta(args.fasta, fasta_id_map, out_gtf.replace('.txmod.gtf', '.txmod.fa'))

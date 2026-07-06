@@ -10,6 +10,7 @@ include { runSampleMetrics } from './modules/A07_metrics.nf'
 include { runLongshot } from './modules/B01_longshot.nf'
 include { runSQANTI3 } from './modules/C01_SQANTI3.nf'
 include { runIsoSeQL } from './modules/C02_isoSeQL.nf'
+include { runSTARIndex; runSTARAlign; runShortReadQuant } from './modules/D01_shortread.nf'
 
 workflow {
     params.input_dir = params.input_dir ?: '.'
@@ -69,6 +70,36 @@ workflow {
     // Log found samples
     sample_data.view { n, f, b -> "Processing sample: ${n}" }
 
+    // Optional paired short-read data: headerless CSV (long_read_sample,
+    // short_read_R1,short_read_R2), '#'-comment lines skipped -- same
+    // headerless-list convention as --input_list. Long-read samples with no
+    // short-read pair still proceed (just without junction correction/quant);
+    // short-read pairs whose long-read sample isn't part of this run have no
+    // novel transcriptome to correct/quantify against, so they're dropped
+    // here (before STAR ever runs on them).
+    if (params.pairedshortread) {
+        def sr_rows = file(params.pairedshortread, checkIfExists: true).readLines()
+            .collect { it.trim() }
+            .findAll { it && !it.startsWith('#') }
+            .collect { it.split(',') }
+        def sr_names = sr_rows.collect { it[0].trim() }
+        def sr_dups = sr_names.findAll { n -> sr_names.count(n) > 1 }.unique()
+        if (sr_dups) {
+            error("Duplicate long-read sample name(s) in --pairedshortread: ${sr_dups}")
+        }
+
+        def shortread_data_raw = Channel.fromList(sr_rows.collect { row ->
+            tuple(row[0].trim(), file(row[1].trim(), checkIfExists: true), file(row[2].trim(), checkIfExists: true))
+        })
+        def known_samples = sample_data.map { s, fastq, barcode -> s }.collect()
+        shortread_data = shortread_data_raw.combine(known_samples)
+            .filter { s, r1, r2, known -> known.contains(s) }
+            .map { s, r1, r2, known -> tuple(s, r1, r2) }
+        shortread_data.view { s, r1, r2 -> "Paired short-read sample: ${s}" }
+    } else {
+        shortread_data = Channel.empty()
+    }
+
     // Duplicate the sample metadata channel to allow multiple downstream consumers
     def flex_input = sample_data
     def names_input = sample_data
@@ -94,7 +125,27 @@ workflow {
         file("${projectDir}/bin/collapse_barcodes.py"),
         ref_genes_gtf
         )
-    
+
+    // Build the whole-genome STAR index (and align each paired short-read
+    // sample against it) only when --pairedshortread is actually in use --
+    // this is a ~30GB, several-GB-of-disk step, not worth paying for otherwise.
+    if (params.pairedshortread) {
+        star_index = runSTARIndex(ref_genome_fa, ref_genes_gtf)
+        star_sj = runSTARAlign(shortread_data, star_index.first())
+    } else {
+        star_sj = Channel.empty()
+    }
+
+    // Pair each long-read sample's dedup bam with its optional short-read STAR
+    // junctions. remainder:true is safe here specifically because shortread_data
+    // was already filtered (above) to samples known to sample_data, so star_sj
+    // can never contain a key absent from A03_dedup -- the only padding that
+    // can occur is a long-read sample with no short-read match (intended).
+    // sj_tab ?: [] uses Nextflow's "no optional file" idiom (an empty list is
+    // Groovy-falsy, a bound path is truthy) instead of a sentinel file.
+    flair_input = A03_dedup.join(star_sj, remainder: true)
+        .map { sample, bam, bai, fastq, sj_tab -> tuple(sample, bam, bai, fastq, sj_tab ?: []) }
+
     // params.flair_split_by_chrom may be a raw CLI string ("true"/"false") --
     // any non-empty Groovy string (including "false") is truthy, so compare
     // the string value explicitly rather than relying on plain truthiness.
@@ -118,14 +169,14 @@ workflow {
                 groups
             }
 
-        flair_chrom_input = A03_dedup.combine(chrom_groups)
+        flair_chrom_input = flair_input.combine(chrom_groups)
         A04_flair_chunks = runFlairByChrom(flair_chrom_input,
             ref_genome_fa.first(),
             ref_genes_gtf.first()
             )
         A04_flair = mergeFlairChroms(A04_flair_chunks.groupTuple())
     } else {
-        A04_flair = runFlair(A03_dedup,
+        A04_flair = runFlair(flair_input,
             ref_genome_fa,
             ref_genes_gtf
             )
@@ -145,7 +196,7 @@ workflow {
         // paired with ITS OWN per-sample txmod gtf (not the shared reference gtf)
         // via a sample-keyed join. The txmod gtf only carries a "gene_id"
         // attribute (no separate "gene_name"), so --idattr switches accordingly.
-        htseq_gtf_by_sample = A04_txRename.map { sample, txmod_gtf, read_map, isoform_cells, transcript_xref -> tuple(sample, txmod_gtf) }
+        htseq_gtf_by_sample = A04_txRename.map { sample, txmod_gtf, read_map, isoform_cells, transcript_xref, txmod_fasta -> tuple(sample, txmod_gtf) }
         htseq_input = A03_dedup.join(htseq_gtf_by_sample)
         A05_htseq = runHtseq(htseq_input, 'gene_id')
     } else {
@@ -158,10 +209,24 @@ workflow {
     ref_genome_fa,
     ref_genome_fai)
 
+    // runSQANTI3's input signature predates the txmod fasta added to
+    // A04_txRename's emit -- reshape back down to the 5-tuple it expects
+    // rather than touching the (unrelated) SQANTI3 module itself.
+    sqanti_input = A04_txRename.map { sample, txmod_gtf, read_map, isoform_cells, transcript_xref, txmod_fasta ->
+        tuple(sample, txmod_gtf, read_map, isoform_cells, transcript_xref)
+    }
     C01_sqanti3 = runSQANTI3(ref_genes_gtf,
     ref_genome_fa,
-    A04_txRename)
+    sqanti_input)
     C02_isoSeQL = runIsoSeQL(C01_sqanti3)
+
+    // Quantify each paired sample's short reads against its OWN novel
+    // long-read-derived transcriptome (the renamed/filtered isoform fasta).
+    // Plain inner join: a short-read-only sample has no transcriptome to
+    // quantify against, and a long-read-only sample has no short reads.
+    txmod_fasta_by_sample = A04_txRename.map { sample, txmod_gtf, read_map, isoform_cells, transcript_xref, txmod_fasta -> tuple(sample, txmod_fasta) }
+    quant_input = txmod_fasta_by_sample.join(shortread_data)
+    D01_quant = runShortReadQuant(quant_input)
 
     // Per-sample raw/pre-dedup/post-dedup read counts, joined on sample name
     // from the raw input fastq, the pre-dedup merged bam, and the post-dedup bam.

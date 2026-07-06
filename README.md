@@ -11,6 +11,7 @@ This repository contains a Nextflow-based long-read single-cell processing pipel
 - Use `-profile singularity` to run with Singularity (default).
 - Container build script is `bin/Singularity.def`. Build with `bin/build_container.sh`
 - Current container: `ghcr.io/vpeddu/sc_long_pipeline:v1.2.0`, which added a `seurat` conda env (Seurat + tximport, R 4.3) for `A06_seurat.nf` alongside the existing `long_reads`/`flair`/`vep`/`picardtools`/`isoSeQL`/`bioconductor`/`sqanti3` environments.
+- `D01_shortread.nf` (`--pairedshortread`) reuses STAR and kallisto, both already present in the `sqanti3` env — no container rebuild is required for this feature.
 
 **Pipeline Layout**
 - `main.nf`: pipeline entry that composes module workflows.
@@ -32,13 +33,19 @@ This repository contains a Nextflow-based long-read single-cell processing pipel
 - `A06_seurat.nf`: builds a per-sample Seurat object (`RNA` + `ISO` assays) combining gene- and isoform-level counts, SQANTI3 classification, genomic ranges, and read-count metrics (see **Outputs** below).
 - `A07_metrics.nf`: raw/pre-dedup/post-dedup read counts per sample.
 - `C01_SQANTI3.nf` and related: transcript classification and QC.
+- `D01_shortread.nf`: optional paired short-read integration — see `--pairedshortread` below.
 
 **Configuration options**
 - Edit [nextflow.config](nextflow.config#L1) or pass overrides on the command line, e.g. `--threads 8` or `--genome GRCh38`.
 - `--flair_split_by_chrom` (`true`/`false`, default `true`): when `true`, `flair transcriptome` runs once per chromosome in parallel instead of once genome-wide, which is substantially faster/lower-memory on large single-cell transcriptomes. Per-chromosome outputs are concatenated back into the usual per-sample files afterward.
 - `--keep_intergenic` (`true`/`false`, default `false`): flair calls isoforms at novel loci that don't overlap any annotated gene (assigned a raw coordinate-based id instead of an Ensembl gene id). By default these are dropped from the final GTF/counts/Seurat outputs. Set `true` to keep them — each distinct intergenic locus gets a unique `novel_intergenic_NNN` label, `A05_htseq` switches to quantifying against the per-sample flair-derived transcriptome (instead of just the static reference annotation) so these loci get their own gene-level counts, and they flow through into the Seurat object like any other gene/isoform.
+- `--pairedshortread <csv>`: opt-in paired short-read integration. CSV has 3 columns, **no header**, `#`-comment lines allowed: `long_read_sample,short_read_R1,short_read_R2`. The first column must exactly match a long-read sample name as derived from its fastq filename. Samples don't need to line up 1:1 — long-read samples with no row in the CSV proceed normally, and rows whose long-read sample isn't part of the current run are silently ignored (there's no long-read transcriptome to correct/quantify against). When set:
+  - A one-time whole-genome STAR index is built, and each matched sample's short reads are aligned with STAR (`--twopassMode Basic`, junctions only, no BAM) to produce `SJ.out.tab`.
+  - That `SJ.out.tab` is fed into `flair transcriptome` via `--junction_tab` for that sample (both the genome-wide and per-chromosome variants), improving splice-site accuracy with orthogonal short-read evidence. Unmatched samples run exactly as before (no short-read flags added).
+  - The matched sample's short reads are then quantified (via `kallisto index`+`quant`, already present in the `sqanti3` env — no container changes needed) against that sample's own renamed/filtered novel transcriptome FASTA (see **Outputs** below), giving an orthogonal short-read expression estimate for the long-read-derived isoforms.
+  - Tunable: `--star_sjdb_overhang` (default `100`; STAR's ideal is `read_length - 1`, override if your short reads aren't ~101bp) and `--shortread_junction_support` (default `1`, matches flair's own `--junction_support` default).
 
-Both flags accept the literal strings `true`/`false` on the command line (e.g. `--keep_intergenic true`); pass them explicitly rather than as bare flags.
+`--flair_split_by_chrom` and `--keep_intergenic` accept the literal strings `true`/`false` on the command line (e.g. `--keep_intergenic true`); pass them explicitly rather than as bare flags.
 
 **Run examples**
 Below are example commands for running the pipeline locally and on the Sherlock cluster. Replace the example paths with your input and reference locations.
@@ -74,6 +81,8 @@ nextflow run main.nf \
 - Results are written to the Nextflow work directory and the pipeline `results/` folder (or as configured in `nextflow.config`).
 - Key outputs include aligned BAMs, collapsed isoform GTFs, expression count tables, SQANTI3 QC reports, and variant VCFs.
 - `A06_seurat`: one `<sample>.seurat.rds` Seurat object per sample, with an `RNA` assay (gene-level counts) and an `ISO` assay (isoform-level counts). Cells are tagged with `orig.ident` and barcode-prefixed by sample so multiple samples' objects can be merged safely. Feature-level metadata includes genomic ranges (`chrom`/`start`/`end`/`strand`, both assays) and, on the `ISO` assay, SQANTI3 classification columns (`structural_category`, `associated_gene`, `length`, `exons`, coverage/coding/NMD/filter columns). Per-cell metadata includes `raw_reads`, `predup_reads`, `postdup_reads`, and `dedup_rate` (also available as a compact list in `@misc$sample_metrics`).
+- `A04_txRename`: alongside the existing renamed GTF/xref/matrix outputs, always also produces `<sample>.flair.collapse.isoforms.txmod.fa` — the raw flair isoform FASTA renamed and filtered to match the same transcript set/IDs as the renamed GTF (this is "the novel long-read transcriptome" used for short-read quantification below).
+- `D01_shortread` (only produced for samples matched via `--pairedshortread`): `<sample>.SJ.out.tab` (STAR-derived splice junctions fed into flair) and `<sample>_kallisto/` (standard kallisto quant output — `abundance.tsv`/`abundance.h5`/`run_info.json` — quantifying that sample's short reads against its own `txmod.fa`).
 
 **Troubleshooting**
 - If a step fails, inspect the Nextflow `work/` directory for task logs and the `trace.txt` and `report.html` files generated with `-with-trace`/`-with-report`.

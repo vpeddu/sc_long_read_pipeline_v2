@@ -6,7 +6,7 @@ process runFlair {
     publishDir path: { "${sample}/${params.output_dir}/A04_flair" }, mode: 'symlink'
 
     input:
-    tuple val(sample), path(bam), path(bai), path(fastq)
+    tuple val(sample), path(bam), path(bai), path(fastq), path(sj_tab)
     path genome
     path gtf
 
@@ -18,6 +18,9 @@ process runFlair {
         path("${sample}.flair.collapse.isoform.read.map.txt")
 
     script:
+    // sj_tab is [] (Nextflow's "no optional file" idiom, Groovy-falsy) when
+    // this sample has no --pairedshortread match; a bound path is truthy.
+    def junction_arg = sj_tab ? "--junction_tab ${sj_tab} --junction_support ${params.shortread_junction_support}" : ''
     """
     export PATH=/opt/miniconda3/envs/flair/bin/:\$PATH
 
@@ -39,6 +42,7 @@ process runFlair {
         --gtf ${gtf} \
         --threads \$flair_threads \
         --check_splice \
+        ${junction_arg} \
         --output ${sample}.flair.collapse
     """
 }
@@ -49,7 +53,7 @@ process runFlairByChrom {
     publishDir path: { "${sample}/${params.output_dir}/A04_flair/chunks" }, mode: 'symlink'
 
     input:
-    tuple val(sample), path(bam), path(bai), path(fastq), val(chrom_label), val(chroms)
+    tuple val(sample), path(bam), path(bai), path(fastq), path(sj_tab), val(chrom_label), val(chroms)
     path genome
     path gtf
 
@@ -61,6 +65,9 @@ process runFlairByChrom {
         path("${sample}.${chrom_label}.flair.collapse.isoform.read.map.txt")
 
     script:
+    // Same genome-wide SJ.out.tab is reused for every chromosome chunk --
+    // junctions outside this chunk's contigs are simply irrelevant/ignored.
+    def junction_arg = sj_tab ? "--junction_tab ${sj_tab} --junction_support ${params.shortread_junction_support}" : ''
     """
     export PATH=/opt/miniconda3/envs/flair/bin/:\$PATH
 
@@ -74,6 +81,7 @@ process runFlairByChrom {
         --gtf ${gtf} \
         --threads \$flair_threads \
         --check_splice \
+        ${junction_arg} \
         --output ${sample}.${chrom_label}.flair.collapse || true
 
     # Chromosomes/contigs with no aligned reads (common for e.g. chrY in a
@@ -130,7 +138,8 @@ process runTxRename {
     tuple val(sample), path("${sample}.flair.collapse.isoforms.txmod.gtf"),
     path("${sample}.flair.collapse.isoform.read.map.txt"),
     path("isoform_cells.csv"),
-    path("transcript_xref.tsv"), emit: renamed_gtf
+    path("transcript_xref.tsv"),
+    path("${sample}.flair.collapse.isoforms.txmod.fa"), emit: renamed_gtf
     tuple val(sample), path("${sample}.matrix.mtx.gz"),
     path("${sample}.features.tsv.gz"),
     path("${sample}.barcodes.tsv.gz"), emit: iso_counts
@@ -152,6 +161,7 @@ process runTxRename {
 
     /opt/miniconda3/envs/long_reads/bin/python3 ${projectDir}/bin/rename_gtf_txid.py \
         --gtf ${flair_collapse_gtf} \
+        --fasta ${flair_collapsed_isoforms_fa} \
         --tx_prefix \$tprefix \
         --features ${features_tsv} \
         \$keep_intergenic_flag
