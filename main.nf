@@ -71,12 +71,20 @@ workflow {
     sample_data.view { n, f, b -> "Processing sample: ${n}" }
 
     // Optional paired short-read data: headerless CSV (long_read_sample,
-    // short_read_R1,short_read_R2), '#'-comment lines skipped -- same
-    // headerless-list convention as --input_list. Long-read samples with no
-    // short-read pair still proceed (just without junction correction/quant);
-    // short-read pairs whose long-read sample isn't part of this run have no
-    // novel transcriptome to correct/quantify against, so they're dropped
-    // here (before STAR ever runs on them).
+    // short_read_R1,short_read_R2,chemistry), '#'-comment lines skipped --
+    // same headerless-list convention as --input_list. These short reads are
+    // droplet single-cell (10x Chromium) libraries of the SAME cells as the
+    // long-read sample, not bulk paired-end -- R1 is a cell barcode+UMI read,
+    // R2 is the cDNA read. chemistry encodes both the 10x kit version
+    // ('chromium' = v2, 'chromiumV3' = v3 -- salmon alevin's own barcode/UMI
+    // geometry flag names, identical between a version's 3' and 5' kits) and
+    // which end was sequenced (_3p/_5p suffix), since that changes the
+    // expected read orientation used downstream in runShortReadQuant.
+    // Long-read samples with no short-read pair still proceed (just without
+    // junction correction/quant); short-read pairs whose long-read sample
+    // isn't part of this run have no novel transcriptome to correct/quantify
+    // against, so they're dropped here (before STAR ever runs on them).
+    def VALID_SR_CHEMISTRIES = ['chromium_3p', 'chromium_5p', 'chromiumV3_3p', 'chromiumV3_5p']
     if (params.pairedshortread) {
         def sr_rows = file(params.pairedshortread, checkIfExists: true).readLines()
             .collect { it.trim() }
@@ -87,15 +95,19 @@ workflow {
         if (sr_dups) {
             error("Duplicate long-read sample name(s) in --pairedshortread: ${sr_dups}")
         }
+        def sr_bad_chem = sr_rows.collect { it[3].trim() }.findAll { !VALID_SR_CHEMISTRIES.contains(it) }.unique()
+        if (sr_bad_chem) {
+            error("--pairedshortread chemistry column must be one of ${VALID_SR_CHEMISTRIES}; got: ${sr_bad_chem}")
+        }
 
         def shortread_data_raw = Channel.fromList(sr_rows.collect { row ->
-            tuple(row[0].trim(), file(row[1].trim(), checkIfExists: true), file(row[2].trim(), checkIfExists: true))
+            tuple(row[0].trim(), file(row[1].trim(), checkIfExists: true), file(row[2].trim(), checkIfExists: true), row[3].trim())
         })
         def known_samples = sample_data.map { s, fastq, barcode -> s }.collect()
         shortread_data = shortread_data_raw.combine(known_samples)
-            .filter { s, r1, r2, known -> known.contains(s) }
-            .map { s, r1, r2, known -> tuple(s, r1, r2) }
-        shortread_data.view { s, r1, r2 -> "Paired short-read sample: ${s}" }
+            .filter { s, r1, r2, chem, known -> known.contains(s) }
+            .map { s, r1, r2, chem, known -> tuple(s, r1, r2, chem) }
+        shortread_data.view { s, r1, r2, chem -> "Paired short-read sample: ${s} (${chem})" }
     } else {
         shortread_data = Channel.empty()
     }
@@ -131,7 +143,10 @@ workflow {
     // this is a ~30GB, several-GB-of-disk step, not worth paying for otherwise.
     if (params.pairedshortread) {
         star_index = runSTARIndex(ref_genome_fa, ref_genes_gtf)
-        star_sj = runSTARAlign(shortread_data, star_index.first())
+        // R2 only: R1 is a cell barcode+UMI read with no genomic content --
+        // see runSTARAlign's single-end rationale in modules/D01_shortread.nf.
+        star_align_input = shortread_data.map { s, r1, r2, chem -> tuple(s, r2) }
+        star_sj = runSTARAlign(star_align_input, star_index.first())
     } else {
         star_sj = Channel.empty()
     }
@@ -224,8 +239,12 @@ workflow {
     // long-read-derived transcriptome (the renamed/filtered isoform fasta).
     // Plain inner join: a short-read-only sample has no transcriptome to
     // quantify against, and a long-read-only sample has no short reads.
+    // The barcode whitelist is this sample's own long-read cell barcode list
+    // (same one used for flexiplex demux) -- reusing it as alevin-fry's
+    // --unfiltered-pl keeps cell identities consistent across both modalities.
     txmod_fasta_by_sample = A04_txRename.map { sample, txmod_gtf, read_map, isoform_cells, transcript_xref, txmod_fasta -> tuple(sample, txmod_fasta) }
-    quant_input = txmod_fasta_by_sample.join(shortread_data)
+    barcode_by_sample = sample_data.map { sample, fastq, barcode -> tuple(sample, barcode) }
+    quant_input = txmod_fasta_by_sample.join(shortread_data).join(barcode_by_sample)
     D01_quant = runShortReadQuant(quant_input)
 
     // Per-sample raw/pre-dedup/post-dedup read counts, joined on sample name

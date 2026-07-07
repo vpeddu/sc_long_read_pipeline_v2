@@ -3,7 +3,7 @@ From: ubuntu:22.04
 
 %labels
     Author "Vikas Peddu"
-    Version v1.2.0
+    Version v1.3.0
     Description "Container for long-read isoform analysis pipeline"
     Website https://github.com/broadinstitute/long-reads
 
@@ -163,6 +163,12 @@ From: ubuntu:22.04
     # its own env avoids re-solving/risking that already-pinned environment.
     /opt/miniconda3/bin/conda create -y -n seurat --file /opt/env_specs/seurat.explicit.txt
 
+    # Environment: salmon (short-read quantification against the per-sample
+    # novel long-read transcriptome, D01_shortread.nf's runShortReadQuant).
+    # Its own env rather than sqanti3's (which already has kallisto/STAR for
+    # its own internal QC use) to avoid re-solving/risking that pinned env.
+    /opt/miniconda3/bin/conda create -y -n salmon --file /opt/env_specs/salmon.explicit.txt
+
 
 
 # wget --no-check-certificate https://github.com/christine-liu/SQANTI3/archive/refs/tags/v1.00CL.zip
@@ -239,6 +245,7 @@ EOF
     - sqanti3: SQANTI3 isoform QC tool
     - vep: Variant annotation tools
     - seurat: Seurat + tximport, for per-sample Seurat object construction
-    
+    - salmon: salmon + alevin-fry, for single-cell short-read quantification against the novel long-read transcriptome
+
     To use a specific conda environment:
     singularity exec container.sif bash -c 'source activate ENV_NAME && YOUR_COMMAND'
