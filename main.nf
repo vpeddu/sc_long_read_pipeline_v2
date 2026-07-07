@@ -103,10 +103,18 @@ workflow {
         def shortread_data_raw = Channel.fromList(sr_rows.collect { row ->
             tuple(row[0].trim(), file(row[1].trim(), checkIfExists: true), file(row[2].trim(), checkIfExists: true), row[3].trim())
         })
-        def known_samples = sample_data.map { s, fastq, barcode -> s }.collect()
-        shortread_data = shortread_data_raw.combine(known_samples)
-            .filter { s, r1, r2, chem, known -> known.contains(s) }
-            .map { s, r1, r2, chem, known -> tuple(s, r1, r2, chem) }
+        // Plain .join() against sample_data itself, rather than a
+        // .collect()-based membership filter: .collect() is a full-channel
+        // barrier that can't emit until ALL of --input_list has been
+        // enumerated, which stalled runSTARAlign behind that full
+        // enumeration even though runSTARIndex has no such dependency and
+        // finishes independently. .join() lets a matched short-read sample
+        // flow through as soon as ITS OWN long-read counterpart appears in
+        // sample_data. Unmatched rows on either side are silently dropped,
+        // same as before (a short-read-only row has no long-read
+        // transcriptome to correct/quantify against).
+        shortread_data = shortread_data_raw.join(sample_data)
+            .map { s, r1, r2, chem, _fastq, _barcode -> tuple(s, r1, r2, chem) }
         shortread_data.view { s, r1, r2, chem -> "Paired short-read sample: ${s} (${chem})" }
     } else {
         shortread_data = Channel.empty()
