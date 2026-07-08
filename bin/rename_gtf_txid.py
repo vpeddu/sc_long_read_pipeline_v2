@@ -38,6 +38,7 @@ def parse_commandline():
   parser.add_argument('--tx_prefix', '-x', help='prefix for novel transcript ids', type=str, required=True)
   parser.add_argument('--features', '-f', help='features.tsv file (ensembl_id, gene_name, assay columns)', type=str, required=True)
   parser.add_argument('--keep_intergenic', help='keep flair loci not assigned an ENSG gene id (novel/intergenic loci) instead of dropping them', action='store_true')
+  parser.add_argument('--exclude_chrm', help='drop chrM transcripts from the final gtf/xref/counts output', action='store_true')
   args=parser.parse_args()
   print(args, file=sys.stderr)
   return args
@@ -120,6 +121,13 @@ if not args.keep_intergenic:
 #Additionally filter for canonical chromosomes (assume len(seqname) < 6 will do this)
 gtf_df = gtf_df.with_columns(pl.col("seqname").cast(pl.String))
 gtf_df = gtf_df.filter(pl.col("seqname").str.len_bytes() < 6)
+
+if args.exclude_chrm:
+  #chrM's read depth is vastly disproportionate to its size; the
+  #  --flair_split_by_chrom path skips it entirely (see main.nf), but the
+  #  whole-genome path still calls transcripts on it -- drop them here too so
+  #  the final output is the same regardless of which flair mode ran.
+  gtf_df = gtf_df.filter(pl.col("seqname") != 'chrM')
 
 #For all novel transcript rows, create novel transcript ids with two potential
 #  nomenclature schemes:  1/ <prefix>_xxxxx, 2/ <gene>_novelxxx

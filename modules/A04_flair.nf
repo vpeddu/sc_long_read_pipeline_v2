@@ -154,17 +154,20 @@ process runTxRename {
     disease="GIM"
     tprefix="\${disease_code[\$disease]}\${sample_bc}"
 
-    # params.keep_intergenic may be a raw CLI string ("true"/"false") -- any
-    # non-empty Groovy string (including "false") is truthy, so compare the
-    # string value explicitly rather than relying on plain truthiness.
+    # params.keep_intergenic/exclude_chrm may be raw CLI strings ("true"/
+    # "false") -- any non-empty Groovy string (including "false") is truthy,
+    # so compare the string value explicitly rather than relying on plain
+    # truthiness.
     keep_intergenic_flag="${params.keep_intergenic.toString().equalsIgnoreCase('true') ? '--keep_intergenic' : ''}"
+    exclude_chrm_flag="${params.exclude_chrm.toString().equalsIgnoreCase('true') ? '--exclude_chrm' : ''}"
 
     /opt/miniconda3/envs/long_reads/bin/python3 ${projectDir}/bin/rename_gtf_txid.py \
         --gtf ${flair_collapse_gtf} \
         --fasta ${flair_collapsed_isoforms_fa} \
         --tx_prefix \$tprefix \
         --features ${features_tsv} \
-        \$keep_intergenic_flag
+        \$keep_intergenic_flag \
+        \$exclude_chrm_flag
 
     /opt/miniconda3/envs/long_reads/bin/python3 ${projectDir}/bin/rdmap2counts.py \
         --read_map ${flair_collapse_map} \

@@ -4,7 +4,7 @@ include { splitFastq; runFlexiplex } from './modules/A01_flexiplex.nf'
 include { runMinimap2; mergeBam } from './modules/A02_minimap2.nf'
 include { runDeDup } from './modules/A03_deDup.nf'
 include { runFlair; runFlairByChrom; mergeFlairChroms; runTxRename } from './modules/A04_flair.nf'
-include { runHtseq } from './modules/A05_htseq.nf'
+include { runHtseq; runChrmGeneSubset; mergeChrmReferenceGenes } from './modules/A05_htseq.nf'
 include { runBuildSeurat } from './modules/A06_seurat.nf'
 include { runSampleMetrics } from './modules/A07_metrics.nf'
 include { runLongshot } from './modules/B01_longshot.nf'
@@ -184,6 +184,14 @@ workflow {
             .collect()
             .flatMap { contigs ->
                 def primary = contigs.findAll { !it.contains('.') }
+                // chrM's read depth is vastly disproportionate to its size,
+                // making flair transcript calling on it a major outlier in
+                // runtime; drop it entirely here (not bundled into
+                // other_contigs, which would still pay that cost) rather than
+                // only filtering it out of the final output afterward.
+                if (params.exclude_chrm.toString().equalsIgnoreCase('true')) {
+                    primary = primary.findAll { it != 'chrM' }
+                }
                 def other = contigs.findAll { it.contains('.') }
                 def groups = primary.collect { [it, [it]] }
                 if (other) {
@@ -220,6 +228,16 @@ workflow {
         // via a sample-keyed join. The txmod gtf only carries a "gene_id"
         // attribute (no separate "gene_name"), so --idattr switches accordingly.
         htseq_gtf_by_sample = A04_txRename.map { sample, txmod_gtf, read_map, isoform_cells, transcript_xref, txmod_fasta -> tuple(sample, txmod_gtf) }
+        // --exclude_chrm drops chrM from the flair-derived gtf entirely (see
+        // chrom_groups above), which would otherwise silently zero out chrM
+        // gene counts here too -- backfill them from the reference annotation
+        // so they aren't lost just because flair itself skipped chrM. Only
+        // relevant when exclude_chrm actually removed them; when it's false,
+        // flair already called chrM transcripts and txmod_gtf already has them.
+        if (params.exclude_chrm.toString().equalsIgnoreCase('true')) {
+            chrm_genes_gtf = runChrmGeneSubset(ref_genes_gtf)
+            htseq_gtf_by_sample = mergeChrmReferenceGenes(htseq_gtf_by_sample, chrm_genes_gtf.first())
+        }
         htseq_input = A03_dedup.join(htseq_gtf_by_sample)
         A05_htseq = runHtseq(htseq_input, 'gene_id')
     } else {
