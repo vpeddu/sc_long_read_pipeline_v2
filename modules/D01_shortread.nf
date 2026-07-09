@@ -69,10 +69,14 @@ process runShortReadQuant {
     script:
     // These short reads are droplet single-cell (10x Chromium) libraries, not
     // bulk paired-end: R1 is a cell barcode+UMI read, R2 is the cDNA read.
-    // Quantify with salmon alevin (--sketch, producing a RAD file) + alevin-fry
-    // rather than plain `salmon quant`, which would misinterpret R1 as a
-    // genuine paired-end mate. --unfiltered-pl reuses this sample's own
-    // long-read barcode whitelist so cells line up across both modalities.
+    // Quantify with salmon alevin (--rad --sketch, producing a RAD file --
+    // --sketch requires --rad) + alevin-fry rather than plain `salmon quant`,
+    // which would misinterpret R1 as a genuine paired-end mate. Requires
+    // salmon <=1.10.2: 1.11+ deprecated `alevin` down to a stub pointing back
+    // at 1.10.2, and salmon "2.x" (a full Rust rewrite) dropped it entirely
+    // in favor of piscem+alevin-fry -- see bin/env_specs/salmon.explicit.txt.
+    // --unfiltered-pl reuses this sample's own long-read barcode whitelist so
+    // cells line up across both modalities.
     // chemistry encodes both barcode/UMI version and 3'/5' end (eg
     // 'chromiumV3_5p'): barcode/UMI geometry is identical between the 3' and
     // 5' kits of a given version, so only the trailing _3p/_5p suffix is
@@ -98,7 +102,7 @@ process runShortReadQuant {
         -1 ${r1} -2 ${r2} \
         --${alevin_chem} \
         -p ${task.cpus} \
-        --sketch \
+        --rad --sketch \
         -o ${sample}_map
 
     /opt/miniconda3/envs/salmon/bin/alevin-fry generate-permit-list \

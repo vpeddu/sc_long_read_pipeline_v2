@@ -3,7 +3,7 @@ From: ubuntu:22.04
 
 %labels
     Author "Vikas Peddu"
-    Version v1.3.0
+    Version v1.3.1
     Description "Container for long-read isoform analysis pipeline"
     Website https://github.com/broadinstitute/long-reads
 
