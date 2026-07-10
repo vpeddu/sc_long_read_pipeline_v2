@@ -10,6 +10,7 @@ iso_ranges_fn <- args[8]
 gene_ranges_fn <- args[9]
 sqanti_classification_fn <- args[10]
 sample_metrics_fn <- args[11]
+transcript_xref_fn <- args[12]
 
 library(Matrix)
 library(Seurat)
@@ -96,10 +97,26 @@ sqanti <- read.table(sqanti_classification_fn, sep = "\t", header = TRUE,
                       stringsAsFactors = FALSE, quote = "", comment.char = "")
 sqanti_cols <- c("structural_category", "associated_gene", "associated_transcript",
                   "length", "exons", "all_canonical", "min_cov", "FL", "coding",
-                  "predicted_NMD", "filter_result")
+                  "predicted_NMD", "filter_result", "perc_A_downstream_TTS", "RTS_stage")
 sqanti_meta <- sqanti[, sqanti_cols]
 rownames(sqanti_meta) <- to_seurat_name(sqanti$isoform)
 so[["ISO"]][[colnames(sqanti_meta)]] <- sqanti_meta
+
+# --- Isoform-level metadata: flair's own per-transcript read support -------
+# transcript_xref.tsv's "score" column carries flair's supporting-read count
+# for that transcript (SQANTI3's own corrected gtf hardcodes score as "." and
+# loses this, which is why it's read from the xref instead). Keyed on
+# whichever id ended up as this transcript's final name -- novel_tx for novel
+# transcripts, else the unchanged transcript_id -- the same fallback
+# rename_gtf_txid.py itself uses when it fills tx_name.
+xref <- read.table(transcript_xref_fn, sep = "\t", header = TRUE, stringsAsFactors = FALSE,
+                    quote = "", comment.char = "")
+final_id <- ifelse(!is.na(xref$novel_tx) & xref$novel_tx != "", xref$novel_tx, xref$transcript_id)
+read_support <- data.frame(read_support = xref$score, id = to_seurat_name(final_id), stringsAsFactors = FALSE)
+read_support <- read_support[!duplicated(read_support$id), ]
+rownames(read_support) <- read_support$id
+read_support$id <- NULL
+so[["ISO"]][[colnames(read_support)]] <- read_support
 
 # --- Gene-level metadata: genomic ranges ------------------------------------
 gene_ranges <- read_ranges(gene_ranges_fn, "gene_name")

@@ -292,9 +292,13 @@ workflow {
                iso_matrix, iso_features, iso_barcodes,
                sqanti_gtf, sqanti_fasta, sqanti_classif, sqanti_xref, sqanti_genepred, tx_dups_xref,
                sample_metrics ->
+            // sqanti_xref is transcript_xref.tsv passed straight through
+            // SQANTI3 unmodified -- kept here so build_seurat_object.R can
+            // pull flair's own per-transcript read-support (its "score"
+            // column) into the ISO assay.
             tuple(sample, gene_matrix, gene_features, gene_barcodes,
                   iso_matrix, iso_features, iso_barcodes,
-                  sqanti_gtf, sqanti_classif, sample_metrics)
+                  sqanti_gtf, sqanti_classif, sqanti_xref, sample_metrics)
         }
     A06_seurat = runBuildSeurat(seurat_input, ref_genes_gtf.first())
 

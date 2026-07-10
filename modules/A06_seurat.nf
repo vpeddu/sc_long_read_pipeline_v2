@@ -13,6 +13,7 @@ process runBuildSeurat {
         path(iso_barcodes, stageAs: 'iso.barcodes.tsv.gz'),
         path(sqanti_gtf),
         path(sqanti_classification),
+        path(transcript_xref),
         path(sample_metrics)
     path ref_genes_gtf
 
@@ -44,6 +45,7 @@ process runBuildSeurat {
         ${sample} \
         gene.matrix.mtx.gz gene.features.tsv.gz gene.barcodes.tsv.gz \
         iso.matrix.mtx.gz iso.features.tsv.gz iso.barcodes.tsv.gz \
-        iso_ranges.tsv gene_ranges.tsv ${sqanti_classification} ${sample_metrics}
+        iso_ranges.tsv gene_ranges.tsv ${sqanti_classification} ${sample_metrics} \
+        ${transcript_xref}
     """
 }
