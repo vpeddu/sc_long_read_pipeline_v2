@@ -7,6 +7,7 @@ include { runFlair; runFlairByChrom; mergeFlairChroms; runTxRename } from './mod
 include { runHtseq; runChrmGeneSubset; mergeChrmReferenceGenes } from './modules/A05_htseq.nf'
 include { runBuildSeurat } from './modules/A06_seurat.nf'
 include { runSampleMetrics } from './modules/A07_metrics.nf'
+include { runPfamDownload; runORFPrediction } from './modules/A08_orf.nf'
 include { runLongshot } from './modules/B01_longshot.nf'
 include { runSQANTI3 } from './modules/C01_SQANTI3.nf'
 include { runIsoSeQL } from './modules/C02_isoSeQL.nf'
@@ -273,6 +274,17 @@ workflow {
     quant_input = txmod_fasta_by_sample.join(shortread_data).join(barcode_by_sample)
     D01_quant = runShortReadQuant(quant_input)
 
+    // ORF prediction (TD2 + PSAURON) and Pfam domain classification against
+    // each sample's own novel transcriptome -- fully independent of the
+    // isoSeQL-pinned SQANTI3 branch (see modules/A08_orf.nf), since that
+    // fork's own ORF prediction is stuck on license-gated GeneMarkS-T.
+    if (params.predict_orfs.toString().equalsIgnoreCase('true')) {
+        pfam_db = runPfamDownload()
+        A08_orf = runORFPrediction(txmod_fasta_by_sample, pfam_db.first())
+    } else {
+        A08_orf = Channel.empty()
+    }
+
     // Per-sample raw/pre-dedup/post-dedup read counts, joined on sample name
     // from the raw input fastq, the pre-dedup merged bam, and the post-dedup bam.
     metrics_input = sample_data.join(A02_minimap).join(A03_dedup)
@@ -287,18 +299,25 @@ workflow {
     // name. Depending on C01_sqanti3 here means Seurat object construction can't
     // start until the whole SQANTI3 branch finishes for that sample (previously
     // it only needed A04/A05, running in parallel with SQANTI3/longshot).
-    seurat_input = A05_htseq.join(A04_iso_counts).join(C01_sqanti3).join(A07_metrics)
+    seurat_input = A05_htseq.join(A04_iso_counts).join(C01_sqanti3).join(A07_metrics).join(A08_orf, remainder: true)
         .map { sample, gene_matrix, gene_features, gene_barcodes, annot_bam,
                iso_matrix, iso_features, iso_barcodes,
                sqanti_gtf, sqanti_fasta, sqanti_classif, sqanti_xref, sqanti_genepred, tx_dups_xref,
-               sample_metrics ->
+               sample_metrics,
+               orf_pep, pfam_domtblout, _orf_cds, _orf_gff3, _orf_bed ->
             // sqanti_xref is transcript_xref.tsv passed straight through
             // SQANTI3 unmodified -- kept here so build_seurat_object.R can
             // pull flair's own per-transcript read-support (its "score"
-            // column) into the ISO assay.
+            // column) into the ISO assay. orf_pep/pfam_domtblout are null
+            // when --predict_orfs is false (A08_orf is then Channel.empty(),
+            // so remainder:true pads every sample here) -- coalesce to []
+            // (Nextflow's "no optional file" idiom) rather than drop the
+            // sample entirely. orf_cds/orf_gff3/orf_bed aren't needed by
+            // build_seurat_object.R (already published by A08_orf itself).
             tuple(sample, gene_matrix, gene_features, gene_barcodes,
                   iso_matrix, iso_features, iso_barcodes,
-                  sqanti_gtf, sqanti_classif, sqanti_xref, sample_metrics)
+                  sqanti_gtf, sqanti_classif, sqanti_xref, sample_metrics,
+                  orf_pep ?: [], pfam_domtblout ?: [])
         }
     A06_seurat = runBuildSeurat(seurat_input, ref_genes_gtf.first())
 

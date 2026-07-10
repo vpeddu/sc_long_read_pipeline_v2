@@ -11,6 +11,10 @@ gene_ranges_fn <- args[9]
 sqanti_classification_fn <- args[10]
 sample_metrics_fn <- args[11]
 transcript_xref_fn <- args[12]
+# Only present when --predict_orfs is true (args[13:14] are NA otherwise --
+# indexing an R character vector past its length returns NA, not an error).
+orf_pep_fn <- args[13]
+pfam_domtblout_fn <- args[14]
 
 library(Matrix)
 library(Seurat)
@@ -117,6 +121,51 @@ read_support <- read_support[!duplicated(read_support$id), ]
 rownames(read_support) <- read_support$id
 read_support$id <- NULL
 so[["ISO"]][[colnames(read_support)]] <- read_support
+
+# --- Isoform-level metadata: ORF prediction + Pfam domain classification ---
+# TD2 (+ its internal PSAURON coding-likelihood scorer) and a Pfam hmmsearch,
+# run fully independently of the isoSeQL-pinned SQANTI3 branch (modules/
+# A08_orf.nf) since that fork's own ORF prediction needs the license-gated
+# GeneMarkS-T. Transcript ids get a "trailing .p<N>" ORF suffix from TD2
+# (eg "ISO_REAL_ORF.p2"); strip it to recover the id used elsewhere.
+strip_orf_suffix <- function(x) to_seurat_name(sub("\\.p[0-9]+$", "", x))
+
+if (!is.na(orf_pep_fn) && file.exists(orf_pep_fn)) {
+  headers <- grep("^>", readLines(orf_pep_fn), value = TRUE)
+  if (length(headers) > 0) {
+    orf_meta <- data.frame(
+      id = strip_orf_suffix(sub("^>(\\S+).*", "\\1", headers)),
+      orf_type = sub(".*\\bORF type:(\\S+).*", "\\1", headers),
+      orf_len = as.numeric(sub(".*\\blen:([0-9]+).*", "\\1", headers)),
+      psauron_score = as.numeric(sub(".*psauron_score=([0-9.eE+-]+).*", "\\1", headers)),
+      stringsAsFactors = FALSE
+    )
+    orf_meta <- orf_meta[!duplicated(orf_meta$id), ]
+    rownames(orf_meta) <- orf_meta$id
+    orf_meta$id <- NULL
+    so[["ISO"]][[colnames(orf_meta)]] <- orf_meta
+  }
+}
+
+if (!is.na(pfam_domtblout_fn) && file.exists(pfam_domtblout_fn)) {
+  dom_lines <- readLines(pfam_domtblout_fn)
+  dom_lines <- dom_lines[!grepl("^#", dom_lines)]
+  if (length(dom_lines) > 0) {
+    parts <- strsplit(trimws(dom_lines), "\\s+")
+    dom <- data.frame(
+      id = strip_orf_suffix(sapply(parts, `[`, 1)),
+      domain = sapply(parts, `[`, 4),
+      evalue = as.numeric(sapply(parts, `[`, 7)),
+      stringsAsFactors = FALSE
+    )
+    dom_meta <- do.call(rbind, lapply(split(dom, dom$id), function(d) {
+      best <- d[which.min(d$evalue), ]
+      data.frame(pfam_domain_count = nrow(d), pfam_best_domain = best$domain,
+                 pfam_best_evalue = best$evalue, stringsAsFactors = FALSE)
+    }))
+    so[["ISO"]][[colnames(dom_meta)]] <- dom_meta
+  }
+}
 
 # --- Gene-level metadata: genomic ranges ------------------------------------
 gene_ranges <- read_ranges(gene_ranges_fn, "gene_name")

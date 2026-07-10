@@ -14,13 +14,19 @@ process runBuildSeurat {
         path(sqanti_gtf),
         path(sqanti_classification),
         path(transcript_xref),
-        path(sample_metrics)
+        path(sample_metrics),
+        path(orf_pep),
+        path(pfam_domtblout)
     path ref_genes_gtf
 
     output:
     tuple val(sample), path("${sample}.seurat.rds")
 
     script:
+    // orf_pep/pfam_domtblout are [] (Nextflow's "no optional file" idiom,
+    // Groovy-falsy) when --predict_orfs is false -- an empty list is falsy,
+    // a bound path is truthy, same pattern used for D01_shortread.nf's sj_tab.
+    def orf_args = (orf_pep && pfam_domtblout) ? "${orf_pep} ${pfam_domtblout}" : ''
     """
     # Genomic ranges for isoforms/genes aren't in the classification/matrix files
     # themselves -- pull them straight out of the transcript/gene rows of the
@@ -46,6 +52,7 @@ process runBuildSeurat {
         gene.matrix.mtx.gz gene.features.tsv.gz gene.barcodes.tsv.gz \
         iso.matrix.mtx.gz iso.features.tsv.gz iso.barcodes.tsv.gz \
         iso_ranges.tsv gene_ranges.tsv ${sqanti_classification} ${sample_metrics} \
-        ${transcript_xref}
+        ${transcript_xref} \
+        ${orf_args}
     """
 }

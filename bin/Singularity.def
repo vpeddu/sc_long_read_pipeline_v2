@@ -3,7 +3,7 @@ From: ubuntu:22.04
 
 %labels
     Author "Vikas Peddu"
-    Version v1.3.1
+    Version v1.4.0
     Description "Container for long-read isoform analysis pipeline"
     Website https://github.com/broadinstitute/long-reads
 
@@ -169,6 +169,14 @@ From: ubuntu:22.04
     # its own internal QC use) to avoid re-solving/risking that pinned env.
     /opt/miniconda3/bin/conda create -y -n salmon --file /opt/env_specs/salmon.explicit.txt
 
+    # Environment: orfpred (TD2 + PSAURON + hmmer, for ORF prediction and
+    # Pfam domain classification against each sample's novel transcriptome,
+    # A08_orf.nf's runORFPrediction). Fully independent of the sqanti3 env
+    # below -- that env's own (christine-liu fork, isoSeQL-pinned) SQANTI3
+    # ORF prediction needs the license-gated GeneMarkS-T and can't be
+    # enabled here, so this uses modern, freely-licensed tools instead.
+    /opt/miniconda3/bin/conda create -y -n orfpred --file /opt/env_specs/orfpred.explicit.txt
+
 
 
 # wget --no-check-certificate https://github.com/christine-liu/SQANTI3/archive/refs/tags/v1.00CL.zip
@@ -246,6 +254,7 @@ EOF
     - vep: Variant annotation tools
     - seurat: Seurat + tximport, for per-sample Seurat object construction
     - salmon: salmon + alevin-fry, for single-cell short-read quantification against the novel long-read transcriptome
+    - orfpred: TD2 + PSAURON + hmmer, for ORF prediction and Pfam domain classification against the novel long-read transcriptome
 
     To use a specific conda environment:
     singularity exec container.sif bash -c 'source activate ENV_NAME && YOUR_COMMAND'
